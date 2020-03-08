@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Liuly的笔记本">
 <meta property="og:description" content="安装https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;help&#x2F;tensorflow&#x2F; 需要先安装pip： sudo apt install python-pip 选择Linux，cp27，1.3.0，复制代码安装 pip install \   -i https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple&#x2F; \   https:&#x2F;&#x2F;mirrors">
 <meta property="article:published_time" content="2020-03-06T09:11:02.000Z">
-<meta property="article:modified_time" content="2020-03-08T10:36:01.694Z">
+<meta property="article:modified_time" content="2020-03-08T10:48:52.659Z">
 <meta property="article:author" content="liuly">
 <meta name="twitter:card" content="summary">
 
@@ -177,19 +177,19 @@
     <nav id="title-list-nav">
         
         <a  class=""
-           href="/2020/03/06/Tensorflow%E7%AC%94%E8%AE%B0/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="Tensorflow笔记">Tensorflow笔记</span>
-            <span class="post-date" title="2020-03-06 17:11:02">2020/03/06</span>
-        </a>
-        
-        <a  class=""
            href="/2020/03/06/GitHub/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="GitHub常用命令">GitHub常用命令</span>
             <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class=""
+           href="/2020/03/06/Tensorflow%E7%AC%94%E8%AE%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Tensorflow笔记">Tensorflow笔记</span>
+            <span class="post-date" title="2020-03-06 17:11:02">2020/03/06</span>
         </a>
         
         <a  class=""
@@ -224,7 +224,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-03-08 18:36:01'>2020-03-06 17:11</time>
+        创建时间:<time class="date" title='更新时间: 2020-03-08 18:48:52'>2020-03-06 17:11</time>
         
     </div>
     <div class="article-meta">
@@ -360,7 +360,7 @@ lose_ce = tf.reduce_mean(ce)</code></pre>
 </li>
 <li><p><strong>自定义损失函数</strong></p>
 <p>例如<br>$$<br>loss(y_,y)=\sum_{i=1}^{n}f(y_,y)<br>$$</p>
-<p>$$<br>f(y_,y)=\left{<br>\begin{aligned}<br>PROFIT<em>(y_-y) \quad y&lt;y_ \quad 预测值小于实际值时，误差乘上PROFIT \<br>COST</em>(y-y_) \quad y&gt;=y_ \quad 预测值大于误差值时，误差乘以COST<br>\end{aligned}<br>\right.<br>$$</p>
+<p>$$<br>f(y_,y) = \left{ {\begin{array}{<em>{20}{c}}<br>{PROFIT</em>(y_ - y)\quad y &lt; y_\quad 预测值小于实际值时，误差乘上PROFIT}\<br>{COST*(y - y_)\quad y &gt;  = y_\quad {\rm{ }} 预测值大于实际值时，误差乘以COST}\end{array}} \right.<br>$$</p>
 <pre><code class="python">loss = tf.reduce_mean(tf.where(tf.grater(y, y_), COST*(y-y_), PROFIT*(y_-y)))</code></pre>
 </li>
 </ul>
@@ -456,7 +456,7 @@ with tf.Session() as sess:
     <p><span class="copy-title">文章字数:</span><span class="post-count">1.6k</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="liuly">liuly</a></p>
     <p><span class="copy-title">发布时间:</span>2020-03-06, 17:11:02</p>
-    <p><span class="copy-title">最后更新:</span>2020-03-08, 18:36:01</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-08, 18:48:52</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/06/Tensorflow%E7%AC%94%E8%AE%B0/" title="Tensorflow笔记">https://liuly123.github.io/2020/03/06/Tensorflow%E7%AC%94%E8%AE%B0/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
