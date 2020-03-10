@@ -1,0 +1,3091 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>C++学习 | Liuly的笔记本</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="C++学习 | Liuly的笔记本">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开源库">
+<meta property="og:url" content="https://liuly123.github.io/2020/03/08/Linux/%E5%BC%80%E6%BA%90%E5%BA%93/index.html">
+<meta property="og:site_name" content="Liuly的笔记本">
+<meta property="og:description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
+<meta property="article:published_time" content="2020-03-08T11:17:40.000Z">
+<meta property="article:modified_time" content="2020-03-10T02:24:52.787Z">
+<meta property="article:author" content="liuly">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>liuly</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/liuly123" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:liulyabc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=2240057686&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=314223832" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(8)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Windows">Windows<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="其他">其他<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://liuly.f3322.net:81/">树莓派小站</a>
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="8">
+<input type="hidden" id="yelog_site_word_count" value="26.5k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="Linux "
+           href="/2020/03/06/Linux/GitHub/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GitHub常用命令">GitHub常用命令</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Linux "
+           href="/2020/03/08/Linux/%E5%BC%80%E6%BA%90%E5%BA%93/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="开源库">开源库</span>
+            <span class="post-date" title="2020-03-08 19:17:40">2020/03/08</span>
+        </a>
+        
+        <a  class="Linux "
+           href="/2020/03/06/Linux/Ubuntu%E9%85%8D%E7%BD%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Ubuntu配置">Ubuntu配置</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/MATLAB-Robots-Toobox/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="MATLAB Robots Toobox">MATLAB Robots Toobox</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/esp8266-arduinoIDE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="esp8266-arduinoIDE">esp8266-arduinoIDE</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/frp%E9%85%8D%E7%BD%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="frp配置">frp配置</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="其他 "
+           href="/2020/03/06/%E5%85%B6%E4%BB%96/Tensorflow%E7%AC%94%E8%AE%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Tensorflow笔记">Tensorflow笔记</span>
+            <span class="post-date" title="2020-03-06 17:11:02">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/C++%E5%AD%A6%E4%B9%A0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="C++学习">C++学习</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Windows/C++学习" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">C++学习</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="Windows">Windows</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-03-10 10:44:50'>2020-03-06 16:48</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:18.1k</span>
+        
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-学习"><span class="toc-text">C++学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#代码示例"><span class="toc-text">代码示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行参数"><span class="toc-text">命令行参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序计时"><span class="toc-text">程序计时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vector和iterator"><span class="toc-text">vector和iterator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iterator-list的偏移"><span class="toc-text">iterator&#x2F;list的偏移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代器删除元素"><span class="toc-text">迭代器删除元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nth-element排序"><span class="toc-text">nth_element排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遍历文件（windows）"><span class="toc-text">遍历文件（windows）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OpenCV遍历图片"><span class="toc-text">OpenCV遍历图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#class、vector、iterator遍历文件"><span class="toc-text">class、vector、iterator遍历文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多线程"><span class="toc-text">多线程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#建立多个线程"><span class="toc-text">建立多个线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程加锁mutex"><span class="toc-text">线程加锁mutex</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐藏控制台窗口"><span class="toc-text">隐藏控制台窗口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回调函数"><span class="toc-text">回调函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数参数传递的三种方式-x-x-amp-x"><span class="toc-text">函数参数传递的三种方式(x,*x,&amp;x)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const的使用"><span class="toc-text">const的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用const修饰变量"><span class="toc-text">使用const修饰变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#const与指针"><span class="toc-text">const与指针</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数前后加const的区别"><span class="toc-text">函数前后加const的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#constexpr常量表达式"><span class="toc-text">constexpr常量表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#容器的front-和pop-front"><span class="toc-text">容器的front()和pop_front()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#template-lt-tymename-T-gt"><span class="toc-text">template&lt;tymename T&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#std-pair"><span class="toc-text">std::pair</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关联容器set"><span class="toc-text">关联容器set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异步编程std-async和std-future"><span class="toc-text">异步编程std::async和std::future</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#std-async基本用法"><span class="toc-text">std::async基本用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#std-future说明"><span class="toc-text">std::future说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#std-promise用法"><span class="toc-text">std::promise用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#std-packaged-task用法"><span class="toc-text">std::packaged_task用法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#左值，右值，左值引用，右值引用"><span class="toc-text">左值，右值，左值引用，右值引用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#左值和右值"><span class="toc-text">左值和右值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#左值引用和右值引用"><span class="toc-text">左值引用和右值引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#右值引用的意义"><span class="toc-text">右值引用的意义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#std-move-左值引用转右值引用"><span class="toc-text">std::move 左值引用转右值引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ref和引用-amp-的区别"><span class="toc-text">ref和引用&amp;的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#operator重载运算符"><span class="toc-text">operator重载运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#std-for-each"><span class="toc-text">std::for_each</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vector转list"><span class="toc-text">vector转list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#double转string"><span class="toc-text">double转string</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#std-move避免内存搬迁拷贝"><span class="toc-text">std::move避免内存搬迁拷贝</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#和-和-和-gt-的区别"><span class="toc-text">.和::和:和-&gt;的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类和对象的关系"><span class="toc-text">类和对象的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码行数"><span class="toc-text">代码行数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#声明和定义"><span class="toc-text">声明和定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#virtual关键字"><span class="toc-text">virtual关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deque容器"><span class="toc-text">deque容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-str-函数"><span class="toc-text">.c_str()函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#friend友元"><span class="toc-text">friend友元</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用class和struct关键字的区别"><span class="toc-text">用class和struct关键字的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-构造函数后加冒号"><span class="toc-text">C++ 构造函数后加冒号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#boost-function和boost-bind"><span class="toc-text">boost::function和boost::bind</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内联函数inline"><span class="toc-text">内联函数inline</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VS点本地调试无法运行"><span class="toc-text">VS点本地调试无法运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#struct和class"><span class="toc-text">struct和class</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Eigen动态Matrix"><span class="toc-text">Eigen动态Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cout-setf-设置输出格式"><span class="toc-text">cout.setf()设置输出格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chrono计时（s、ms、ns）"><span class="toc-text">chrono计时（s、ms、ns）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内联函数inline-1"><span class="toc-text">内联函数inline</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#push-back-和emplace-back"><span class="toc-text">push_back()和emplace_back()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenCV"><span class="toc-text">OpenCV</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#坐标对应关系"><span class="toc-text">坐标对应关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#threshold灰度二值化"><span class="toc-text">threshold灰度二值化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#distanceTransform距离变换函数"><span class="toc-text">distanceTransform距离变换函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#直线拟合fitLine"><span class="toc-text">直线拟合fitLine()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线段采样"><span class="toc-text">线段采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sobel梯度计算"><span class="toc-text">Sobel梯度计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#像素读写"><span class="toc-text">像素读写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#画箭头"><span class="toc-text">画箭头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两图合并显示"><span class="toc-text">两图合并显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#显示文字"><span class="toc-text">显示文字</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#显示文字（不支持中文）"><span class="toc-text">显示文字（不支持中文）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#显示中文（windows）"><span class="toc-text">显示中文（windows）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SLAM"><span class="toc-text">SLAM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#L-K跟踪"><span class="toc-text">L-K跟踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LSD线段"><span class="toc-text">LSD线段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加载图像序列并提取FAST"><span class="toc-text">加载图像序列并提取FAST</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h1 id="C-学习"><a href="#C-学习" class="headerlink" title="C++学习"></a>C++学习</h1><h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><h3 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h3><pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+int main(int argc, char * argv[])
+{
+    for (int i = 0; i &lt; argc; i++)
+    {
+        cout &lt;&lt; argv[i] &lt;&lt; endl;
+    }
+}
+//输出为所有参数
+//包括程序名本身（完整路径）
+//argc不包括程序名本身</code></pre>
+<p>示例：</p>
+<pre><code class="c++">int nargs = argc/2 - 1;///参数的数量（参数成对出现：参数名和参数值）
+for( int i = 0; i &lt; nargs; i++ )
+{
+    int j = 2*i + 2;
+    if( string(argv[j]) == &quot;-o&quot; )
+        frame_offset = stoi(argv[j+1]);
+    else if( string(argv[j]) == &quot;-n&quot; )
+        frame_number = stoi(argv[j+1]);
+    else if( string(argv[j]) == &quot;-s&quot; )
+        frame_step = stoi(argv[j+1]);
+    else if (string(argv[j]) == &quot;-c&quot;)
+        config_file = string(argv[j+1]);
+    else
+        return false;
+}</code></pre>
+<h3 id="程序计时"><a href="#程序计时" class="headerlink" title="程序计时"></a>程序计时</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;chrono&gt;
+
+using namespace std;
+int main(int argc, char **argv)
+{
+    std::chrono::steady_clock::time_point t1 = std::chrono::steady_clock::now();//开始时刻
+    while (true)
+    {
+        std::chrono::steady_clock::time_point t2 = std::chrono::steady_clock::now();//当前时刻
+        double t = std::chrono::duration_cast&lt;std::chrono::duration&lt;double&gt; &gt;(t2 - t1).count();//开始到现在的时间
+        cout &lt;&lt; t &lt;&lt; endl;
+    }
+}</code></pre>
+<p>写个class方便使用</p>
+<pre><code class="c++">#include&lt;iostream&gt;
+#include &lt;chrono&gt;
+#include&lt;Windows.h&gt;///只是为了Sleep
+using namespace std;
+//声明
+class Timer {
+public:
+    static constexpr double SECONDS = 1e-9;///秒
+    static constexpr double MILLISECONDS = 1e-6;//毫秒
+    static constexpr double NANOSECONDS = 1.0;//纳秒
+    Timer(double scale = MILLISECONDS);//默认的时间单位是毫秒
+    virtual ~Timer();
+    void start();
+    double stop();
+private:
+    std::chrono::high_resolution_clock::time_point start_t;///开始计时的时间
+    bool started;
+    double scale;
+};
+//调用
+int main(int argc, char * argv[])
+{
+
+    Timer timer1(1e-6);
+    //或者 Timer timer1(1e-6);
+    timer1.start();
+    Sleep(1000);
+    double time = timer1.stop();
+    cout &lt;&lt;&quot;持续时间：&quot;&lt;&lt; time&lt;&lt; &quot;毫秒&quot; &lt;&lt; endl;
+    system(&quot;pause&quot;);
+    return 0;
+}
+//定义
+Timer::Timer(double scale) : started(false), scale(scale) { }
+Timer::~Timer() { }
+
+void Timer::start() {
+    started = true;
+    start_t = std::chrono::high_resolution_clock::now();
+}
+
+double Timer::stop() {
+    std::chrono::high_resolution_clock::time_point end_t = std::chrono::high_resolution_clock::now();
+    if (!started)
+        throw std::logic_error(&quot;[Timer] Stop called without previous start&quot;);
+    started = false;
+    std::chrono::duration&lt;double, std::nano&gt; elapsed_ns = end_t - start_t;
+    return elapsed_ns.count()*scale;
+}</code></pre>
+<h3 id="vector和iterator"><a href="#vector和iterator" class="headerlink" title="vector和iterator"></a>vector和iterator</h3><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+int main()
+{
+    vector&lt;int&gt; v;  //v是存放int类型变量的可变长数组，开始时没有元素
+    for (int n = 0; n &lt; 5; ++n)
+        v.push_back(n);  //push_back成员函数在vector容器尾部添加一个元素
+    //正向迭代器遍历容器
+    vector&lt;int&gt;::iterator i;
+    for (i = v.begin(); i != v.end(); ++i) {  //用迭代器遍历容器
+        cout &lt;&lt; *i &lt;&lt; &quot; &quot;;  //*i 就是迭代器i指向的元素
+        *i *= 2;  //每个元素变为原来的2倍
+    }
+    cout &lt;&lt; endl;
+    //用反向迭代器遍历容器
+    for (vector&lt;int&gt;::reverse_iterator j = v.rbegin(); j != v.rend(); ++j)
+        cout &lt;&lt; *j &lt;&lt; &quot; &quot;;
+    cin.ignore();
+    return 0;
+}</code></pre>
+<p>输出为：</p>
+<pre><code>0 1 2 3 4
+8 6 4 2 0</code></pre><h3 id="iterator-list的偏移"><a href="#iterator-list的偏移" class="headerlink" title="iterator/list的偏移"></a>iterator/list的偏移</h3><pre><code class="c++">#include &lt;iostream&gt;     // std::cout
+#include &lt;iterator&gt;     // std::advance
+#include &lt;list&gt;         // std::list
+
+using namespace std;
+int main() 
+{
+    std::list&lt;int&gt; mylist;
+    for (int i = 0; i &lt; 10; i++) mylist.push_back(i);
+
+    std::list&lt;int&gt;::iterator it = mylist.begin();//第一个元素标号为0
+
+    std::advance(it, 5);//向后5个偏移
+    cout &lt;&lt; &quot;mylist第6个元素是: &quot; &lt;&lt; *it &lt;&lt; endl;
+
+    std::advance(it, -1);//向前1个偏移
+    cout &lt;&lt; &quot;mylist第5个元素是: &quot; &lt;&lt; *it &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+<p>输出为：</p>
+<pre><code>mylist第6个元素是: 5
+mylist第5个元素是: 4</code></pre><h3 id="迭代器删除元素"><a href="#迭代器删除元素" class="headerlink" title="迭代器删除元素"></a>迭代器删除元素</h3><p><strong>关联容器</strong></p>
+<p>对于关联容器（如map，set，multimap，multiset），删除当前的iterator，仅仅会使当前的iterator失效，只要在erase时，递增当前的iterator即可。这是因为map之类的容器，使用了红黑树来实现，插入，删除一个结点不会对其他结点造成影响。</p>
+<pre><code class="c++">set&lt;int&gt; valset = { 1,2,3,4,5,6 };  
+set&lt;int&gt;::iterator iter;  
+for (iter = valset.begin(); iter != valset.end(); )  
+{  
+     if (3 == *iter)  
+          valset.erase(iter++);  
+     else  
+          iter++;  
+}</code></pre>
+<p><strong>顺序容器</strong></p>
+<p>对于序列式容器（如vector，deque，list等），删除当前的iterator会使后面所有元素的iterator都失效。这是因为vector，deque使用了连续分配的内存，删除一个元素导致后面所有的元素会向前移动一个位置。不过erase方法可以返回下一个有效的iterator。</p>
+<pre><code class="c++">vector&lt;int&gt; val = { 1,2,3,4,5,6 };  
+vector&lt;int&gt;::iterator iter;  
+for (iter = val.begin(); iter != val.end(); )  
+{  
+     if (3 == *iter)  
+          iter = val.erase(iter);//返回下一个有效的迭代器，无需+1  
+     else  
+          iter++;  
+}</code></pre>
+<h3 id="nth-element排序"><a href="#nth-element排序" class="headerlink" title="nth_element排序"></a>nth_element排序</h3><p>nth_element(first,nth,last);在first到last的范围内（各种容器），确保第nth的数是正好位于nth的位置，默认升序排列，当nth元素确定拍在nth的位置后，后续就不排了（但通常结果是顺序都对）。也可以加第四个参数：bool型的比较函数</p>
+<p><strong>数组排序</strong></p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main()
+{
+    int iarray[] = { 5,6,11,19,34,55,77,15,89,7,2,1,3,52 };
+    int len = sizeof(iarray) / sizeof(int);
+    cout &lt;&lt; &quot;原数组：&quot; &lt;&lt; endl;
+    for (size_t i = 0; i &lt; len; i++)
+        cout &lt;&lt; iarray[i] &lt;&lt; &quot; &quot;;
+    nth_element(iarray, iarray + 2, iarray + len);
+    cout &lt;&lt; endl &lt;&lt; &quot;升序排列后：&quot; &lt;&lt; endl;
+    for (size_t i = 0; i &lt; len; i++)
+        cout &lt;&lt; iarray[i] &lt;&lt; &quot; &quot;;
+    cout &lt;&lt; endl &lt;&lt; &quot;第6个元素：&quot; &lt;&lt; endl &lt;&lt; iarray[6] &lt;&lt; endl;
+    return 0;
+}</code></pre>
+<p>输出：</p>
+<pre><code>原数组：
+5 6 11 19 34 55 77 15 89 7 2 1 3 52
+升序排列后：
+1 2 3 5 6 7 11 15 19 34 52 55 77 89
+第6个元素：
+11</code></pre><p><strong>vector排序</strong></p>
+<pre><code class="c++">//vector排序
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main()
+{
+    vector&lt;int&gt; a(9);
+    cout &lt;&lt; &quot;生成的随机数组：&quot; &lt;&lt; endl;
+    for (int i = 0; i &lt; 9; i++)
+        a[i] = i + 1;
+    //对一个元素序列进行(伪)随机的重新排序
+    random_shuffle(a.begin(), a.end());
+    for (int i = 0; i &lt; 9; i++)
+        cout &lt;&lt; a[i] &lt;&lt; &quot; &quot;;
+    cout &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;(由大到小)第5个数：&quot;;
+    nth_element(a.begin(), a.begin() + 4, a.end());
+    cout &lt;&lt; *(a.begin() + 4) &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;排完之后的顺序：&quot; &lt;&lt; endl;
+    for (int i = 0; i &lt; 9; i++)
+        cout &lt;&lt; a[i] &lt;&lt; &quot; &quot;;
+    cout &lt;&lt; endl;
+    return 0;
+}</code></pre>
+<p>输出：</p>
+<pre><code>生成的随机数组：
+9 2 7 3 1 6 8 4 5
+(由大到小)第5个数：5
+排完之后的顺序：
+1 2 3 4 5 6 7 8 9</code></pre><h3 id="遍历文件（windows）"><a href="#遍历文件（windows）" class="headerlink" title="遍历文件（windows）"></a>遍历文件（windows）</h3><pre><code class="c++">#include &lt;stdio.h&gt;
+#include &lt;io.h&gt;
+#include &lt;windows.h&gt;
+//windows x86 only
+const char *to_search = &quot;D:\\SLAM\\*&quot;;        //欲查找的文件，支持通配符(\\前一个\表示转义字符)，这是正则表达式
+int main()
+{
+    long handle;                               //用于查找的句柄
+    struct _finddata_t fileinfo;               //文件信息的结构体
+    //第1次查找
+    handle = _findfirst(to_search, &amp;fileinfo); 
+    if (-1 == handle) return -1;
+    printf(&quot;%s\n&quot;, fileinfo.name);             //打印出找到的文件的文件名
+    //第2次直到后面的全部文件
+    while (!_findnext(handle, &amp;fileinfo))
+    {
+        printf(&quot;%s\n&quot;, fileinfo.name);
+    }
+    //关闭句柄
+    _findclose(handle);
+    system(&quot;pause&quot;);
+    return 0;
+}</code></pre>
+<h3 id="OpenCV遍历图片"><a href="#OpenCV遍历图片" class="headerlink" title="OpenCV遍历图片"></a>OpenCV遍历图片</h3><pre><code class="c++">
+#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;fstream&gt;
+
+using namespace cv;
+using namespace std;
+int main()
+{
+    std::string img_dir = &quot;D:\\SLAM\\dataset\\EuRoC\\MH_01_easy\\mav0\\cam0\\data\\*.png&quot;;
+
+    std::vector&lt;cv::String&gt; image_files;
+    cv::glob(img_dir, image_files);
+    if (image_files.size() == 0)
+    {
+        std::cout &lt;&lt; &quot;No image files&quot; &lt;&lt; std::endl;
+        system(&quot;pause&quot;);
+        return 0;
+    }
+
+    for (unsigned int frame = 0; frame &lt; image_files.size(); ++frame)
+    {//image_file.size()代表文件中总共的图片个数
+        Mat image = cv::imread(image_files[frame]);
+        imshow(&quot;1&quot;, image);
+        waitKey(1);
+    }
+}</code></pre>
+<h3 id="class、vector、iterator遍历文件"><a href="#class、vector、iterator遍历文件" class="headerlink" title="class、vector、iterator遍历文件"></a>class、vector、iterator遍历文件</h3><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;io.h&gt;
+#include &lt;windows.h&gt;
+#include &lt;string&gt;
+#include &lt;list&gt;//list同vector同理
+#include &lt;vector&gt;
+using namespace std;
+
+class GetName
+{
+    char *path;
+    long handle;                               //用于查找的句柄
+    struct _finddata_t fileinfo;               //文件信息的结构体
+public:
+    GetName(char *to_search);
+    vector&lt;string&gt; NameToVector();
+};
+
+GetName::GetName(char *to_search):path(to_search){}
+
+vector&lt;string&gt; GetName::NameToVector()
+{
+    vector&lt;string&gt; NameVector;
+    //第1次查找
+    handle = _findfirst(path, &amp;fileinfo);
+    //if (-1 == handle) return;
+    NameVector.push_back(fileinfo.name);
+    //第2次直到后面的全部文件
+    while (!_findnext(handle, &amp;fileinfo))
+    {
+        NameVector.push_back(fileinfo.name);
+    }
+    //关闭句柄
+    _findclose(handle);
+    return NameVector;
+}
+int main()
+{
+    vector&lt;string&gt; NameVector;
+    char *to_search = &quot;D:\\SLAM\\*&quot;;        //前一个\表示转义字符
+    GetName GN(to_search);
+    NameVector = GN.NameToVector();
+
+    vector&lt;string&gt;::iterator i;
+    for (i = NameVector.begin();i != NameVector.end();i++)
+    {
+        cout &lt;&lt; *i &lt;&lt; endl;
+    }
+
+    system(&quot;pause&quot;);
+    return 0;
+}</code></pre>
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><p><a href="https://blog.csdn.net/ktigerhero3/article/details/78249266/" target="_blank" rel="noopener">https://blog.csdn.net/ktigerhero3/article/details/78249266/</a></p>
+<h4 id="建立多个线程"><a href="#建立多个线程" class="headerlink" title="建立多个线程"></a>建立多个线程</h4><pre><code class="c++">#include &lt;Windows.h&gt;
+#include &lt;iostream&gt;
+#include &lt;thread&gt;
+using namespace std;
+void sayHello()
+{
+    while (1)
+    {
+        Sleep(1000);//单位毫秒
+        cout &lt;&lt; endl &lt;&lt; &quot;hello&quot; &lt;&lt; endl;
+    }
+}
+void sayWorld()
+{
+    while (1)
+    {
+        Sleep(1000);
+        cout &lt;&lt; endl &lt;&lt; &quot;world&quot; &lt;&lt; endl;
+    }
+}
+int main()
+{
+    thread threadHello(&amp;sayHello);
+    thread threadWorld(&amp;sayWorld);
+    threadHello.join();
+    threadWorld.join();
+    return 0;
+}</code></pre>
+<h4 id="线程加锁mutex"><a href="#线程加锁mutex" class="headerlink" title="线程加锁mutex"></a>线程加锁mutex</h4><pre><code class="c++">#include &lt;Windows.h&gt;
+#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;mutex&gt;
+using namespace std;
+mutex mymutex;
+void sayHello()
+{
+    int k = 0;
+    unique_lock&lt;mutex&gt; lock(mymutex);
+    while (k &lt; 2)
+    {
+        k++;
+        cout &lt;&lt; endl &lt;&lt; &quot;hello&quot; &lt;&lt; endl;
+        Sleep(2000);
+    }
+}
+void sayWorld()
+{
+    unique_lock&lt;mutex&gt; lock(mymutex);
+    while (1)
+    {
+        cout &lt;&lt; endl &lt;&lt; &quot;world&quot; &lt;&lt; endl;
+        Sleep(1000);
+    }
+}
+int main()
+{
+    thread threadHello(&amp;sayHello);
+    thread threadWorld(&amp;sayWorld);
+    threadHello.join();
+    threadWorld.join();
+    return 0;
+}</code></pre>
+<p><strong>程序运行说明</strong></p>
+<p>程序运行步骤是这样的：<br>首先同时运行threadHello线程和threadWorld线程 ；先进入threadHello线程的sayHello()函数，这个时候加了mymutex锁，另外一个threadWorld线程进入后发现mymutex锁没有释放，只能等待；当过去两个循环（每个循环2秒后）threadHello线程结束，unique_lock lock(mymutex)的生命周期结束，mymutex锁释放，执行threadWorld线程，此时开始一直say world。</p>
+<p><strong>使用说明</strong></p>
+<p>unique_lock中的unique表示独占所有权。<br>unique_lock独占的是mutex对象，就是对mutex锁的独占</p>
+<p>用法：<br>（1）新建一个unique_lock 对象<br>（2）给对象传入一个std::mutex 对象作为参数; </p>
+<pre><code class="c++">std::mutex  mymutex; 
+unique_lock lock(mymutex);</code></pre>
+<p>由于unique_lock lock(mymutex)的存在，这个函数结束后会自动解锁（也可以手动unlock）。 加锁的结果是使当前线程运行时别的线程等待不动。注意定义mutex的位置。</p>
+<h3 id="隐藏控制台窗口"><a href="#隐藏控制台窗口" class="headerlink" title="隐藏控制台窗口"></a>隐藏控制台窗口</h3><p>include后面加上：</p>
+<pre><code class="c++">#pragma comment( linker, &quot;/subsystem:\&quot;windows\&quot; /entry:\&quot;mainCRTStartup\&quot;&quot; )</code></pre>
+<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p>普通函数与回调函数主要是在调用方式上有区别：</p>
+<p>1、对<strong>普通函数</strong>的调用：调用程序发出对普通函数的调用后，程序执行立即转向被调用函数执行，直到被调用函数执行完毕后，再返回调用程序继续执行。从发出调用的程序的角度看，这个过程为“调用–&gt;等待被调用函数执行完毕–&gt;继续执行”。</p>
+<p>2、对<strong>回调函数</strong>调用：调用程序发出对回调函数的调用后，<code>不等回调函数执行完毕</code>，立即返回并继续执行。这样，调用程序执和被调用函数同时在执行。当被调函数执行完毕后，被调函数会反过来调用某个事先指定的函数，以通知调用程序：函数调用结束。这个过程称为回调（Callback），这正是回调函数名称的由来。</p>
+<pre><code class="c++">#include &lt;stdio.h&gt;
+typedef int(*callback)(int, int);//函数指针：输入类型和输出类型
+int fun1(int a, int b, callback p)//fun2函数的指针作为参数
+{
+    return (*p)(a, b);
+}
+int fun2(int a, int b)//回调函数
+{
+    return a + b;
+}
+int main()
+{
+    int res = fun1(4, 2, fun2);
+    printf(&quot;%d\n&quot;, res);
+    return 0;
+}</code></pre>
+<p> 它们与普通函数并没有任何区别, 只是与其它函数使用的方式有些许差别。</p>
+<p> 回调函数的好处是，通过修改传入fun1的参数（回调函数的指针），可以让fun1内调用不同的执行函数，如给(*p)赋值fun2、fun3的指针</p>
+<h3 id="函数参数传递的三种方式-x-x-amp-x"><a href="#函数参数传递的三种方式-x-x-amp-x" class="headerlink" title="函数参数传递的三种方式(x,*x,&amp;x)"></a>函数参数传递的三种方式(x,*x,&amp;x)</h3><p>函数实现两个将两个数交换位置</p>
+<p><strong>第一种</strong></p>
+<pre><code class="c++">#include&lt;stdio.h&gt;
+void myswap(int x, int y)
+{
+    int t;
+    t = x;
+    x = y;
+    y = t;
+}
+int main()
+{
+    int a = 1, b = 2;
+    printf(&quot;交换前a=%d,b=%d\n&quot;, a, b);
+    myswap(a, b);  //作为对比，直接交换两个整数，显然不行
+    printf(&quot;交换后a=%d,b=%d\n&quot;, a, b);
+    return 0;
+}</code></pre>
+<p>结果</p>
+<pre><code>交换前a=1,b=2
+交换后a=1,b=2</code></pre><p><strong>第二种</strong></p>
+<pre><code class="c++">#include&lt;stdio.h&gt;
+void myswap(int *p1, int *p2)
+{
+    int  t;
+    t = *p1;
+    *p1 = *p2;
+    *p2 = t;
+}
+int main()
+{
+    int a = 1, b = 2;
+    printf(&quot;交换前a=%d,b=%d\n&quot;, a, b);
+    myswap(&amp;a, &amp;b);  //交换两个整数的地址
+    printf(&quot;交换后a=%d,b=%d\n&quot;, a, b);
+    return 0;
+}</code></pre>
+<p>结果</p>
+<pre><code>交换前a=1,b=2
+交换后a=2,b=1</code></pre><p><strong>第三种</strong></p>
+<pre><code class="c++">#include&lt;stdio.h&gt;
+void myswap(int &amp;x, int &amp;y) //这里的形参为引用类型，引用与实参进行绑定，作为实参的别名
+{                           //所以，使用引用类型，传入实参后，函数对引用的操作，
+    int t;                  //就是对实参的操作，所以实参会发生变化                
+    t = x;
+    x = y;
+    y = t;
+}
+int main()
+{
+    int a = 1, b = 2;
+    printf(&quot;交换前a=%d,b=%d\n&quot;, a, b);
+    myswap(a, b);  //交换两个整数的地址
+    printf(&quot;交换后a=%d,b=%d\n&quot;, a, b);
+    return 0;
+}</code></pre>
+<p>结果</p>
+<pre><code>交换前a=1,b=2
+交换后a=2,b=1</code></pre><h3 id="const的使用"><a href="#const的使用" class="headerlink" title="const的使用"></a>const的使用</h3><h4 id="使用const修饰变量"><a href="#使用const修饰变量" class="headerlink" title="使用const修饰变量"></a>使用const修饰变量</h4><p> 有时候我们需要定义这样一种变量，它的值不能被更改。为了满足这一要求，可以通过关键字const对变量的类型加以限定。 </p>
+<p><strong>const 修饰普通的变量</strong></p>
+<p> 用const修饰变量的语义是要求编译器去阻止所有对该变量的赋值行为。因此，必须在const变量初始化时就提供给它初值： （ 这个初值可以是编译时即确定的值，也可以是运行期才确定的值 ）</p>
+<pre><code class="c++">const int bufSize=512;</code></pre>
+<p> 这里将bufSize定义成了一个常量。任何试图为bufSize赋值的行为都将引发错误。</p>
+<p><strong>注意</strong>:const对象必须初始化，因为const对象一旦创建后其值就不能再改变 。</p>
+<p>如：</p>
+<pre><code class="c++">const int j=42; //正确，编译时初始化
+const int i=get_size();//正确，运行时初始化
+const int k;  //错误，未初始化
+int i=42;
+const int ci=i;//正确，</code></pre>
+<p><strong>const的引用</strong></p>
+<p> 对<strong>常量的引用(reference to const)</strong>，将引用绑定到const对象上。与普通引用不同的是： </p>
+<p>(1) 对常量的引用不能用于修改它所绑定的对象。</p>
+<pre><code class="c++">int i=42;
+int &amp;r1=i;
+const int &amp;r2=i;//r2也绑定了对象i,但不允许通过r2修改i的值
+r1=0;           //正确
+r2=0;           //错误，r2是一个常量引用</code></pre>
+<p>(2) 不能将非常量引用指向一个常量对象值。 </p>
+<pre><code class="c++">const int ci=1024;
+int &amp;r2=ci;         //错误，试图让一个非常量引用指向一个常量对象</code></pre>
+<h4 id="const与指针"><a href="#const与指针" class="headerlink" title="const与指针"></a>const与指针</h4><p> const修饰指针变量有3种情况：</p>
+<ol>
+<li><p>指向常量的指针(pointer to const)不能用于改变其所指对象的值。</p>
+</li>
+<li><p>常量指针(const pointer)，指针本身定义为常量。</p>
+</li>
+<li><p>const 修饰指针和指针指向的内容，则指针和指针指向的内容都为不可变量。 </p>
+</li>
+</ol>
+<p><strong>（1）指向常量的指针(pointer to const)，不能通过该指针改变其所指对象的值。</strong> </p>
+<pre><code class="c++">const double pi=3.14;
+double *ptr=&amp;pi;        //错误：ptr是一个普通的指针。
+const double *cptr=&amp;pi; //正确：
+*cptr=42;               //错误：不能给*cptr赋值</code></pre>
+<p> 指向常量的指针却可以指向一个非常量对象。 </p>
+<pre><code class="c++">double val=3.14;
+*cptr=&amp;val;         //正确，但不能通过cptr改变val的值。</code></pre>
+<p> <strong>（2）常量指针(const pointer),指针本身定义为常量。</strong><br>常量指针必须被初始化，一旦初始化完成，它的值(也就是存放在指针中的那个地址)将不能被改变。<br>把*放在const关键字之前用以说明指针是一个常量。 </p>
+<pre><code class="c++">int errorNumb=0;
+int *const curErr = &amp;errorNumb;//正确：curErr将一直指向errorNumb</code></pre>
+<p> <strong>（3）将上述两种结合，指向常量对象的常量指针</strong> </p>
+<pre><code class="c++">int a=10;
+const int * const p=&amp;a;</code></pre>
+<p> 上面的例子中，不能通过指针p修改其所指对象的值(变量a),并且指针p必须被初始化，一旦初始化后，它的值将不能被改变(也就是指针p只能指向a)。 </p>
+<h3 id="函数前后加const的区别"><a href="#函数前后加const的区别" class="headerlink" title="函数前后加const的区别"></a>函数前后加const的区别</h3><p> <strong>函数前加const</strong>：普通函数或成员函数（非静态成员函数）前均可加const修饰，表示函数的返回值为const，不可修改。格式为： </p>
+<pre><code class="c++">const returnType functionName(param list)</code></pre>
+<p> <strong>函数后加const</strong>：只有类的非静态成员函数后可以加const修饰，表示该类的this指针为const类型，不能改变类的成员变量的值，即成员变量为read only，任何改变成员变量的行为均为非法。此类型的函数可称为只读成员函数，格式为： </p>
+<pre><code class="c++">returnType functionName(param list) const</code></pre>
+<p><strong>const类型的对象只能调用后const成员函数</strong></p>
+<pre><code class="c++">#include &lt;iostream&gt;
+using namespace std;
+
+class A{
+private:
+    int m_a;
+public:
+    A():m_a(0){}
+    int getA() const
+    {
+        return m_a;
+    }
+    int GetA() //非const成员函数，若在后面加上const修饰则编译通过
+    {
+        return m_a;
+    }
+};
+
+int main()
+{
+    const A a2;//const对象
+    int t;
+    t = a2.getA();
+    t = a2.GetA();//const类型的对象只能调用后const成员函数
+    return 0;
+}</code></pre>
+<h3 id="constexpr常量表达式"><a href="#constexpr常量表达式" class="headerlink" title="constexpr常量表达式"></a>constexpr常量表达式</h3><p> constexpr是C++11中新增的关键字，其语义是“常量表达式”，也就是在编译期可求值的表达式。最基础的常量表达式就是字面值或全局变量/函数的地址或sizeof等关键字返回的结果，而其它常量表达式都是由基础表达式通过各种确定的运算得到的 。</p>
+<p> constexpr所修饰的变量一定是编译期可求值的，所修饰的函数在其所有参数都是constexpr时，一定会返回constexpr </p>
+<pre><code class="c++">constexpr int Inc(int i)
+{
+    return i + 1;
+}
+constexpr int a = Inc(1); // ok
+constexpr int b = Inc(cin.get()); // !error
+constexpr int c = a * 2 + 1; // ok</code></pre>
+<h3 id="容器的front-和pop-front"><a href="#容器的front-和pop-front" class="headerlink" title="容器的front()和pop_front()"></a>容器的front()和pop_front()</h3><pre><code class="c++">std::list&lt;std::string&gt; images;
+images.push_back(&quot;123.jpg&quot;);
+string img= images.front();//获取容器的第一的元素
+images.pop_front();//删除容器的第一个元素</code></pre>
+<h3 id="template-lt-tymename-T-gt"><a href="#template-lt-tymename-T-gt" class="headerlink" title="template&lt;tymename T&gt;"></a>template&lt;tymename T&gt;</h3><p>其实就是模板，函数的类型是未知的，当你把它应用于不同的类型时，不会造成类型冲突。</p>
+<p>比如求最小值，要对int，float，double类型的数都适用，那么你就要写三个函数：</p>
+<pre><code class="c++">int sum(int, int);
+float sum(float, float);
+double sum(double, double);</code></pre>
+<p> 但是有了<code>templae&lt;typename T&gt;</code>你就只需要写一个函数。 </p>
+<pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+template &lt;typename T&gt;
+T mmax(T a,T b)
+{
+    return a&gt;b?a:b;
+}
+int main()
+{
+    int  a,b;
+    cin&gt;&gt;a&gt;&gt;b;
+    cout&lt;&lt;mmax(a,b)&lt;&lt;endl;
+    float c,d;
+    cin&gt;&gt;c&gt;&gt;d;
+    cout&lt;&lt;mmax(c,d)&lt;&lt;endl;
+    double f,g;
+    cin&gt;&gt;f&gt;&gt;g;
+    cout&lt;&lt;mmax(f,g)&lt;&lt;endl;
+}</code></pre>
+<h3 id="std-pair"><a href="#std-pair" class="headerlink" title="std::pair"></a>std::pair</h3><p> pair是将2个数据组合成一个数据，当需要这样的需求时就可以使用pair，如stl中的map就是将key和value放在一起来保存。另一个应用是，当一个函数需要返回2个数据的时候，可以选择pair。 pair的实现是一个结构体，主要的两个成员变量是first second 因为是使用struct不是class，所以可以直接使用pair的成员变量 。</p>
+<pre><code class="c++">pair&lt;int, double&gt; p1;  //声明
+p1 = make_pair(1, 1.2);//赋值
+pair&lt;int, double&gt; p2(1, 2.4);  //声明并赋初值
+pair&lt;int, double&gt; p3(p2);  //声明并拷贝初值
+//访问元素
+p1.first = 1;
+p1.second = 2.5;
+cout &lt;&lt; p1.first &lt;&lt; &#39; &#39; &lt;&lt; p1.second &lt;&lt; endl;</code></pre>
+<h3 id="关联容器set"><a href="#关联容器set" class="headerlink" title="关联容器set"></a>关联容器set</h3><p> <strong>顺序容器</strong>包括vector、deque、list、forward_list、array、string，所有顺序容器都提供了快速顺序访问元素的能力。 </p>
+<p> <strong>关联容器</strong>包括set、map ，关联容器没有顺序，通过关键字查找元素保存和访问（类似struct）</p>
+<p> 关联容器和顺序容器有着根本的不同：关联容器中的元素是按关键字来保存和访问的。与之相对，顺序容器中的元素是按它们在容器中的位置来顺序保存和访问的 。</p>
+<p> 关联容器支持高效的关键字查找和访问。两个主要的关联容器(associative container)类型是map和set。<strong>map中的元素是一些关键字—-值(key–value)对</strong>：关键字起到索引的作用，值则表示与索引相关联的数据。<strong>set中每个元素只包含一个关键字</strong>：set支持高效的关键字查询操作—-检查一个给定关键字是否在set中 。</p>
+<p> set就是关键字的简单集合。当只是想知道一个值是否存在时，set是最有用的 。</p>
+<p> 标准库提供set关联容器分为： </p>
+<ol>
+<li><p>按关键字有序保存元素：set(关键字即值，即只保存关键字的容器)；multiset(关键字可重复出现的set) 。</p>
+</li>
+<li><p>无序集合：unordered_set(用哈希函数组织的set)；unordered_multiset(哈希组织的set，关键字可以重复出现) 。</p>
+<p>在set中每个元素的值都唯一，而且系统能根据元素的值自动进行排序。set中元素的值不能直接被改变。set内部采用的是一种非常高效的平衡检索二叉树：红黑树，也称为RB树(Red-Black Tree)。RB树的统计性能要好于一般平衡二叉树。 </p>
+<p><strong>set具备的两个特点</strong>：</p>
+</li>
+<li><p>set中的元素都是排序好的 </p>
+</li>
+<li><p>set中的元素都是唯一的，没有重复的 </p>
+</li>
+</ol>
+<p>set的使用</p>
+<pre><code class="c++">
+#include &lt;iostream&gt;
+#include &lt;set&gt;
+
+int main ()
+{
+  int myints[] = {75,23,65,42,13};
+  std::set&lt;int&gt; myset (myints, myints+5);//初始化
+
+  std::cout &lt;&lt; &quot;myset contains:&quot;;
+  for (std::set&lt;int&gt;::iterator it=myset.begin(); it!=myset.end(); ++it)
+    std::cout &lt;&lt; &#39; &#39; &lt;&lt; *it;
+  std::cout &lt;&lt; &#39;\n&#39;;
+  return 0;
+}
+//输出：
+//myset contains: 13 23 42 65 75</code></pre>
+<p>set支持的操作</p>
+<pre><code class="c++">begin();            // 返回指向第一个元素的迭代器
+end();              // 返回指向最后一个元素的迭代器
+clear();            // 清除所有元素
+count();            // 返回某个值元素的个数
+
+empty();            // 如果集合为空，返回true
+
+equal_range();      //返回集合中与给定值相等的上下限的两个迭代器
+
+erase();            //删除集合中的元素
+
+find();                //返回一个指向被查找到元素的迭代器
+
+get_allocator();    //返回集合的分配器
+
+insert();            //在集合中插入元素
+
+lower_bound();        //返回指向大于（或等于）某值的第一个元素的迭代器
+
+key_comp();            //返回一个用于元素间值比较的函数
+
+max_size();            //返回集合能容纳的元素的最大限值
+
+rbegin();            //返回指向集合中最后一个元素的反向迭代器
+
+rend();                //返回指向集合中第一个元素的反向迭代器
+
+size();                //集合中元素的数目
+
+swap();                //交换两个集合变量
+
+upper_bound();        //返回大于某个值元素的迭代器
+
+value_comp();        //返回一个用于比较元素间的值的函数</code></pre>
+<h3 id="异步编程std-async和std-future"><a href="#异步编程std-async和std-future" class="headerlink" title="异步编程std::async和std::future"></a>异步编程std::async和std::future</h3><p> std::asyanc是std::future的高级封装， 一般我们不会直接使用std::futrue，而是使用对std::future的高级封装std::async 。<a href="https://www.cnblogs.com/moodlxs/p/10111601.html" target="_blank" rel="noopener">链接</a></p>
+<h4 id="std-async基本用法"><a href="#std-async基本用法" class="headerlink" title="std::async基本用法"></a>std::async基本用法</h4><p>std::future可以从异步任务中获取结果，一般与std::async配合使用，std::async用于创建异步任务，实际上就是创建一个线程执行相应任务。</p>
+<p>std::async就是异步编程的高级封装，封装了std::future的操作，基本上可以代替std::thread 的所有事情。</p>
+<p>std::async的操作，其实相当于封装了std::promise、std::packaged_task加上std::thread。</p>
+<pre><code class="c++">#include &lt;future&gt;
+#include &lt;iostream&gt;
+
+bool is_prime(int x)//判断是不是素数
+{
+    for (int i = 2; i &lt; x; i++)
+    {
+        if (x % i == 0)
+            return false;
+    }
+    return true;
+}
+
+int main()
+{
+    std::future&lt;bool&gt; fut = std::async(is_prime, 700020007);
+    //std::async首先创建线程执行is_prime(700020007)，创建后立即执行
+    std::cout &lt;&lt; &quot;please wait&quot;;
+    std::chrono::milliseconds span(100);
+    while (fut.wait_for(span) != std::future_status::ready)//等待线程执行完成
+        std::cout &lt;&lt; &quot;.&quot;;
+    std::cout &lt;&lt; std::endl;
+    //fut.wait_for(span)也可写作fut.wait_for(std::chrono::milliseconds(100))
+    bool ret = fut.get();//获取执行结果
+    std::cout &lt;&lt; &quot;final result: &quot; &lt;&lt; ret &lt;&lt; std::endl;
+    return 0;
+}
+//输出：
+//please wait................
+//final result: 1</code></pre>
+<p> 上面先说了通用的做法，然后我们了解一下std::future、std::promise、std::packaged_task </p>
+<h4 id="std-future说明"><a href="#std-future说明" class="headerlink" title="std::future说明"></a>std::future说明</h4><p> future是std::async、std::promise、std::packaged_task的底层对象，用来传递其他线程中操作的数据结果。 </p>
+<h4 id="std-promise用法"><a href="#std-promise用法" class="headerlink" title="std::promise用法"></a>std::promise用法</h4><p> std::promise的作用就是提供一个不同线程之间的数据同步机制，它可以存储一个某种类型的值，并将其传递给对应的future， 即使这个future不在同一个线程中也可以安全的访问到这个值 。</p>
+<pre><code class="c++">// promise example
+#include &lt;iostream&gt;       // std::cout
+#include &lt;functional&gt;     // std::ref
+#include &lt;thread&gt;         // std::thread
+#include &lt;future&gt;         // std::promise, std::future
+
+void print_int(std::future&lt;int&gt;&amp; fut) {
+    int x = fut.get();
+    std::cout &lt;&lt; &quot;value: &quot; &lt;&lt; x &lt;&lt; &#39;\n&#39;;
+}
+
+int main()
+{
+    std::promise&lt;int&gt; prom;                      // 创建promise用来（在不同线程间）同步数据
+    std::future&lt;int&gt; fut = prom.get_future();    // promise的future
+    std::thread th1(print_int, std::ref(fut));   // 把future发送到新的线程
+    prom.set_value(10);                          // 给promise输入数据
+    th1.join();                                  // 启动线程
+    // 线程th1的函数通过fut可以get到prom中的参数
+    return 0;
+}</code></pre>
+<h4 id="std-packaged-task用法"><a href="#std-packaged-task用法" class="headerlink" title="std::packaged_task用法"></a>std::packaged_task用法</h4><p> std::packaged_task的作用就是提供一个不同线程之间的数据同步机制，它可以存储一个函数操作，并将其返回值传递给对应的future， 而这个future在另外一个线程中也可以安全的访问到这个值。 </p>
+<pre><code class="c++">// packaged_task example
+#include &lt;iostream&gt;     // std::cout
+#include &lt;future&gt;       // std::packaged_task, std::future
+#include &lt;chrono&gt;       // std::chrono::seconds
+#include &lt;thread&gt;       // std::thread, std::this_thread::sleep_for
+
+// 为每个值倒计时一秒：
+int countdown(int from, int to) {
+    for (int i = from; i != to; --i) {
+        std::cout &lt;&lt; i &lt;&lt; &#39;\n&#39;;
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+    std::cout &lt;&lt; &quot;Lift off!\n&quot;;
+    return from - to;
+}
+
+int main()
+{
+    std::packaged_task&lt;int(int, int)&gt; tsk(countdown);   // 创建packaged_task
+    std::future&lt;int&gt; ret = tsk.get_future();            // 获取它的future
+
+    std::thread th(std::move(tsk), 10, 0);   // 生成线程以从10倒计时到0
+
+    // ...
+
+    int value = ret.get();                  // wait for the task to finish and get result
+
+    std::cout &lt;&lt; &quot;The countdown lasted for &quot; &lt;&lt; value &lt;&lt; &quot; seconds.\n&quot;;
+
+    th.join();
+
+    return 0;
+}</code></pre>
+<h3 id="左值，右值，左值引用，右值引用"><a href="#左值，右值，左值引用，右值引用" class="headerlink" title="左值，右值，左值引用，右值引用"></a>左值，右值，左值引用，右值引用</h3><p><a href="https://blog.csdn.net/xiaolewennofollow/article/details/52559306" target="_blank" rel="noopener">链接</a></p>
+<h4 id="左值和右值"><a href="#左值和右值" class="headerlink" title="左值和右值"></a>左值和右值</h4><p><strong>左值</strong>，就是有名字的变量（对象），可以被赋值，可以在多条语句中使用。</p>
+<p><strong>右值</strong>，就是临时变量（对象），没有名字，只能在一条语句中出现，不能被赋值 。</p>
+<h4 id="左值引用和右值引用"><a href="#左值引用和右值引用" class="headerlink" title="左值引用和右值引用"></a>左值引用和右值引用</h4><p> 左值引用的声明符号为”&amp;”， 为了和左值区分，右值引用的声明符号为”&amp;&amp;”。 </p>
+<pre><code class="c++">#include &lt;iostream&gt;
+
+void process_value(int&amp; i)
+{
+    std::cout &lt;&lt; &quot;左值引用: &quot; &lt;&lt; i &lt;&lt; std::endl;
+}
+
+void process_value(int&amp;&amp; i)
+{
+    std::cout &lt;&lt; &quot;右值引用: &quot; &lt;&lt; i &lt;&lt; std::endl;
+}
+
+int main()
+{
+    int a = 0;
+    process_value(a);
+    process_value(1);
+    return 0;
+}
+// 结果为：
+//左值引用: 0
+//右值引用: 1</code></pre>
+<p> 被声明为右值引用的，它本身被看作左值或右值都可以。区分的标准是：如果它有一个名字，那么它是一个左值。否则，它是一个右值。 </p>
+<pre><code class="c++">int main()
+{
+    int a = 0;
+    process_value(a);
+    int&amp;&amp; b = 1;
+    process_value(b);
+    return 0;
+}
+// 结果为：
+//左值引用: 0
+//左值引用: 1</code></pre>
+<p>b是一个右值引用，指向一个右值1，但是由于b是有名字的，所以b在这里被视为一个左值，所以在函数重载的时候选择为第一个函数 。</p>
+<h4 id="右值引用的意义"><a href="#右值引用的意义" class="headerlink" title="右值引用的意义"></a>右值引用的意义</h4><p> 直观<strong>意义</strong>：为临时变量续命，也就是为右值续命，因为右值在表达式结束后就消亡了，如果想继续使用右值，那就会动用昂贵的拷贝构造函数。 </p>
+<p> <strong>右值引用是用来支持转移语义的</strong>。转移语义可以将资源 ( 堆，系统对象等 ) 从一个对象转移到另一个对象，这样能够减少不必要的临时对象的创建、拷贝以及销毁，能够大幅度提高 C++ 应用程序的性能。临时对象的维护 ( 创建和销毁 ) 对性能有严重影响。 </p>
+<p> <strong>转移语义</strong>是和拷贝语义相对的，可以类比文件的剪切与拷贝，当我们将文件从一个目录拷贝到另一个目录时，速度比剪切慢很多。通过转移语义，临时对象中的资源能够转移其它的对象里。</p>
+<blockquote>
+<p>在现有的 C++ 机制中，我们可以定义拷贝构造函数和赋值函数。要实现转移语义，需要定义转移构造函数，还可以定义转移赋值操作符。对于右值的拷贝和赋值会调用转移构造函数和转移赋值操作符。如果转移构造函数和转移拷贝操作符没有定义，那么就遵循现有的机制，拷贝构造函数和赋值操作符会被调用。<br>普通的函数和操作符也可以利用右值引用操作符实现转移语义。</p>
+</blockquote>
+<h3 id="std-move-左值引用转右值引用"><a href="#std-move-左值引用转右值引用" class="headerlink" title="std::move 左值引用转右值引用"></a>std::move 左值引用转右值引用</h3><p>在C++11中，标准库在&lt;utility&gt;中提供了一个有用的函数std::move，std::move并不能移动任何东西，它唯一的功能是将一个左值强制转化为右值引用，继而可以通过右值引用使用该值，以用于移动语义。从实现上讲，std::move基本等同于一个类型转换：static_cast&lt;T&amp;&amp;&gt;(lvalue);</p>
+<blockquote>
+<ol>
+<li>C++ 标准库使用比如vector::push_back 等这类函数时,会对参数的对象进行复制,连数据也会复制.这就会造成对象内存的额外创建, 本来原意是想把参数push_back进去就行了,通过std::move，可以避免不必要的拷贝操作。</li>
+<li>std::move是将对象的状态或者所有权从一个对象转移到另一个对象，只是转移，<strong>没有内存的搬迁或者内存拷贝所以可以提高利用效率,改善性能</strong>。</li>
+<li>对指针类型的标准库对象并不需要这么做。</li>
+</ol>
+</blockquote>
+<p><strong>用法</strong></p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;utility&gt;//std::move
+#include &lt;vector&gt;
+#include &lt;string&gt;
+int main()
+{
+    std::string str = &quot;Hello&quot;;
+    std::vector&lt;std::string&gt; v;
+    //调用常规的拷贝构造函数，新建字符数组，拷贝数据
+    v.push_back(str);
+    std::cout &lt;&lt; &quot;拷贝之后，str是：\&quot;&quot; &lt;&lt; str &lt;&lt; &quot;\&quot;\n&quot;;
+    //调用move构造函数，掏空str，掏空后，最好不要使用str
+    v.push_back(std::move(str));
+    std::cout &lt;&lt; &quot;move之后，str是：\&quot;&quot; &lt;&lt; str &lt;&lt; &quot;\&quot;\n&quot;;
+    std::cout &lt;&lt; &quot;vector的内容是：\&quot;&quot; &lt;&lt; v[0] &lt;&lt; &quot;\&quot;, \&quot;&quot; &lt;&lt; v[1] &lt;&lt; &quot;\&quot;\n&quot;;
+    system(&quot;pause&quot;);
+}</code></pre>
+<h3 id="ref和引用-amp-的区别"><a href="#ref和引用-amp-的区别" class="headerlink" title="ref和引用&amp;的区别"></a>ref和引用&amp;的区别</h3><p> c++ 中 本身可以使用 &amp; 来实现引用 ，那为什么还会出现ref 呢？ </p>
+<p>ref</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+using namespace std;
+
+void f2(int &amp;c)
+{
+    c++;
+    cout &lt;&lt; &quot;in function c = &quot; &lt;&lt; c &lt;&lt; endl;
+}
+int main()
+{
+    int c = 10;
+    f2(ref(c));
+    cout &lt;&lt; &quot;out function c = &quot; &lt;&lt; c &lt;&lt; endl;
+    return 0;
+}</code></pre>
+<p>&amp;</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+using namespace std;
+
+void f2(int &amp;c)
+{
+    c++;
+    cout &lt;&lt; &quot;in function c = &quot; &lt;&lt; c &lt;&lt; endl;
+}
+int main()
+{
+    int c = 10;
+    f2(c);
+    cout &lt;&lt; &quot;out function c = &quot; &lt;&lt; c &lt;&lt; endl;
+    return 0;
+}</code></pre>
+<p>结果是一样的：</p>
+<pre><code>in function c = 11
+out function c = 11</code></pre><p><strong>区别在于</strong>考虑函数式编程（如std::bind）在使用时，是对参数直接拷贝，而不是引用 </p>
+<pre><code class="c++">#include &lt;string&gt;
+#include &lt;iostream&gt;
+#include&lt;boost/function.hpp&gt;
+#include&lt;boost/bind.hpp&gt;
+
+void f(int &amp;a,int &amp;b,int &amp;c){
+    cout&lt;&lt;&quot;in function a = &quot;&lt;&lt;a&lt;&lt;&quot;  b = &quot;&lt;&lt;b&lt;&lt;&quot;  c = &quot;&lt;&lt;c&lt;&lt;endl;
+    a += 1;
+    b += 10;
+    c += 100;
+}
+
+int main(){
+    int n1 = 1 ,n2 = 10,n3 = 100;
+    function&lt;void()&gt; f1 = bind(f,n1,n2,ref(n3));
+    f1();
+    cout&lt;&lt;&quot;out function a = &quot;&lt;&lt;n1&lt;&lt;&quot;  b = &quot;&lt;&lt;n2&lt;&lt;&quot;  c = &quot;&lt;&lt;n3&lt;&lt;endl;
+    f1();
+    cout&lt;&lt;&quot;out function a = &quot;&lt;&lt;n1&lt;&lt;&quot;  b = &quot;&lt;&lt;n2&lt;&lt;&quot;  c = &quot;&lt;&lt;n3&lt;&lt;endl;
+    return 0;
+}</code></pre>
+<p>输出：</p>
+<pre><code>in function a = 1  b = 10  c = 100
+out function a = 1  b = 10  c = 200
+in function a = 2  b = 20  c = 200
+out function a = 1  b = 10  c = 300</code></pre><p>解释：使用ref实现了参数的引用（ 在用bind直接传参数时，如果不用ref时，调用函数是没有引用的 ）。</p>
+<p> 不仅仅是在使用bind时，在使用thread进行编程时，也会发生这样的问题，thread的方法传递引用的时候，必须外层用ref来进行引用传递，否则会编译出错。 </p>
+<pre><code class="c++">void method(int &amp; a){ a += 5;}
+
+using namespace std;
+int main()
+{
+    int a = 0;
+    thread th(method,ref(a));
+    th.join();
+    cout &lt;&lt; a &lt;&lt;endl;
+    //thread th2(method,a);  //去掉注释会编译出错
+    //th2.join();
+    cout &lt;&lt; a &lt;&lt;endl;
+    return 0;
+}</code></pre>
+<h3 id="operator重载运算符"><a href="#operator重载运算符" class="headerlink" title="operator重载运算符"></a>operator重载运算符</h3><p> operator 是C++的一个关键字，它和运算符（如=、==、()）一起使用，表示一个<strong>运算符重载</strong>函数，在理解时可将operator和运算符（如operator=）视为一个函数名 。</p>
+<p> 使用operator重载运算符，是C++扩展运算符功能的方法。使用operator扩展运算符功能的原因如下： </p>
+<ul>
+<li><p>使重载后的运算符的使用方法与重载前一致 </p>
+</li>
+<li><p>扩展运算符的功能只能通过函数的方式实现（实际上，C++中各种“功能”都是由函数实现的） </p>
+</li>
+</ul>
+<p><strong>示例：</strong>重载==运算符</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+using namespace std;
+class person
+{
+private:
+    int age;
+public:
+    person(int nAge)
+    {
+        this-&gt;age = nAge;
+    }
+
+    bool operator==(const person&amp; ps)//重载==运算符
+    {
+        if (this-&gt;age == ps.age)
+        {
+            return true;
+        }
+        return false;
+    }
+};
+
+int main()
+{
+    person p1(10);
+    person p2(10);
+
+    if (p1 == p2)
+    {
+        cout &lt;&lt; &quot;p1和p2相等&quot; &lt;&lt; endl;
+    }
+    else
+    {
+        cout &lt;&lt; &quot;p1和p2不相等&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+//结果：p1和p2相等</code></pre>
+<h3 id="std-for-each"><a href="#std-for-each" class="headerlink" title="std::for_each"></a>std::for_each</h3><p> for_each有三个参数，前两个参数用来确定一个区间，第三个参数则是操作方式，lambda，函数对象或者普通函数都可以充当其第三个参数 。</p>
+<pre><code class="c++">#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+using namespace std;
+
+void helperFunction(string&amp; str)
+{
+    str += &quot;.cpp&quot;;
+}
+
+void print(vector&lt;string&gt; vec)
+{
+    for (vector&lt;string&gt;::iterator iter = vec.begin(); iter != vec.end(); iter++)
+    {
+        cout &lt;&lt; *iter &lt;&lt; &quot;\t&quot;;
+    }
+    cout &lt;&lt; endl;
+}
+
+int main(void)
+{
+    string vecVal[] = { &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot; };//string数组
+    vector&lt;string&gt; vec(vecVal, vecVal + 4);//数组加载到vector
+    print(vec);
+    for_each(vec.begin(), vec.end(), helperFunction);
+    //for_each会自动给helperFunction输入参数 *vec.begin()，（每次迭代vec.begin()++）
+    print(vec);
+    return 0;
+}
+//输出：
+//a       b       c       d
+//a.cpp   b.cpp   c.cpp   d.cpp</code></pre>
+<p> for_each()有一个特殊的性质，那就是它能够返回其操作，利用这一特性，我们可以处理“置于该操作中的结果”直接看下面这个例子： </p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+class MeanValue
+{
+private:
+    long num;
+    long sum;
+public:
+    MeanValue() : num(0), sum(0) {}//无参数的构造函数
+    void operator() (int elem)//重载() (int elem)
+    {
+        num++;
+        sum += elem;
+    }
+    operator double()//重载double
+    {
+        return static_cast&lt;double&gt;(sum) / static_cast&lt;double&gt;(num);
+    }
+};
+
+
+int main()
+{
+    std::vector&lt;int&gt;v1{ 1,2,3,4,5,6,7,8 };
+    double db = std::for_each(v1.begin(), v1.end(), MeanValue());
+    //for_each不断迭代向MeanValue()传递int，迭代完成后执行执行隐式的int转换到double（也被重载了）
+    std::cout &lt;&lt; db;
+    return 0;
+}
+//结果：4.5</code></pre>
+<p>double db = std::for_each(v1.begin(), v1.end(), MeanValue());通过观看源码，我们知道for_each的返回值是其第三个参数。而我们的第三个参数明明是一个class，为什么我们可以赋值给一个double类型？</p>
+<p>这里我们就要注意了，在MeanValue类中我们有一个特殊的重载，operator double()｛…｝ ，这个重载就是为了提供该类隐式转换为double的方法，所以我们可以将该类隐式转换为double类型。</p>
+<h3 id="vector转list"><a href="#vector转list" class="headerlink" title="vector转list"></a>vector转list</h3><pre><code class="c++">vector&lt;Point2f&gt; point_set(SampPoints.begin(),SampPoints.end());</code></pre>
+<h3 id="double转string"><a href="#double转string" class="headerlink" title="double转string"></a>double转string</h3><p><a href="https://www.cnblogs.com/chorulex/p/7660187.html" target="_blank" rel="noopener">参考</a></p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+
+using namespace std;
+
+std::string DoubleToString(const double value, unsigned int precisionAfterPoint = 6)
+{
+    std::ostringstream out;
+    // 清除默认精度
+    out.precision(std::numeric_limits&lt;double&gt;::digits10);
+    out &lt;&lt; value;
+
+    std::string res = std::move(out.str());
+    auto pos = res.find(&#39;.&#39;);
+    if (pos == std::string::npos)
+        return res;
+    auto splitLen = pos + 1 + precisionAfterPoint;
+    if (res.size() &lt;= splitLen)
+        return res;
+    return res.substr(0, splitLen);
+}
+
+int main(int argc, char* argv[])
+{
+    std::cout &lt;&lt; DoubleToString(0., 12) &lt;&lt; std::endl;
+    std::cout &lt;&lt; DoubleToString(0.0, 12) &lt;&lt; std::endl;
+    std::cout &lt;&lt; DoubleToString(.0, 12) &lt;&lt; std::endl;
+    std::cout &lt;&lt; DoubleToString(1.0, 12) &lt;&lt; std::endl;
+    std::cout &lt;&lt; DoubleToString(11234, 12) &lt;&lt; std::endl;
+    std::cout &lt;&lt; DoubleToString(0.12345, 12) &lt;&lt; std::endl;
+    std::cout &lt;&lt; DoubleToString(0.12345678, 12) &lt;&lt; std::endl;
+    std::cout &lt;&lt; DoubleToString(0.12345678, 9) &lt;&lt; std::endl;
+    std::cout &lt;&lt; DoubleToString(0.12345678, 8) &lt;&lt; std::endl;
+    std::cout &lt;&lt; DoubleToString(0.12345678, 6) &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+<h3 id="std-move避免内存搬迁拷贝"><a href="#std-move避免内存搬迁拷贝" class="headerlink" title="std::move避免内存搬迁拷贝"></a>std::move避免内存搬迁拷贝</h3><ul>
+<li>C++ 标准库使用比如<code>vector::push_back</code>等这类函数时，会对参数的对象进行复制,连数据也会复制。这就会造成对象内存的额外创建，本来原意是想把参数push_back进去就行了，通过std::move，可以避免不必要的拷贝操作。</li>
+<li><code>std::move</code>是<strong>将对象的状态或者所有权从一个对象转移到另一个对象</strong>，只是转移，没有内存的搬迁或者内存拷贝所以可以提高利用效率，改善性能。</li>
+<li>对指针类型的标准库对象并不需要这么做。</li>
+</ul>
+<p><strong>用法</strong></p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;utility&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+int main()
+{
+    std::string str = &quot;Hello&quot;;
+    std::vector&lt;std::string&gt; v;
+    //调用常规的拷贝构造函数，新建字符数组，拷贝数据
+    v.push_back(str);
+    std::cout &lt;&lt; &quot;push_back后，str是：\&quot;&quot; &lt;&lt; str &lt;&lt; &quot;\&quot;\n&quot;;
+    //调用移动构造函数，掏空str，掏空后，最好不要使用str
+    v.push_back(std::move(str));
+    std::cout &lt;&lt; &quot;move并push_back后，str是：\&quot;&quot; &lt;&lt; str &lt;&lt; &quot;\&quot;\n&quot;;
+    std::cout &lt;&lt; &quot;vrctor内容是：\&quot;&quot; &lt;&lt; v[0] &lt;&lt; &quot;\&quot;, \&quot;&quot; &lt;&lt; v[1] &lt;&lt; &quot;\&quot;\n&quot;;
+    return 0;
+}</code></pre>
+<p>输出：</p>
+<pre><code>push_back后，str是：&quot;Hello&quot;
+move并push_back后，str是：&quot;&quot;
+vrctor内容是：&quot;Hello&quot;, &quot;Hello&quot;</code></pre><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="和-和-和-gt-的区别"><a href="#和-和-和-gt-的区别" class="headerlink" title=".和::和:和-&gt;的区别"></a>.和::和:和-&gt;的区别</h3><p>1、A.B则A为对象或者结构体；</p>
+<p>2、A-&gt;B则A为指针，-&gt;是成员提取，A-&gt;B是提取A中的成员B，A只能是指向类、结构、联合的指针；</p>
+<p>3、::是作用域运算符，A::B表示作用域A中的名称B，A可以是名字空间、类、结构；</p>
+<p>4、:一般用来表示继承；</p>
+<p><strong>.和-&gt;的区别：</strong> -&gt;是指针指向其成员的运算符 .是结构体的成员运算符。最大的区别是-&gt;前面放的是指针，而.前面跟的是结构体变量 </p>
+<pre><code class="c++">struct A
+{
+   int a;
+   int b;
+};
+A *point = malloc(sizeof(struct A));//直接分配内存块，point作为A *的指针指向这个内存块
+point-&gt;a = 1;
+A object;
+object.a = 1;</code></pre>
+<h3 id="类和对象的关系"><a href="#类和对象的关系" class="headerlink" title="类和对象的关系"></a>类和对象的关系</h3><p><strong>C++ 类定义</strong></p>
+<p>定义一个类，本质上是定义一个数据类型的蓝图。这实际上并没有定义任何数据，但它定义了类的名称意味着什么，也就是说，它定义了类的对象包括了什么，以及可以在这个对象上执行哪些操作。</p>
+<p>类定义是以关键字 <strong>class</strong> 开头，后跟类的名称。类的主体是包含在一对花括号中。类定义后必须跟着一个分号或一个声明列表。例如，我们使用关键字 <strong>class</strong> 定义 Box 数据类型，如下所示</p>
+<pre><code class="c++">class Box
+{
+   public:
+      double length;   // 盒子的长度
+      double breadth;  // 盒子的宽度
+      double height;   // 盒子的高度
+};</code></pre>
+<p> 关键字 <strong>public</strong> 确定了类成员的访问属性。在类对象作用域内，公共成员在类的外部是可访问的。也可以指定类的成员为 <strong>private</strong> 或 <strong>protected</strong>。 </p>
+<p><strong>定义 C++ 对象</strong></p>
+<p> 类提供了对象的蓝图，所以基本上，对象是根据类来创建的。声明类的对象，就像声明基本类型的变量一样。下面的语句声明了类 Box 的两个对象： </p>
+<pre><code class="c++">Box Box1;          // 声明 Box1，类型为 Box
+Box Box2;          // 声明 Box2，类型为 Box</code></pre>
+<p> 对象 Box1 和 Box2 都有它们各自的数据成员。 </p>
+<p><strong>访问类的成员</strong></p>
+<pre><code class="c++">#include &lt;iostream&gt;
+using namespace std;
+class Box
+{
+   public:
+      double length;   // 长度
+      double breadth;  // 宽度
+      double height;   // 高度
+};
+int main( )
+{
+   Box Box1;        // 声明 Box1，类型为 Box
+   Box Box2;        // 声明 Box2，类型为 Box
+   double volume = 0.0;     // 用于存储体积
+   // box 1 详述
+   Box1.height = 5.0; 
+   Box1.length = 6.0; 
+   Box1.breadth = 7.0;
+   // box 2 详述
+   Box2.height = 10.0;
+   Box2.length = 12.0;
+   Box2.breadth = 13.0;
+   // box 1 的体积
+   volume = Box1.height * Box1.length * Box1.breadth;
+   cout &lt;&lt; &quot;Box1 的体积：&quot; &lt;&lt; volume &lt;&lt;endl;
+   // box 2 的体积
+   volume = Box2.height * Box2.length * Box2.breadth;
+   cout &lt;&lt; &quot;Box2 的体积：&quot; &lt;&lt; volume &lt;&lt;endl;
+   return 0;
+}</code></pre>
+<p> 当上面的代码被编译和执行时，它会产生下列结果 ：</p>
+<pre><code>Box1 的体积：210
+Box2 的体积：1560</code></pre><h3 id="代码行数"><a href="#代码行数" class="headerlink" title="代码行数"></a>代码行数</h3><pre><code class="sh">find . -name &quot;*.h&quot; -or -name &quot;*.cpp&quot;|xargs wc -l</code></pre>
+<h3 id="声明和定义"><a href="#声明和定义" class="headerlink" title="声明和定义"></a>声明和定义</h3><pre><code class="c++">void sum(int a,int b); //这是函数的声明
+void sum(int a,int b){} //这是函数定义(没有分号)
+void sum(int a,int b){};//也可以同时声明和定义
+//同时声明和定义空函数(空的构造函数和析构函数)
+KltHomographyInit()=default;
+~KltHomographyInit()=default;//=default相当于{}</code></pre>
+<h3 id="virtual关键字"><a href="#virtual关键字" class="headerlink" title="virtual关键字"></a>virtual关键字</h3><p>在基类的成员函数前加<strong>virtual</strong>关键字，表示希望重载的成员函数，用一个 基类指针或引用  指向一个继承类对象的时候，调用一个虚函数时, 实际调用的是继承类的版本</p>
+<h3 id="deque容器"><a href="#deque容器" class="headerlink" title="deque容器"></a>deque容器</h3><p>deque容器为一个给定类型的元素进行线性处理，像向量一样，它能够快速地随机访问任一个元素，并且能够高效地插入和删除容器的尾部元素。但它又与vector不同，deque支持高效插入和删除容器的头部元素，因此也叫做双端队列</p>
+<h3 id="c-str-函数"><a href="#c-str-函数" class="headerlink" title=".c_str()函数"></a>.c_str()函数</h3><pre><code class="c++">#include &lt;iostream&gt;  
+#include &lt;cstring&gt;  
+using namespace std;
+
+int main()
+{  
+    const char *c;
+    string s = &quot;1234&quot;;
+    c = s.c_str();
+    cout &lt;&lt; c &lt;&lt; endl;
+    s = &quot;abcde&quot;;
+    cout &lt;&lt; c &lt;&lt; endl;
+}</code></pre>
+<p>输出：</p>
+<pre><code class="c++">1234
+abcde</code></pre>
+<h3 id="friend友元"><a href="#friend友元" class="headerlink" title="friend友元"></a>friend友元</h3><p>friend关键字的作用：在一个类中指明其他的类（或者）函数能够直接访问该类中的private和protected成员</p>
+<h3 id="用class和struct关键字的区别"><a href="#用class和struct关键字的区别" class="headerlink" title="用class和struct关键字的区别"></a>用class和struct关键字的区别</h3><p>实际上，我们可以使用 class 关键字和 struct 关键字中的任意一个定义类。</p>
+<p>唯一的一点区别就是，struct 和 class 的默认访问权限不太一样。</p>
+<p>如果使用 struct 关键字，则定义在第一个访问说明符之前的所有成员都默认是 public 的；</p>
+<p>但如果使用 class关键字，那么定义在第一个访问说明符之前的成员默认都是 private 的</p>
+<h3 id="C-构造函数后加冒号"><a href="#C-构造函数后加冒号" class="headerlink" title="C++ 构造函数后加冒号"></a>C++ 构造函数后加冒号</h3><p>其实冒号后的内容是初始化成员列表，一般有三种情况：<br><strong>1、对含有对象成员的对象进行初始化</strong></p>
+<p>例如，类line有两个私有对象成员startpoint、endpoint,line的构造函数写成：</p>
+<pre><code class="c++">line（int sx,int sy,int ex,int ey）：startpoint（sx,sy）,endpoint（ex,ey）{……}</code></pre>
+<p>初始化时按照类定义中对象成员的顺序分别调用各自对象的构造函数，再执行自己的构造函数<br><strong>2、对于不含对象成员的对象，初始化时也可以套用上面的格式</strong></p>
+<p>例如，类rectangle有两个数据成员length、width,其构造函数写成：</p>
+<pre><code class="c++">rectangle():length(1),width(2)){}
+rectangle(int x,int y):length(x),width(y)){}</code></pre>
+<p><strong>3、对父类进行初始化</strong></p>
+<p>例如，CDlgCalcDlg的父类是MFC类CDialog,其构造函数写为：</p>
+<pre><code class="c++">CDlgCalcDlg(CWnd* pParent): CDialog(CDlgCalcDlg::IDD,pParent)</code></pre>
+<p>其中IDD是一个枚举元素，标志对话框模板的ID<br>使用初始化成员列表对对象进行初始化，有时是必须的，有时是出于提高效率的考虑</p>
+<h3 id="boost-function和boost-bind"><a href="#boost-function和boost-bind" class="headerlink" title="boost::function和boost::bind"></a>boost::function和boost::bind</h3><p> <a href="http://www.xumenger.com/cpp-boost-bind-function-20180612/" target="_blank" rel="noopener">http://www.xumenger.com/cpp-boost-bind-function-20180612/</a> </p>
+<p><strong>1、boost::function</strong></p>
+<p> boost::function是一个函数包装器，也即一个函数模板，可以用来代替拥有相同返回类型，相同参数类型，以及相同参数个数的各个不同的函数 </p>
+<pre><code class="c++">#include&lt;boost/function.hpp&gt;
+#include&lt;iostream&gt;
+using namespace std;
+typedef boost::function&lt;int(int ,char)&gt; Func;
+int test(int num,char sign)
+{
+   cout &lt;&lt; num &lt;&lt; sign &lt;&lt; endl;
+   return 0;
+}
+int main()
+{
+    Func f;
+    f = &amp;test;  //or f = test;
+    f(1, &#39;A&#39;);
+}</code></pre>
+<p>它也可以用下面的函数指针形式实现</p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+typedef int (*Func)(int, char);
+int test(int num,char sign)
+{
+   cout &lt;&lt; num &lt;&lt; sign &lt;&lt; endl;
+   return 0;
+}
+int main()
+{
+    Func f;
+    f = &amp;test;  //or f = test;
+    f(1, &#39;A&#39;);
+}</code></pre>
+<p>但是为什么还要用boost::function呢？</p>
+<blockquote>
+<p>如果没有boost::bind，那么boost::function就什么都不是；而有了boost::bind，同一个类的不同对象可以delegate给不同的实现，从而实现不同的行为，简直就是无敌了</p>
+</blockquote>
+<p><strong>2、boost::bind</strong></p>
+<p>boost::function就像C#中的delegate，可以指向任何函数，包括成员函数（这点就是普通的函数指针做不到的！）</p>
+<p>当用bind把某个成员函数绑定到某个对象上的时候，就可以得到一个closure（闭包）</p>
+<pre><code class="c++">#include &lt;string&gt;
+#include &lt;iostream&gt;
+#include&lt;boost/function.hpp&gt;
+#include&lt;boost/bind.hpp&gt;
+
+using namespace std;
+
+class Foo{
+    public:
+        void methodA() { cout &lt;&lt; &quot;Foo::methodA()&quot; &lt;&lt; endl; }
+        void methodInt(int a) { cout &lt;&lt; &quot;Foo::methodInt(&quot; &lt;&lt; a &lt;&lt; &quot;)&quot; &lt;&lt; endl; }
+        void methodString(const string &amp;str) { cout &lt;&lt; &quot;Foo::methodString(&quot; &lt;&lt; str &lt;&lt; &quot;)&quot; &lt;&lt; endl; }
+};
+
+class Bar{
+    public:
+        void methodB() { cout &lt;&lt; &quot;Bar::methodB()&quot; &lt;&lt; endl; }
+        int methodTest(int a, char b, int c) 
+        { 
+            cout &lt;&lt; &quot;Bar::methodTest(&quot; &lt;&lt; a &lt;&lt; &quot;, &quot; &lt;&lt; b &lt;&lt; &quot;, &quot; &lt;&lt; c &lt;&lt; &quot;)&quot; &lt;&lt; endl;
+            return 0;
+        }
+};
+
+int main()
+{
+    //无参数，无返回值
+    boost::function&lt;void()&gt; fun1;
+
+    //调用foo.methodA()
+    Foo foo;
+    fun1 = boost::bind(&amp;Foo::methodA, &amp;foo);
+    fun1();
+
+    //调用bar.methodB()
+    Bar bar;
+    fun1 = boost::bind(&amp;Bar::methodB, &amp;bar);
+    fun1();
+
+    //调用foo.methodInt(42)
+    fun1 = boost::bind(&amp;Foo::methodInt, &amp;foo, 42);
+    fun1();
+
+    //调用foo.methodString(&quot;hello&quot;)
+    //bind的时候直接传入实参，这不就是闭包吗
+    fun1 = boost::bind(&amp;Foo::methodString, &amp;foo, &quot;hello&quot;);
+    fun1();
+
+    cout &lt;&lt; endl;
+    //int参数，无返回值
+    boost::function&lt;void(int)&gt; fun2;
+    //bind的时候未传入实参，需要_1作为参数的占位
+    fun2 = boost::bind(&amp;Foo::methodInt, &amp;foo, _1);
+    fun2(100);
+
+    cout &lt;&lt; endl;
+    boost::function&lt;int(int, int)&gt; func3;
+    //bind的时候未传入实参，需要_1、_2、_3作为参数的占位
+    //下面传入一个实参，其他的用_n做占位符，很明显是一个闭包
+    func3 = boost::bind(&amp;Bar::methodTest, &amp;bar, _1, &#39;z&#39;, _2);
+    func3(1, 2);
+}</code></pre>
+<h3 id="内联函数inline"><a href="#内联函数inline" class="headerlink" title="内联函数inline"></a>内联函数inline</h3><pre><code class="c++">inline int Max (int a, int b)
+{
+    if(a &gt;b)
+        return a;
+    return b;
+}</code></pre>
+<p>增加了 <code>inline</code>关键字的函数称为“内联函数”。内联函数和普通函数的区别在于：当编译器处理调用内联函数的语句时，不会将该语句编译成函数调用的指令，而是直接将整个函数体的代码插人调用语句处，就像整个函数体在调用处被重写了一遍一样 </p>
+<h3 id="VS点本地调试无法运行"><a href="#VS点本地调试无法运行" class="headerlink" title="VS点本地调试无法运行"></a>VS点本地调试无法运行</h3><p>原因是VS调试时起始目录是源文件的存放目录，而生成的exe文件在源文件目录的..\x64\Release下，如果c++程序使用相对路径，容易产生路径的错误</p>
+<h3 id="struct和class"><a href="#struct和class" class="headerlink" title="struct和class"></a>struct和class</h3><p> C++中的struct是对C中的struct进行了扩充，所以增加了很多功能，主要的区别如下图所示： </p>
+<p><img src="/images/C++%E5%AD%A6%E4%B9%A0/20181122191431245.png" alt="在这里插入图片描述"> </p>
+<p> 上面罗列了在声明时的区别，在使用的过程中也有区别： </p>
+<p> 在C中使用结构体时需要加上struct，而C++可直接使用，例如： </p>
+<pre><code class="c++">结构体声明，C和C++使用同一个
+struct Student
+{
+    int  iAgeNum;
+    string strName;
+}
+struct  Student  stu1;    //C中使用
+Student    stu3;        //C++使用</code></pre>
+<p><strong>C++中Struct与Class的区别</strong></p>
+<p> struct默认防控属性是public的，而class默认的防控属性是private </p>
+<pre><code class="c++">struct A
+{
+    int iNum;
+}
+class B
+{
+    int iNum;
+}
+A a;
+a.iNum = 2;        //没有问题，默认防控属性为public
+B b;
+b.iNum = 2;        //编译出错，默认防控属性为private</code></pre>
+<p> 在继承关系，同样：struct默认是public的，而class是private </p>
+<pre><code class="c++">struct A
+{
+    int   iAnum；
+}
+struct B : A
+{
+    int   iBnum;
+}
+A a；
+a.iAnum = 1;    //在struct情况下是正确的，在class情况下是错误的
+//在struct的情况下B是默认public继承A的。如果将上面的struct改成class，那么B是private继承A的</code></pre>
+<p> 上面的列子都是struct继承struct，class继承class，那么class与struct继承会怎样呢？ </p>
+<p> 结论是：<strong>默认的防控属性取决于子类而不是基类</strong>，例如： </p>
+<pre><code class="c++">struct A{};
+class B : A {};    //默认为private继承
+struct C : B{};    //默认为public继承</code></pre>
+<h3 id="Eigen动态Matrix"><a href="#Eigen动态Matrix" class="headerlink" title="Eigen动态Matrix"></a>Eigen动态Matrix</h3><pre><code class="c++">Matrix&lt;double, 6, Dynamic, ColMajor&gt; jacobian;
+//数值类型为double，行数为6，Dynamic表示动态矩阵（其大小根据运算需要确定），ColMajor表示按列存储</code></pre>
+<h3 id="cout-setf-设置输出格式"><a href="#cout-setf-设置输出格式" class="headerlink" title="cout.setf()设置输出格式"></a>cout.setf()设置输出格式</h3><p>通过flag对cout输出的格式进行调整。如 <code>ios_base::fixed</code>表示：用正常的记数方法显示浮点数(与科学计数法相对应)；<code>ios_base::floatfield</code>表示小数点后保留6位小数 。</p>
+<p>setf()函数有两个原型：</p>
+<pre><code class="c++">fmtflags setf(fmtflage) //第一原型
+fmtflags setf(fmtflags, fmtflags)  //第二原型</code></pre>
+<p>原型一举例：</p>
+<pre><code class="c++">cout.setf(ios_base::showpos);
+cout &lt;&lt; 66 &lt;&lt; endl;
+//输出: +66</code></pre>
+<p>常见标志及作用：</p>
+<table>
+<thead>
+<tr>
+<th>fmtflags</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolalpha</td>
+<td>可以使用单词”true”和”false”进行输入/输出的布尔值.</td>
+</tr>
+<tr>
+<td>oct</td>
+<td>用八进制格式显示数值.</td>
+</tr>
+<tr>
+<td>dec</td>
+<td>用十进制格式显示数值.</td>
+</tr>
+<tr>
+<td>hex</td>
+<td>用十六进制格式显示数值.</td>
+</tr>
+<tr>
+<td>left</td>
+<td>输出调整为左对齐.</td>
+</tr>
+<tr>
+<td>right</td>
+<td>输出调整为右对齐.</td>
+</tr>
+<tr>
+<td>scientific</td>
+<td>用科学记数法显示浮点数.</td>
+</tr>
+<tr>
+<td>fixed</td>
+<td>用正常的记数方法显示浮点数(与科学计数法相对应).</td>
+</tr>
+<tr>
+<td>showbase</td>
+<td>输出时显示所有数值的基数.</td>
+</tr>
+<tr>
+<td>showpoint</td>
+<td>显示小数点和额外的零，即使不需要.</td>
+</tr>
+<tr>
+<td>showpos</td>
+<td>在非负数值前面显示”＋（正号）”.</td>
+</tr>
+<tr>
+<td>skipws</td>
+<td>当从一个流进行读取时，跳过空白字符(spaces, tabs, newlines).</td>
+</tr>
+<tr>
+<td>unitbuf</td>
+<td>在每次插入以后，清空缓冲区.</td>
+</tr>
+<tr>
+<td>internal</td>
+<td>将填充字符回到符号和数值之间.</td>
+</tr>
+<tr>
+<td>uppercase</td>
+<td>以大写的形式显示科学记数法中的”e”和十六进制格式的”x”.</td>
+</tr>
+<tr>
+<td>floatfield</td>
+<td>输出时按浮点格式，默认为小数点后有6位数字</td>
+</tr>
+</tbody></table>
+<p>注意这些flag加前缀，如<code>ios::fixed</code>，有的是<code>ios_base::fixed</code></p>
+<p>举例</p>
+<pre><code class="c++">cout.setf(ios::fixed,ios::floatfield);
+cout.precision(8);
+//正常的记数方法显示浮点数、输出是按浮点数显示，小数点精度为8
+//cout.precision()返回当前的浮点数输出精度值
+//cout.precision(val)设置浮点数输出的精度</code></pre>
+<h3 id="chrono计时（s、ms、ns）"><a href="#chrono计时（s、ms、ns）" class="headerlink" title="chrono计时（s、ms、ns）"></a>chrono计时（s、ms、ns）</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include &lt;chrono&gt;
+#include&lt;Windows.h&gt;
+using namespace std;
+
+class Timer {
+public:
+    static constexpr double SECONDS = 1e-9;///秒
+    static constexpr double MILLISECONDS = 1e-6;///毫秒
+    static constexpr double NANOSECONDS = 1.0;///纳秒
+    Timer(double scale = MILLISECONDS);//默认的时间单位是毫秒
+    virtual ~Timer();
+    void start();
+    double stop();
+private:
+    std::chrono::high_resolution_clock::time_point start_t;///开始计时的时间
+    bool started;
+    double scale;
+};
+
+int main(int argc, char * argv[])
+{
+    Timer timer1;
+    timer1.start();
+    Sleep(1000);
+    double time = timer1.stop();
+    cout &lt;&lt;&quot;持续时间：&quot;&lt;&lt; time&lt;&lt; &quot;毫秒&quot; &lt;&lt; endl;
+    system(&quot;pause&quot;);
+    return 0;
+}
+
+Timer::Timer(double scale) : started(false), scale(scale) { }
+Timer::~Timer() { }
+
+void Timer::start() {
+    started = true;
+    start_t = std::chrono::high_resolution_clock::now();
+}
+
+double Timer::stop() {
+    std::chrono::high_resolution_clock::time_point end_t = std::chrono::high_resolution_clock::now();
+    if (!started)
+        throw std::logic_error(&quot;[Timer] Stop called without previous start&quot;);
+    started = false;
+    std::chrono::duration&lt;double, std::nano&gt; elapsed_ns = end_t - start_t;
+    return elapsed_ns.count()*scale;
+}</code></pre>
+<h3 id="内联函数inline-1"><a href="#内联函数inline-1" class="headerlink" title="内联函数inline"></a>内联函数inline</h3><p> inline是C++关键字，在函数声明或定义中，函数返回类型前加上关键字inline，即可以把函数指定为内联函数。这样可以解决一些频繁调用的函数大量消耗栈空间（栈内存）的问题。关键字inline必须与函数定义放在一起才能使函数成为内联函数，仅仅将inline放在函数声明前面不起任何作用 </p>
+<h3 id="push-back-和emplace-back"><a href="#push-back-和emplace-back" class="headerlink" title="push_back()和emplace_back()"></a>push_back()和emplace_back()</h3><p>push_back()函数向容器中加入一个临时对象（右值元素）时， 首先会调用构造函数生成这个对象，然后条用拷贝构造函数将这个对象放入容器中， 最后释放临时对象。但是emplace_back()函数向容器中中加入临时对象， 临时对象原地构造，没有赋值或移动的操作。</p>
+<h2 id="OpenCV"><a href="#OpenCV" class="headerlink" title="OpenCV"></a>OpenCV</h2><h3 id="坐标对应关系"><a href="#坐标对应关系" class="headerlink" title="坐标对应关系"></a>坐标对应关系</h3><p><img src="/images/C++%E5%AD%A6%E4%B9%A0/image-20200108142255582.png" alt="image-20200108142255582"></p>
+<p>行列与坐标系对应关系 </p>
+<ul>
+<li><strong>行rows：Y (height)</strong></li>
+<li><strong>列cols：X (width)</strong></li>
+</ul>
+<p><strong>注意：</strong></p>
+<p>在Mat类型变量访问时下标是反着写的，即：按照(y, x)的关系形式访问</p>
+<p>示例：</p>
+<pre><code class="c++">int main()
+{
+    Mat mat_src = Mat::eye(3, 4, CV_8UC1);
+
+    cout &lt;&lt; &quot;mat_src :&quot; &lt;&lt; endl;
+    cout &lt;&lt; mat_src    &lt;&lt; endl;
+
+    cout &lt;&lt; endl;
+    cout &lt;&lt; &quot;Rows : &quot; &lt;&lt; mat_src.rows &lt;&lt; endl;
+    cout &lt;&lt; &quot;Cols : &quot; &lt;&lt; mat_src.cols &lt;&lt; endl;
+
+    //注: mat_src.at&lt;float&gt;(y, x), 下标关系为: y-x
+    mat_src.at&lt;float&gt;(0, 2) = 2; 
+    mat_src.at&lt;float&gt;(2, 0) = 4;
+
+    cout &lt;&lt; endl;
+    cout &lt;&lt; &quot;mat_src :&quot; &lt;&lt; endl;
+    cout &lt;&lt; mat_src    &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+<p>输入：</p>
+<pre><code class="yaml">mat_src :
+[  1,   0,   0,   0;
+   0,   1,   0,   0;
+   0,   0,   1,   0]
+
+Rows : 3
+Cols : 4
+
+mat_src :
+[  1,   0,   0,   0;
+   0,   1,   0,   0;
+   0,   0, 128,  64]</code></pre>
+<h3 id="threshold灰度二值化"><a href="#threshold灰度二值化" class="headerlink" title="threshold灰度二值化"></a>threshold灰度二值化</h3><p>图像的二值化就是将图像上的像素点的灰度值设置为0或255，这样将使整个图像呈现出明显的黑白效果。在数字图像处理中，二值图像占有非常重要的地位，图像的二值化使图像中数据量大为减少，从而能凸显出目标的轮廓。OpenCV中提供了函数cv::threshold();</p>
+<p><img src="/images/C++%E5%AD%A6%E4%B9%A0/20170810122723876.png" alt="img"></p>
+<p>参数说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数：</th>
+<th>src</th>
+<th>dst</th>
+<th>thresh</th>
+<th>maxval</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>说明：</td>
+<td>源图像</td>
+<td>输出图像</td>
+<td>阈值</td>
+<td>dst图像中最大值</td>
+<td>阈值类型</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>源图像可以为8位的灰度图，也可以为32位的彩色图像。</p>
+</li>
+<li><p>阈值的类型如下：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>阈值类型枚举</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>THRESH_BINARY</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>THRESH_BINARY_INV</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>THRESH_TRUNC</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>THRESH_TOZERO</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>THRESH_TOZERO_INV</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>THRESH_MASK</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>7</td>
+<td>THRESH_OTSU</td>
+<td>不支持32位</td>
+</tr>
+<tr>
+<td>8</td>
+<td>THRESH_TRIANGLE</td>
+<td>不支持32位</td>
+</tr>
+</tbody></table>
+<p><a href="https://blog.csdn.net/u012566751/article/details/77046445" target="_blank" rel="noopener">具体说明</a></p>
+<p>示例代码</p>
+<pre><code class="c++">#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+
+using namespace cv;
+using namespace std;
+
+int main()
+{
+    Mat src = imread(&quot;C:\\lib\\pic\\img1.jpg&quot;);
+    Mat gray, binary;
+    cvtColor(src, gray, CV_BGR2GRAY);
+    int th = 100;
+    cv::Mat threshold1, threshold2, threshold3, threshold4, threshold5, threshold6, threshold7, threshold8;
+    cv::threshold(gray, threshold1, th, 255, THRESH_BINARY);
+    cv::threshold(gray, threshold2, th, 255, THRESH_BINARY_INV);
+    cv::threshold(gray, threshold3, th, 255, THRESH_TRUNC);
+    cv::threshold(gray, threshold4, th, 255, THRESH_TOZERO);
+    cv::threshold(gray, threshold5, th, 255, THRESH_TOZERO_INV);
+    //cv::threshold(gray, threshold6, th, 255, THRESH_MASK);
+    cv::threshold(gray, threshold7, th, 255, THRESH_OTSU);
+    cv::threshold(gray, threshold8, th, 255, THRESH_TRIANGLE);
+    cv::imshow(&quot;THRESH_BINARY&quot;, threshold1);
+    cv::imshow(&quot;THRESH_BINARY_INV&quot;, threshold2);
+    cv::imshow(&quot;THRESH_TRUNC&quot;, threshold3);
+    cv::imshow(&quot;THRESH_TOZERO&quot;, threshold4);
+    cv::imshow(&quot;THRESH_TOZERO_INV&quot;, threshold5);
+    //cv::imshow(&quot;THRESH_MASK&quot;, threshold6);
+    cv::imshow(&quot;THRESH_OTSU&quot;, threshold7);
+    cv::imshow(&quot;THRESH_TRIANGLE&quot;, threshold8);
+    cv::waitKey(0);
+    return 0;
+}</code></pre>
+</li>
+</ul>
+<h3 id="distanceTransform距离变换函数"><a href="#distanceTransform距离变换函数" class="headerlink" title="distanceTransform距离变换函数"></a>distanceTransform距离变换函数</h3><p>OpenCV中，函数distanceTransform()用于计算图像中每一个非零点像素与其最近的零点像素之间的距离，输出的是保存每一个非零点与最近零点的距离信息；</p>
+<p>图像上越亮的点，代表了离零点的距离越远。</p>
+<p><strong>用途：</strong></p>
+<p>可以根据距离变换的这个性质，经过简单的运算，用于细化字符的轮廓和查找物体质心（中心）。</p>
+<p><strong>distanceTransform()函数的使用</strong></p>
+<p>该函数有两个初始化API</p>
+<pre><code class="c++">C++: void distanceTransform(InputArray src, OutputArray dst, int distanceType, int maskSize)
+
+C++: void distanceTransform(
+InputArray src, 
+OutputArray dst, 
+OutputArray labels, 
+int distanceType, 
+int maskSize, 
+int labelType=DIST_LABEL_CCOMP )</code></pre>
+<ul>
+<li><p>参数说明<br>src – 8-bit, 单通道（二值化）输入图片。</p>
+</li>
+<li><p>dst – 输出结果中包含计算的距离，这是一个32-bit  float 单通道的Mat类型数组，大小与输入图片相同。</p>
+</li>
+<li><p>src – 8-bit, 单通道（二值化）输入图片。</p>
+</li>
+<li><p>dst – 输出结果中包含计算的距离，这是一个32-bit  float 单通道的Mat类型数组，大小与输入图片相同。</p>
+</li>
+<li><p>distanceType – 计算距离的类型，可以是 CV_DIST_L1、CV_DIST_L2 、CV_DIST_C。</p>
+</li>
+<li><p>maskSize – 距离变换掩码矩阵的大小，可以是</p>
+<ol>
+<li>3（CV_DIST_L1、 CV_DIST_L2 、CV_DIST_C）</li>
+<li>5（CV_DIST_L2 ）</li>
+<li>CV_DIST_MASK_PRECISE (这个只能在4参数的API中使用)</li>
+</ol>
+</li>
+<li><p>labels – 可选的2D标签输出（离散 Voronoi 图），类型为 CV_32SC1 大小同输入图片。</p>
+</li>
+<li><p>labelType – 输出标签的类型，这里有些两种。</p>
+</li>
+</ul>
+<p><strong>示例代码</strong></p>
+<pre><code class="c++">int main()
+{
+    Mat src = imread(&quot;C:\\lib\\pic\\img5.jpg&quot;);
+
+    resize(src, src, Size(), 0.25, 0.25, 1);
+    imshow(&quot;src&quot;, src);
+
+    Mat bin;
+    cvtColor(src, bin, CV_BGR2GRAY);
+    threshold(bin, bin, 80, 255, CV_THRESH_BINARY);
+    imshow(&quot;bin&quot;, bin);
+
+    Mat Dist, Labels;
+    distanceTransform(bin, Dist, CV_DIST_L1, 3);
+    normalize(Dist, Dist, 0, 1, NORM_MINMAX);
+    imshow(&quot;dist1&quot;, Dist);
+
+    distanceTransform(bin, Dist, Labels, CV_DIST_L1, 3, DIST_LABEL_CCOMP);
+    normalize(Dist, Dist, 0, 1, NORM_MINMAX);
+    imshow(&quot;dist2&quot;, Dist);
+    imshow(&quot;labels2&quot;, Labels);
+
+    distanceTransform(bin, Dist, Labels, CV_DIST_L1, 3, DIST_LABEL_PIXEL);
+    normalize(Dist, Dist, 0, 1, NORM_MINMAX);
+    //normalize(Labels, Labels, 0, 255, NORM_MINMAX);
+    imshow(&quot;dist3&quot;, Dist);
+    imshow(&quot;labels3&quot;, Labels);
+
+    waitKey();
+    return 0;
+
+}</code></pre>
+<h3 id="直线拟合fitLine"><a href="#直线拟合fitLine" class="headerlink" title="直线拟合fitLine()"></a>直线拟合fitLine()</h3><p><strong>作用：</strong>根据已知点集，拟合一条直线。</p>
+<p><strong>函数形式：</strong></p>
+<pre><code class="c++">  void cv::fitLine(
+        cv::InputArray points, // 二维点的数组或vector
+        cv::OutputArray line, // 输出直线,Vec4f (2d)或Vec6f (3d)的vector
+        int distType, // 距离类型
+        double param, // 距离参数
+        double reps, // 径向的精度参数
+        double aeps // 角度精度参数
+    );</code></pre>
+<p><strong>参数：</strong></p>
+<ul>
+<li><p><strong>points</strong>：是用于拟合直线的输入点集，可以是二维点的cv::Mat数组，也可以是二维点的 vector。</p>
+</li>
+<li><p><strong>line</strong>：输出的直线，对于二维直线而言类型为cv::Vec4f，对于三维直线类型则是cv::Vec6f，输出参数的前半部分给出的是直线的方向（归一化向量），而后半部分给出的是直线上的一点（即通常所说的点斜式直线）。</p>
+</li>
+<li><p><strong>distType</strong>：距离类型，拟合直线时，要使输入点到拟合直线的距离和最小化（即下面公式中的cost代价最小化），可供选的距离类型如下表所示，ri表示的是输入的点到直线的距离。</p>
+<p><img src="/images/C++%E5%AD%A6%E4%B9%A0/fea8769831b4789e0d6cf78cdec0c121.png" alt="img"></p>
+</li>
+<li><p><strong>param</strong>：距离参数，跟所选的距离类型有关，值可以设置为0，cv::fitLine()函数本身会自动选择最优化的值</p>
+</li>
+<li><p>参数5，6：用于表示拟合直线所需要的径向和角度精度，通常情况下两个值均被设定为0.01。</p>
+</li>
+</ul>
+<p><strong>示例程序：</strong></p>
+<pre><code class="c++">#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+
+using namespace cv;
+using namespace std;
+
+int main()
+{
+    //创建一个用于绘制图像的空白图
+    Mat image = Mat::zeros(480, 640, CV_8UC3);
+    //输入拟合点
+    vector&lt;Point&gt; points;
+    points.push_back(Point(48, 58));
+    points.push_back(Point(105, 98));
+    points.push_back(Point(155, 160));
+    points.push_back(Point(212, 220));
+    points.push_back(Point(248, 260));
+    points.push_back(Point(320, 300));
+    points.push_back(Point(350, 360));
+    points.push_back(Point(412, 400));
+
+    //将拟合点绘制到空白图上
+    for (int i = 0; i &lt; points.size(); i++)
+    {
+        circle(image, points[i], 5, Scalar(0, 0, 255), 2, 8, 0);
+    }
+
+    Vec4f line_para;
+    fitLine(points, line_para, cv::DIST_L2, 0, 1e-2, 1e-2);
+    cout &lt;&lt; &quot;line_para = &quot; &lt;&lt; line_para &lt;&lt; std::endl;
+
+    //获取点斜式的点和斜率
+    Point point0;
+    point0.x = line_para[2];//直线上的点
+    point0.y = line_para[3];
+    double k = line_para[1] / line_para[0]; //斜率
+
+    //计算直线的端点(y = k(x - x0) + y0)
+    Point point1, point2;
+    point1.x = 48;
+    point1.y = k * (point1.x - point0.x) + point0.y;
+    point2.x = 412;
+    point2.y = k * (point2.x - point0.x) + point0.y;
+
+    line(image, point1, point2, cv::Scalar(0, 255, 0), 2, 8, 0);
+    imshow(&quot;image&quot;, image);
+    waitKey(0);
+    return 0;
+}</code></pre>
+<h3 id="线段采样"><a href="#线段采样" class="headerlink" title="线段采样"></a>线段采样</h3><pre><code class="c++">//windows
+#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;algorithm&gt;
+
+using namespace cv;
+using namespace std;
+
+const size_t PatchSize = 1;
+
+//线段类型
+class Line
+{
+public:
+    Point2f spx;
+    Point2f epx;
+    double length;
+    list&lt;Point2f&gt; SampPoints;
+    Line(Point2f &amp;spx_, Point2f &amp;epx_) :spx(spx_), epx(epx_)
+    {
+        ReSampling();
+    }
+    void ReSampling()
+    {
+        SampPoints.clear();
+        Point2f dif = epx - spx; /// 从起点到终点的差矢量
+        length = sqrt(dif.x*dif.x + dif.y*dif.y);
+        double tan_dir = min(fabs(dif.x), fabs(dif.y)) / max(fabs(dif.x), fabs(dif.y));///角度正切（取正值）
+        double sin_dir = tan_dir / sqrt(1.0 + tan_dir * tan_dir);///角度正弦
+        double correction = 2.0 * sqrt(1.0 + sin_dir * sin_dir);///校正
+        size_t sampling_num = max(1.0, length / (2 * PatchSize*correction));///采样点的数量
+
+        // 采样
+        double x_inc = dif.x / sampling_num;
+        double y_inc = dif.y / sampling_num;
+        for (size_t i = 0; i &lt;= sampling_num; i++)
+        {
+            ///i=0时，SampPoints = spx
+            ///i=sampling_num时，ampPoints = epx
+            double samp_ix = spx.x + i * x_inc;
+            double samp_iy = spx.y + i * y_inc;
+            SampPoints.emplace_back(Point2f(samp_ix, samp_iy));
+        }
+    }
+};
+
+//线段集
+vector&lt;Line&gt; lines;
+
+
+int main()
+{
+    string path = &quot;C:\\Lib\\pic\\img5.jpg&quot;;
+    Mat image = imread(path, IMREAD_GRAYSCALE);
+    if (!image.data) {
+        printf(&quot;could not load image...\n&quot;);
+        return -1;
+    }
+    resize(image, image, Size(), 0.2, 0.2);
+
+    Ptr&lt;LineSegmentDetector&gt; ls = createLineSegmentDetector(LSD_REFINE_STD);
+    vector&lt;Vec4f&gt; lines_std;
+    // 检测LSD直线段
+    ls-&gt;detect(image, lines_std);
+    // 采样并存储直线段
+    for (auto line_std : lines_std)
+    {
+        lines.emplace_back(
+            Point2f(line_std[0], line_std[1]),//起点
+            Point2f(line_std[2], line_std[3]));//终点
+
+    }
+
+    // 画出直线段
+    cvtColor(image, image, CV_GRAY2RGB);
+    for (auto line : lines)
+    {
+        cv::line(image,
+            line.spx,
+            line.epx,
+            Scalar(0, 0, 200), 1, CV_AA//RGB颜色、粗细、抗锯齿
+        );
+        for (auto point : line.SampPoints)
+            cv::circle(image, point, 1, cv::Scalar(0, 200, 0), 1);
+    }
+    imshow(&quot;LSD&quot;, image);
+    cv::waitKey(0);
+    return 0;
+}</code></pre>
+<h3 id="Sobel梯度计算"><a href="#Sobel梯度计算" class="headerlink" title="Sobel梯度计算"></a>Sobel梯度计算</h3><p><strong>内置函数计算</strong>（整张图像）</p>
+<pre><code class="c++">#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+using namespace  std;
+//使用OpenCV的命名空间
+using namespace cv;
+//
+//频道改变
+int main()
+{
+    //读取源影像
+    Mat Src = imread(&quot;C:\\lib\\pic\\img5.jpg&quot;, IMREAD_COLOR);
+    if (Src.empty())
+    {
+        return 0;
+    }
+    resize(Src, Src, Size(), 0.2, 0.2);
+    //将彩色影像转换为灰色影像
+    Mat Gray;
+    cvtColor(Src, Gray, CV_BGR2GRAY);
+    //X方向上边缘检测的结果
+    Mat XBorder, YBorder, XYBorder;
+    Sobel(Gray, XBorder, CV_16S, 1, 0, 3, 1.0, 0);
+    Sobel(Gray, YBorder, CV_16S, 0, 1, 3, 1.0, 0);
+    convertScaleAbs(XBorder, XBorder);
+    convertScaleAbs(YBorder, YBorder);
+    //XY方向上的因
+    addWeighted(XBorder, 0.5, YBorder, 0.5, 0, XYBorder);
+    namedWindow(&quot;Src&quot;, WINDOW_AUTOSIZE);
+    namedWindow(&quot;XBorder&quot;, WINDOW_AUTOSIZE);
+    namedWindow(&quot;YBorder&quot;, WINDOW_AUTOSIZE);
+    namedWindow(&quot;XYBorder&quot;, WINDOW_AUTOSIZE);
+    imshow(&quot;Src&quot;, Gray);
+    imshow(&quot;XBorder&quot;, XBorder);
+    imshow(&quot;YBorder&quot;, YBorder);
+    imshow(&quot;XYBorder&quot;, XYBorder);
+    waitKey(0);
+    return 0;
+}
+</code></pre>
+<p><strong>单个像素梯度</strong><a href="https://blog.csdn.net/qq_37124237/article/details/82183177" target="_blank" rel="noopener">参考链接</a></p>
+<pre><code class="c++">#include&lt;opencv2/opencv.hpp&gt;
+#include&lt;iostream&gt;
+using namespace std;
+using namespace cv;
+
+int main()
+{
+    Mat m_img = imread(&quot;C:\\lib\\pic\\img5.jpg&quot;);
+    resize(m_img, m_img, Size(), 0.2, 0.2);
+    //blur(m_img, m_img, Size(3, 3));
+    Mat src(m_img.rows, m_img.cols, CV_8UC1, Scalar(0));
+    cvtColor(m_img, src, CV_RGB2GRAY);//原灰度图
+
+    Mat dstImage(src.rows, src.cols, CV_8UC1, Scalar(0));//总的梯度大小
+
+    for (int i = 1; i &lt; src.rows - 1; i++)
+    {
+        for (int j = 1; j &lt; src.cols - 1; j++)
+        {
+            dstImage.data[i*dstImage.step + j] = sqrt(
+                (src.data[(i - 1)*src.step + j + 1]
+                    + 2 * src.data[i*src.step + j + 1]
+                    + src.data[(i + 1)*src.step + j + 1]
+                    - src.data[(i - 1)*src.step + j - 1]
+                    - 2 * src.data[i*src.step + j - 1]
+                    - src.data[(i + 1)*src.step + j - 1])
+                *
+                (src.data[(i - 1)*src.step + j + 1]
+                    + 2 * src.data[i*src.step + j + 1]
+                    + src.data[(i + 1)*src.step + j + 1]
+                    - src.data[(i - 1)*src.step + j - 1]
+                    - 2 * src.data[i*src.step + j - 1]
+                    - src.data[(i + 1)*src.step + j - 1])
+                +
+                (src.data[(i - 1)*src.step + j - 1]
+                    + 2 * src.data[(i - 1)*src.step + j]
+                    + src.data[(i - 1)*src.step + j + 1]
+                    - src.data[(i + 1)*src.step + j - 1]
+                    - 2 * src.data[(i + 1)*src.step + j]
+                    - src.data[(i + 1)*src.step + j + 1])
+                *
+                (src.data[(i - 1)*src.step + j - 1]
+                    + 2 * src.data[(i - 1)*src.step + j]
+                    + src.data[(i - 1)*src.step + j + 1]
+                    - src.data[(i + 1)*src.step + j - 1]
+                    - 2 * src.data[(i + 1)*src.step + j]
+                    - src.data[(i + 1)*src.step + j + 1]));
+
+        }
+
+    }
+    Mat grad_y(src.rows, src.cols, CV_8UC1, Scalar(0));
+    {
+        for (int i = 1; i &lt; src.rows - 1; i++)
+        {
+            for (int j = 1; j &lt; src.cols - 1; j++)
+            {
+                grad_y.data[i*grad_y.step + j] = abs(
+                    src.data[(i - 1)*src.step + j + 1]
+                    + 2 * src.data[i*src.step + j + 1]
+                    + src.data[(i + 1)*src.step + j + 1]
+                    - src.data[(i - 1)*src.step + j - 1]
+                    - 2 * src.data[i*src.step + j - 1]
+                    - src.data[(i + 1)*src.step + j - 1]);
+            }
+        }
+    }
+    Mat grad_x(src.rows, src.cols, CV_8UC1, Scalar(0));
+    {
+        for (int i = 1; i &lt; src.rows - 1; i++)
+        {
+            for (int j = 1; j &lt; src.cols - 1; j++)
+            {
+                grad_x.data[i*grad_x.step + j] = abs(
+                    src.data[(i - 1)*src.step + j - 1]
+                    + 2 * src.data[(i - 1)*src.step + j]
+                    + src.data[(i - 1)*src.step + j + 1]
+                    - src.data[(i + 1)*src.step + j - 1]
+                    - 2 * src.data[(i + 1)*src.step + j]
+                    - src.data[(i + 1)*src.step + j + 1]);
+            }
+        }
+    }
+
+    imshow(&quot;原图&quot;, src);
+    imshow(&quot;gradient&quot;, dstImage);
+    imshow(&quot;Vertical gradient&quot;, grad_y);
+    imshow(&quot;Horizontal gradient&quot;, grad_x);
+
+    waitKey(0);
+    return 0;
+}</code></pre>
+<h3 id="像素读写"><a href="#像素读写" class="headerlink" title="像素读写"></a>像素读写</h3><pre><code class="c++">#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+using namespace std;
+using namespace cv;
+void salt(Mat image, int n);
+int main(int argv, char** argc)
+{
+    Mat src;
+    src = imread(&quot;C:\\lib\\pic\\img5.jpg&quot;);
+    resize(src, src, Size(), 0.2, 0.2);
+    salt(src, 3000);
+    imshow(&quot;input&quot;, src);
+
+    waitKey(0);
+    return 0;
+}
+// 添加椒盐噪声
+void salt(Mat image, int n)
+{
+    int i, j;
+    for (int k = 0; k &lt; n; k++) {
+        i = std::rand() % image.cols;
+        j = std::rand() % image.rows;
+        //像素操作--------------
+        if (image.type() == CV_8UC1) {
+            image.at&lt;uchar&gt;(j, i) = 255;
+        }
+        else if (image.type() == CV_8UC3) {
+            image.at&lt;Vec3b&gt;(j, i)[0] = 255;
+            image.at&lt;Vec3b&gt;(j, i)[1] = 255;
+            image.at&lt;Vec3b&gt;(j, i)[2] = 255;
+        }
+        // -----------------------
+    }
+}</code></pre>
+<h3 id="画箭头"><a href="#画箭头" class="headerlink" title="画箭头"></a>画箭头</h3><pre><code class="c++">#include &quot;opencv2/core/core.hpp&quot;
+#include &quot;opencv2/highgui/highgui.hpp&quot;
+#include &quot;opencv2/imgproc/imgproc.hpp&quot;
+using namespace cv;
+
+void drawArrow(cv::Mat&amp; img, cv::Point pStart, cv::Point pEnd, int len, int alpha,
+    cv::Scalar&amp; color, int thickness = 1, int lintType = 8);
+
+int main(int argc, char** argv)
+{
+    cv::Mat mat = imread(&quot;C:\\lib\\pic\\img5.jpg&quot;);
+    resize(mat, mat, Size(), 0.2, 0.2);
+    namedWindow(&quot;test&quot;);
+    imshow(&quot;test&quot;, mat);
+
+    Mat m(400, 400, CV_8UC3, Scalar(0, 0, 0));
+    Point pStart(380, 100), pEnd(100, 250);
+    Scalar lineColor(0, 255, 255);
+    drawArrow(m, pStart, pEnd, 10, 45, lineColor);
+    pStart = Point(100, 100);
+    pEnd = Point(320, 190);
+    lineColor = Scalar(0, 0, 255);
+    drawArrow(m, pStart, pEnd, 25, 30, lineColor, 2, CV_AA);
+    pStart = Point(200, 420);
+    pEnd = Point(370, 170);
+    lineColor = Scalar(255, 0, 255);
+    drawArrow(m, pStart, pEnd, 17, 15, lineColor, 1, 4);
+    imshow(&quot;draw arrow&quot;, m);
+
+    waitKey();
+    return 0;
+}
+
+
+void drawArrow(cv::Mat&amp; img, cv::Point pStart, cv::Point pEnd, int len, int alpha, cv::Scalar&amp; color, int thickness, int lineType)
+{
+    const double PI = 3.1415926;
+    Point arrow;
+    //计算 θ 角（最简单的一种情况在下面图示中已经展示，关键在于 atan2 函数，详情见下面）   
+    double angle = atan2((double)(pStart.y - pEnd.y), (double)(pStart.x - pEnd.x));
+    line(img, pStart, pEnd, color, thickness, lineType);
+    //计算箭角边的另一端的端点位置（上面的还是下面的要看箭头的指向，也就是pStart和pEnd的位置） 
+    arrow.x = pEnd.x + len * cos(angle + PI * alpha / 180);
+    arrow.y = pEnd.y + len * sin(angle + PI * alpha / 180);
+    line(img, pEnd, arrow, color, thickness, lineType);
+    arrow.x = pEnd.x + len * cos(angle - PI * alpha / 180);
+    arrow.y = pEnd.y + len * sin(angle - PI * alpha / 180);
+    line(img, pEnd, arrow, color, thickness, lineType);
+}</code></pre>
+<h3 id="两图合并显示"><a href="#两图合并显示" class="headerlink" title="两图合并显示"></a>两图合并显示</h3><pre><code class="c++">#include &lt;opencv2/opencv.hpp&gt;
+
+using namespace std;
+using namespace cv;
+
+void main()
+{
+    Mat img1 = imread(&quot;C:\\lib\\pic\\img5.jpg&quot;);
+    Mat img2 = imread(&quot;C:\\lib\\pic\\img2.jpg&quot;);
+    int height = img1.rows;//高度
+    int width1 = img1.cols;//左图宽度
+    int width2 = img2.cols;//右图宽度
+    // 将高图像等比缩放与低图像《高度》一致,（因为要左右分布）
+    if (img1.rows &gt; img2.rows)
+    {//左图更宽
+        height = img2.rows;
+        width1 = img1.cols * ((float)img2.rows / (float)img1.rows);//高度一定，保持长宽比
+        resize(img1, img1, Size(width1, height));
+    }
+    else if (img1.rows &lt; img2.rows)
+    {//右图更宽
+        width2 = img2.cols * ((float)img1.rows / (float)img2.rows);
+        resize(img2, img2, Size(width2, height));
+    }
+    //创建目标Mat
+    Mat img(height, width1 + width2, img1.type());
+    Mat r1 = img(Rect(0, 0, width1, height));//创建矩形
+    img1.copyTo(r1);//图像拷贝到矩形
+    Mat r2 = img(Rect(width1, 0, width2, height));//创建矩形
+    img2.copyTo(r2);//图像拷贝到矩形
+    imshow(&quot;des&quot;, img);
+    waitKey(0);
+}</code></pre>
+<h3 id="显示文字"><a href="#显示文字" class="headerlink" title="显示文字"></a>显示文字</h3><h4 id="显示文字（不支持中文）"><a href="#显示文字（不支持中文）" class="headerlink" title="显示文字（不支持中文）"></a>显示文字（不支持中文）</h4><p>函数原型：</p>
+<pre><code class="c++">void cv::putText(
+    cv::Mat&amp; img, // 待绘制的图像
+    const string&amp; text, // 待绘制的文字
+    cv::Point origin, // 文本框的左下角
+    int fontFace, // 字体 (如cv::FONT_HERSHEY_PLAIN)
+    double fontScale, // 尺寸因子，值越大文字越大
+    cv::Scalar color, // 线条的颜色（RGB）
+    int thickness = 1, // 线条宽度
+    int lineType = 8, // 线型（4邻域或8邻域，默认8邻域）
+    bool bottomLeftOrigin = false //true=&#39;原点在左下方&#39;，false=&#39;原点在左上方&#39;，为ture文字会倒过来
+);</code></pre>
+<p>另外，我们在实际绘制文字之前，还可以使用cv::getTextSize()接口先获取待绘制文本框的大小，以方便放置文本框。具体调用形式如下：</p>
+<pre><code class="c++">cv::Size cv::getTextSize(
+    const string&amp; text,
+    cv::Point origin,
+    int fontFace,
+    double fontScale,
+    int thickness,
+    int* baseLine
+);</code></pre>
+<p>示例</p>
+<pre><code class="c++">#include &lt;opencv2/opencv.hpp&gt;
+
+using namespace cv;
+using namespace std;
+
+int main()
+{
+
+    //创建空白图用于绘制文字
+    cv::Mat image = cv::Mat::zeros(cv::Size(640, 480), CV_8UC3);
+    //设置蓝色背景
+    image.setTo(cv::Scalar(100, 0, 0));
+
+    //设置绘制文本的相关参数
+    std::string text = &quot;Hello World!&quot;;
+    int font_face = cv::FONT_HERSHEY_COMPLEX;
+    double font_scale = 1;
+    int thickness = 1;
+    int baseline;
+    //获取文本框的长宽
+    cv::Size text_size = cv::getTextSize(text, font_face, font_scale, thickness, &amp;baseline);
+
+    //将文本框居中绘制
+    cv::Point origin;
+    origin.x = image.cols / 2 - text_size.width / 2;
+    origin.y = image.rows / 2 + text_size.height / 2;
+    origin.x = 0;
+    origin.y = text_size.height;
+    cv::putText(image, text, origin, font_face, font_scale, cv::Scalar(0, 255, 255), thickness, 8, false);
+
+    //显示绘制解果
+    cv::imshow(&quot;image&quot;, image;
+    cv::waitKey(0);
+    return 0;
+}</code></pre>
+<h4 id="显示中文（windows）"><a href="#显示中文（windows）" class="headerlink" title="显示中文（windows）"></a>显示中文（windows）</h4><pre><code class="c++">
+#include &lt;opencv2/opencv.hpp&gt;
+#include &quot;windows.h&quot;
+
+void putTextZH(cv::Mat &amp;dst, const char* str, cv::Point org, cv::Scalar color, int fontSize,
+    const char *fn = &quot;Arial&quot;, bool italic = false, bool underline = false);
+
+int main()
+{
+    using namespace cv;
+    cv::Mat srcImage = cv::Mat(240, 320, CV_8UC3, cv::Scalar::all(0));
+    putTextZH(srcImage, &quot;OpenCV欢迎你&quot;, Point(0, 0), Scalar(255, 0, 0), 30, &quot;微软雅黑&quot;);
+    cv::imshow(&quot;显示中文&quot;, srcImage);
+    cv::waitKey(0);
+    cv::destroyAllWindows();
+    return 0;
+}
+
+void GetStringSize(HDC hDC, const char* str, int* w, int* h)
+{
+    SIZE size;
+    GetTextExtentPoint32A(hDC, str, strlen(str), &amp;size);
+    if (w != 0) *w = size.cx;
+    if (h != 0) *h = size.cy;
+}
+
+void putTextZH(cv::Mat &amp;dst, const char* str, cv::Point org, cv::Scalar color, int fontSize, const char* fn, bool italic, bool underline)
+{
+    CV_Assert(dst.data != 0 &amp;&amp; (dst.channels() == 1 || dst.channels() == 3));
+    int x, y, r, b;
+    if (org.x &gt; dst.cols || org.y &gt; dst.rows) return;
+    x = org.x &lt; 0 ? -org.x : 0;
+    y = org.y &lt; 0 ? -org.y : 0;
+    LOGFONTA lf;
+    lf.lfHeight = -fontSize;
+    lf.lfWidth = 0;
+    lf.lfEscapement = 0;
+    lf.lfOrientation = 0;
+    lf.lfWeight = 5;
+    lf.lfItalic = italic;   //斜体
+    lf.lfUnderline = underline; //下划线
+    lf.lfStrikeOut = 0;
+    lf.lfCharSet = DEFAULT_CHARSET;
+    lf.lfOutPrecision = 0;
+    lf.lfClipPrecision = 0;
+    lf.lfQuality = PROOF_QUALITY;
+    lf.lfPitchAndFamily = 0;
+    strcpy_s(lf.lfFaceName, fn);
+    HFONT hf = CreateFontIndirectA(&amp;lf);
+    HDC hDC = CreateCompatibleDC(0);
+    HFONT hOldFont = (HFONT)SelectObject(hDC, hf);
+    int strBaseW = 0, strBaseH = 0;
+    int singleRow = 0;
+    char buf[1 &lt;&lt; 12];
+    strcpy_s(buf, str);
+    char *bufT[1 &lt;&lt; 12];  // 这个用于分隔字符串后剩余的字符，可能会超出。
+    //处理多行
+    {
+        int nnh = 0;
+        int cw, ch;
+        const char* ln = strtok_s(buf, &quot;\n&quot;, bufT);
+        while (ln != 0)
+        {
+            GetStringSize(hDC, ln, &amp;cw, &amp;ch);
+            strBaseW = max(strBaseW, cw);
+            strBaseH = max(strBaseH, ch);
+            ln = strtok_s(0, &quot;\n&quot;, bufT);
+            nnh++;
+        }
+        singleRow = strBaseH;
+        strBaseH *= nnh;
+    }
+    if (org.x + strBaseW &lt; 0 || org.y + strBaseH &lt; 0)
+    {
+        SelectObject(hDC, hOldFont);
+        DeleteObject(hf);
+        DeleteObject(hDC);
+        return;
+    }
+    r = org.x + strBaseW &gt; dst.cols ? dst.cols - org.x - 1 : strBaseW - 1;
+    b = org.y + strBaseH &gt; dst.rows ? dst.rows - org.y - 1 : strBaseH - 1;
+    org.x = org.x &lt; 0 ? 0 : org.x;
+    org.y = org.y &lt; 0 ? 0 : org.y;
+    BITMAPINFO bmp = { 0 };
+    BITMAPINFOHEADER&amp; bih = bmp.bmiHeader;
+    int strDrawLineStep = strBaseW * 3 % 4 == 0 ? strBaseW * 3 : (strBaseW * 3 + 4 - ((strBaseW * 3) % 4));
+    bih.biSize = sizeof(BITMAPINFOHEADER);
+    bih.biWidth = strBaseW;
+    bih.biHeight = strBaseH;
+    bih.biPlanes = 1;
+    bih.biBitCount = 24;
+    bih.biCompression = BI_RGB;
+    bih.biSizeImage = strBaseH * strDrawLineStep;
+    bih.biClrUsed = 0;
+    bih.biClrImportant = 0;
+    void* pDibData = 0;
+    HBITMAP hBmp = CreateDIBSection(hDC, &amp;bmp, DIB_RGB_COLORS, &amp;pDibData, 0, 0);
+    CV_Assert(pDibData != 0);
+    HBITMAP hOldBmp = (HBITMAP)SelectObject(hDC, hBmp);
+    //color.val[2], color.val[1], color.val[0]
+    SetTextColor(hDC, RGB(255, 255, 255));
+    SetBkColor(hDC, 0);
+    //SetStretchBltMode(hDC, COLORONCOLOR);
+    strcpy_s(buf, str);
+    const char* ln = strtok_s(buf, &quot;\n&quot;, bufT);
+    int outTextY = 0;
+    while (ln != 0)
+    {
+        TextOutA(hDC, 0, outTextY, ln, strlen(ln));
+        outTextY += singleRow;
+        ln = strtok_s(0, &quot;\n&quot;, bufT);
+    }
+    uchar* dstData = (uchar*)dst.data;
+    int dstStep = dst.step / sizeof(dstData[0]);
+    unsigned char* pImg = (unsigned char*)dst.data + org.x * dst.channels() + org.y * dstStep;
+    unsigned char* pStr = (unsigned char*)pDibData + x * 3;
+    for (int tty = y; tty &lt;= b; ++tty)
+    {
+        unsigned char* subImg = pImg + (tty - y) * dstStep;
+        unsigned char* subStr = pStr + (strBaseH - tty - 1) * strDrawLineStep;
+        for (int ttx = x; ttx &lt;= r; ++ttx)
+        {
+            for (int n = 0; n &lt; dst.channels(); ++n) {
+                double vtxt = subStr[n] / 255.0;
+                int cvv = vtxt * color.val[n] + (1 - vtxt) * subImg[n];
+                subImg[n] = cvv &gt; 255 ? 255 : (cvv &lt; 0 ? 0 : cvv);
+            }
+            subStr += 3;
+            subImg += dst.channels();
+        }
+    }
+    SelectObject(hDC, hOldBmp);
+    SelectObject(hDC, hOldFont);
+    DeleteObject(hf);
+    DeleteObject(hBmp);
+    DeleteDC(hDC);
+}</code></pre>
+<h2 id="SLAM"><a href="#SLAM" class="headerlink" title="SLAM"></a>SLAM</h2><h3 id="L-K跟踪"><a href="#L-K跟踪" class="headerlink" title="L-K跟踪"></a>L-K跟踪</h3><pre><code class="c++">//linux
+#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+#include &lt;list&gt;
+#include &lt;vector&gt;
+#include &lt;chrono&gt;
+#include &lt;string&gt;
+
+using namespace cv;
+using namespace std;
+int main()
+{
+    std::string img_dir = &quot;/mnt/hgfs/dataset/EuRoC/MH_01_easy/mav0/cam0/data&quot;;
+
+    std::vector&lt;cv::String&gt; image_files;
+    cv::glob(img_dir, image_files);
+    if (image_files.empty())
+    {
+        std::cout &lt;&lt; &quot;No image files&quot; &lt;&lt; std::endl;
+        return 0;
+    }
+
+    Mat image,last_image;
+    list&lt; cv::Point2f &gt; keypoints;
+    for (size_t frame = 0; frame &lt; image_files.size(); ++frame)
+    {
+        image = cv::imread(image_files[frame]);
+        // 对第一帧提取FAST特征点
+        if(frame==0)
+        {
+            vector&lt;cv::KeyPoint&gt; kps;
+            cv::Ptr&lt;cv::FastFeatureDetector&gt; detector = cv::FastFeatureDetector::create();
+            detector-&gt;detect(image, kps);
+            for (auto kp:kps)
+                keypoints.push_back(kp.pt);
+            last_image = image;
+            continue;
+        }
+        // 对其他帧用LK跟踪特征点
+        vector&lt;cv::Point2f&gt; next_keypoints;
+        vector&lt;cv::Point2f&gt; prev_keypoints;
+        for (auto kp:keypoints)
+            prev_keypoints.push_back(kp);
+        vector&lt;unsigned char&gt; status;/// 点的跟踪状态
+        vector&lt;float&gt; error;
+        chrono::steady_clock::time_point t1 = chrono::steady_clock::now();
+        cv::calcOpticalFlowPyrLK(// LK跟踪
+                last_image,
+                image,
+                prev_keypoints, ///要跟踪的点
+                next_keypoints, ///跟踪成功的点
+                status,
+                error);
+        chrono::steady_clock::time_point t2 = chrono::steady_clock::now();
+        chrono::duration&lt;double&gt; time_used = chrono::duration_cast&lt;chrono::duration&lt;double&gt;&gt;(t2 - t1);
+        cout &lt;&lt; &quot;LK Flow use time：&quot; &lt;&lt; time_used.count() &lt;&lt; &quot; seconds.&quot; &lt;&lt; endl;
+        // 把跟丢的点删掉（跟踪成功的点）
+        int i = 0;
+        for (auto iter = keypoints.begin(); iter != keypoints.end(); i++)
+        {
+            if (status[i] == 0)///跟踪失败
+            {
+                iter = keypoints.erase(iter);///跟踪失败，就将keypoints列表中对应的元素删掉
+                continue;
+            }
+            *iter = next_keypoints[i];///跟踪成功，把跟踪成功的点存到keypoints列表中对应的位置上（点的位置会更新）
+            iter++;///（如果跟踪失败就continue了，跟踪成功才会执行到这一步）
+        }
+        cout &lt;&lt; &quot;tracked keypoints: &quot; &lt;&lt; keypoints.size() &lt;&lt; endl;
+        if (keypoints.size() == 0)
+        {
+            cout &lt;&lt; &quot;all keypoints are lost.&quot; &lt;&lt; endl;
+            break;
+        }
+        // 画出 keypoints
+        cv::Mat img_show = image.clone();
+        for (auto kp:keypoints)
+            cv::circle(img_show, kp, 5, cv::Scalar(0, 240, 0), 1);
+        cv::imshow(&quot;corners&quot;, img_show);
+        cv::waitKey(1);
+        last_image = image;
+
+    }
+}</code></pre>
+<h3 id="LSD线段"><a href="#LSD线段" class="headerlink" title="LSD线段"></a>LSD线段</h3><pre><code class="c++">#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+//注意：需要opencv3.4.6以前的版本
+using namespace cv;
+using namespace std;
+int main()
+{
+    string path = &quot;C:\\lib\\pic\\img5.jpg&quot;;
+    Mat image = imread(path, IMREAD_GRAYSCALE);//注意必须指明IMREAD_GRAYSCALE，否则无法检测
+    //blur(image, image, Size(3, 3)); // 使用3x3内核来降噪
+    resize(image, image, Size(), 0.2, 0.2);
+    //Canny(image, image, 50, 200, 3); // Apply canny edge
+
+ // Create and LSD detector with standard
+    /*
+    LSD_REFINE_NONE，没有改良的方式；
+    LSD_REFINE_STD，标准改良方式，将带弧度的线（拱线）拆成多个可以逼近原线段的直线度；
+    LSD_REFINE_ADV，进一步改良方式，计算出错误警告数量，通过增加精度，减少尺寸进一步精确直线。
+    */
+    Ptr&lt;LineSegmentDetector&gt; ls = createLineSegmentDetector(LSD_REFINE_STD);
+    vector&lt;Vec4f&gt; lines_std;
+    // 检测直线
+    ls-&gt;detect(image, lines_std);
+    // 直线叠加到图像中
+    Mat drawnLines(image);
+    ls-&gt;drawSegments(drawnLines, lines_std);
+    // 只画出直线
+    Mat only_lines(image.size(), image.type(), CV_32F);//灰度图转彩色
+    ls-&gt;drawSegments(only_lines, lines_std);
+    imshow(&quot;【包含原图】&quot;, drawnLines);
+    imshow(&quot;【仅直线】&quot;, only_lines);
+    waitKey(0);
+    return 0;
+}</code></pre>
+<h3 id="加载图像序列并提取FAST"><a href="#加载图像序列并提取FAST" class="headerlink" title="加载图像序列并提取FAST"></a>加载图像序列并提取FAST</h3><pre><code class="c++">
+#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;fstream&gt;
+//#pragma comment( linker, &quot;/subsystem:\&quot;windows\&quot; /entry:\&quot;mainCRTStartup\&quot;&quot; )
+
+using namespace cv;
+using namespace std;
+int main()
+{
+    std::string img_dir = &quot;D:\\SLAM\\dataset\\EuRoC\\MH_01_easy\\mav0\\cam0\\data\\*.png&quot;;
+
+    std::vector&lt;cv::String&gt; image_files;
+    cv::glob(img_dir, image_files);
+    if (image_files.size() == 0)
+    {
+        std::cout &lt;&lt; &quot;No image files&quot; &lt;&lt; std::endl;
+        system(&quot;pause&quot;);
+        return 0;
+    }
+
+    vector&lt;cv::KeyPoint&gt; kps;
+    cv::Ptr&lt;cv::FastFeatureDetector&gt; detector = cv::FastFeatureDetector::create();
+
+    for (unsigned int frame = 0; frame &lt; image_files.size(); ++frame)
+    {
+        Mat image = cv::imread(image_files[frame], IMREAD_GRAYSCALE);
+        detector-&gt;detect(image, kps);
+
+        cvtColor(image, image, COLOR_GRAY2RGB);
+        for (auto kp : kps)
+        {
+            cv::circle(image, kp.pt, 3, cv::Scalar(0, 240, 0), 1);
+        }
+        cv::imshow(&quot;corners&quot;, image);
+        cv::waitKey(100);
+    }
+}</code></pre>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以邮件至liulyabc@gmail.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>C++学习</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">18.1k</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="liuly">liuly</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-03-06, 16:48:14</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-10, 10:44:50</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/06/Windows/C++%E5%AD%A6%E4%B9%A0/" title="C++学习">https://liuly123.github.io/2020/03/06/Windows/C++%E5%AD%A6%E4%B9%A0/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2020 Hexo</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+    .post .pjax article :not(pre) > code {
+        color: #24292e;
+        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+        background-color: rgba(27,31,35,.05);
+        border-radius: 3px;
+        font-size: 85%;
+        margin: 0;
+        padding: .2em .4em;
+    }
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://liuly.f3322.net:81/">树莓派小站</a>
+    
+    
+</div>
+
+
+</html>
