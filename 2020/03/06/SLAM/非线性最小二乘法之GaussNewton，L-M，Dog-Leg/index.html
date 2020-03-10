@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>非线性最小二乘法之GaussNewton，L-M，Dog-Leg | Liuly的笔记本</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="非线性最小二乘法之GaussNewton，L-M，Dog-Leg | Liuly的笔记本">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开源库">
+<meta property="og:url" content="https://liuly123.github.io/2020/03/08/Linux/%E5%BC%80%E6%BA%90%E5%BA%93/index.html">
+<meta property="og:site_name" content="Liuly的笔记本">
+<meta property="og:description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
+<meta property="article:published_time" content="2020-03-08T11:17:40.000Z">
+<meta property="article:modified_time" content="2020-03-10T03:23:58.115Z">
+<meta property="article:author" content="liuly">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>liuly</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/liuly123" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:liulyabc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=2240057686&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=314223832" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(37)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="ROS">ROS<small>(17)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="SLAM">SLAM<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Windows">Windows<small>(14)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="其他">其他<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://liuly.f3322.net:81/">树莓派小站</a>
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="37">
+<input type="hidden" id="yelog_site_word_count" value="44.8k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="Linux "
+           href="/2020/03/06/Linux/GitHub/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GitHub常用命令">GitHub常用命令</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Linux "
+           href="/2020/03/08/Linux/%E5%BC%80%E6%BA%90%E5%BA%93/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="开源库">开源库</span>
+            <span class="post-date" title="2020-03-08 19:17:40">2020/03/08</span>
+        </a>
+        
+        <a  class="Linux "
+           href="/2020/03/06/Linux/Ubuntu%E9%85%8D%E7%BD%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Ubuntu配置">Ubuntu配置</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/D435-ROS/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="D435-ROS">D435-ROS</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/D435%E5%8F%82%E6%95%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="D435参数">D435参数</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/Gazebo/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Gazebo">Gazebo</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/Karto_SLAM/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Karto_SLAM">Karto_SLAM</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/LSD-SLAM/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="LSD-SLAM">LSD-SLAM</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/ORB-SLAM/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ORB-SLAM">ORB-SLAM</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/ROS16.04/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ROS16.04">ROS16.04</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/Package-Cmake/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Package-Cmake">Package-Cmake</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/RosAria/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="RosAria">RosAria</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/ZED-ROS-RTAB/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ZED-ROS-RTAB">ZED-ROS-RTAB</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/gmapping/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="gmapping">gmapping</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/lx%E6%80%BB%E7%BB%93/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="lx总结">lx总结</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/map_server/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="map_server">map_server</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/robot_pose_ekf/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="robot_pose_ekf">robot_pose_ekf</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/rosbag/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="rosbag">rosbag</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/rviz/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="rviz">rviz</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/tf%E5%9F%BA%E7%A1%80/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="tf基础">tf基础</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="SLAM "
+           href="/2020/03/06/SLAM/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="卡尔曼滤波">卡尔曼滤波</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="SLAM "
+           href="/2020/03/06/SLAM/%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E4%B9%8BGaussNewton%EF%BC%8CL-M%EF%BC%8CDog-Leg/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="非线性最小二乘法之GaussNewton，L-M，Dog-Leg">非线性最小二乘法之GaussNewton，L-M，Dog-Leg</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/MATLAB-Robots-Toobox/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="MATLAB Robots Toobox">MATLAB Robots Toobox</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/VS+RealSense+OpenCV/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="VS+RealSense+OpenCV">VS+RealSense+OpenCV</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/VS2017%E7%BC%96%E8%AF%91ORB-SLAM2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="VS2017编译ORB-SLAM2">VS2017编译ORB-SLAM2</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/Win10+CMake+MinGW+CLion/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Win10+CMake+MinGW+CLion">Win10+CMake+MinGW+CLion</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/ZED-VS/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ZED-VS">ZED-VS</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/esp8266-arduinoIDE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="esp8266-arduinoIDE">esp8266-arduinoIDE</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/frp%E9%85%8D%E7%BD%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="frp配置">frp配置</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/key/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="key">key</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/stm32-mdk%E5%AE%89%E8%A3%85/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="stm32-mdk安装">stm32-mdk安装</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/newifi3%E5%88%B7%E6%9C%BA/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="newifi3刷机">newifi3刷机</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/surface-ubuntu/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="surface-ubuntu">surface-ubuntu</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/windows%E4%B8%8B%E9%85%8D%E7%BD%AEopenvpn_server/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="windows下配置openvpn_server">windows下配置openvpn_server</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/windows%E5%AE%89%E8%A3%85shadowsocks/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="windows安装shadowsocks">windows安装shadowsocks</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="其他 "
+           href="/2020/03/06/%E5%85%B6%E4%BB%96/Tensorflow%E7%AC%94%E8%AE%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Tensorflow笔记">Tensorflow笔记</span>
+            <span class="post-date" title="2020-03-06 17:11:02">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/C++%E5%AD%A6%E4%B9%A0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="C++学习">C++学习</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-SLAM/非线性最小二乘法之GaussNewton，L-M，Dog-Leg" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">非线性最小二乘法之GaussNewton，L-M，Dog-Leg</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="SLAM">SLAM</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-03-10 11:30:40'>2020-03-06 16:48</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:1.7k</span>
+        
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#非线性最小二乘法之Gauss-Newton、L-M、Dog-Leg"><span class="toc-text">非线性最小二乘法之Gauss Newton、L-M、Dog-Leg</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最快下降法"><span class="toc-text">最快下降法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最小二乘问题"><span class="toc-text">最小二乘问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gauss-Newton法"><span class="toc-text">Gauss-Newton法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LM阻尼最小二乘法"><span class="toc-text">LM阻尼最小二乘法</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="非线性最小二乘法之Gauss-Newton、L-M、Dog-Leg"><a href="#非线性最小二乘法之Gauss-Newton、L-M、Dog-Leg" class="headerlink" title="非线性最小二乘法之Gauss Newton、L-M、Dog-Leg"></a>非线性最小二乘法之Gauss Newton、L-M、Dog-Leg</h2><p><a href="https://blog.csdn.net/stihy/article/details/52737723" target="_blank" rel="noopener">https://blog.csdn.net/stihy/article/details/52737723</a></p>
+<h3 id="最快下降法"><a href="#最快下降法" class="headerlink" title="最快下降法"></a>最快下降法</h3><p>假设$h^{T} F^{\prime}(x)&lt;0$，则$h$是$F(x)$的下降方向，即对于任意足够小的$\alpha&gt;0$，都满足$F(x+\alpha h)&lt;F(x)$。</p>
+<p>现在讨论$F(x)$沿着$h$下降的快慢：<br>$$<br>\lim _{\alpha \rightarrow 0} \frac{F(x)-F(x+\alpha h)}{\alpha|h|}=-\frac{1}{|h|} h^{T} F^{\prime}(x)=-\left|F^{\prime}(x)\right| \cos \theta<br>$$<br>其中$\theta$为矢量$h$和$F^{\prime}(x)$的夹角，当$\theta=\pi$时，下降最快。</p>
+<p>即$h_{s d}=-F^{\prime}(x)$是最快下降方向。</p>
+<h3 id="最小二乘问题"><a href="#最小二乘问题" class="headerlink" title="最小二乘问题"></a>最小二乘问题</h3><p>通常的最小二乘问题都可以表示为：<br>$$<br>F(x)=\frac{1}{2} \sum_{j=1}^{n}\left(f_{i}(x)^{2}\right)=\frac{1}{2}|f(x)|^{2}=\frac{1}{2} f(x)^{T} f(x)<br>$$<br>找到一个$x^{<em>}$使得$x^{</em>}=\operatorname{argmin}<em>{x} F(x)$，其中$x=\left[x</em>{1} x_{2} \cdots x_{m}\right], f(x)=\left[f_{1}(x) f_{2}(x) \cdots f_{n}(x)\right]$。</p>
+<p>假设对$f(x)$的第$i$个分量$f_{i}(x)$在点$\boldsymbol{x}_{k}$处Taylor展开，</p>
+<p>$f_{i}\left(x_{k}+h\right) \approx f_{i}\left(x_{k}\right)+\nabla f_{i}\left(x_{k}\right)^{T} h, i=1,2 \cdots n$</p>
+<p>则$f\left(x_{k}+h\right) \approx f\left(x_{k}\right)+J\left(x_{k}\right) h$，其中Jacobian矩阵<br>$$<br>J\left(x_{k}\right)=\left[ \begin{array}{c}{\nabla f_{1}\left(x_{k}\right)^{T}} \ {\nabla f_{2}\left(x_{k}\right)^{T}} \ {\vdots} \ {\nabla f_{n}\left(x_{k}\right)}\end{array}\right]=\left[ \begin{array}{cccc}{\frac{\partial f_{1}\left(x_{k}\right)}{\partial x_{1}}} &amp; {\frac{\partial f_{1}\left(x_{k}\right)}{\partial x_{2}}} &amp; {\cdots} &amp; {\frac{\partial f_{1}\left(x_{k}\right)}{\partial x_{m}}} \ {\frac{\partial f_{2}\left(x_{k}\right)}{\partial x_{1}}} &amp; {\frac{\partial f_{2}\left(x_{k}\right)}{\partial x_{2}}} &amp; {\cdots} &amp; {\frac{\partial f_{2}\left(x_{k}\right)}{\partial x_{m}}} \ {\vdots} &amp; {\vdots} &amp; {\ddots} &amp; {\vdots} \ {\frac{\partial f_{n}\left(x_{k}\right)}{\partial x_{1}}} &amp; {\frac{\partial f_{n}\left(x_{k}\right)}{\partial x_{2}}} &amp; {\cdots} &amp; {\frac{\partial f_{n}\left(x_{k}\right)}{\partial x_{m}}}\end{array}\right]<br>$$<br>通常记$f_{k}=f\left(x_{k}\right), J_{k}=J\left(x_{k}\right)$。则</p>
+<p>$$<br>\frac{\partial F(x)}{\partial x_{j}}=\sum_{i=1}^{n} f_{i}(x) \frac{\partial f_{i}(x)}{\partial x_{j}}<br>$$<br>所以$F(x)$的梯度为：</p>
+<p>$$<br>g=F^{\prime}(x)=J(x)^{T} f(x)<br>$$</p>
+<h3 id="Gauss-Newton法"><a href="#Gauss-Newton法" class="headerlink" title="Gauss-Newton法"></a>Gauss-Newton法</h3><p>选择$h$使$F(x)$在$x_{k}$附近二阶近似，则</p>
+<p>$$<br>\begin{aligned} F\left(x_{k}+h\right) \approx L(h) &amp;=\frac{1}{2} f\left(x_{k}+h\right)^{T} f\left(x_{k}+h\right) \ &amp;=\frac{1}{2} f_{k}^{T} f_{k}+h^{T} J_{k}^{T} f_{k}+\frac{1}{2} h^{T} J_{k}^{T} J_{k} h \ &amp;=F\left(x_{k}\right)+h^{T} J_{k}^{T} f_{k}+\frac{1}{2} h^{T} J_{k}^{T} J_{k} h \end{aligned}<br>$$<br>为了使$F\left(x_{k}+h\right)$取极小值，$L(h)$对$h$的一阶导数$L^{\prime}(h)$要等于0。即<br>$$<br>\frac{\partial L(h)}{\partial h}=J_{k}^{T} f_{k}+J_{k}^{T} J_{k} h =0<br>$$<br>（$F\left(x_{k}\right)$里不含$h$），则<br>$$<br>\left(J_{k}^{T} J_{k}\right) h_{g n}=-J_{k}^{T} f_{k} \<br>x_{k+1}=x_{k}+h_{g n}<br>$$<br>由于Gauss-Newton法求解过程中需要对$J^{T} J$求逆，所以要求$J^{T} J$为非奇异；另外当$x_{0}$离极小值较远时，Gauss-Newton算法可能发散。</p>
+<p>总结Gauss-Newton法的<strong>一般步骤</strong>：</p>
+<ul>
+<li><p>根据$\left(J_{k}^{T} J_{k}\right) h_{g n}=-J_{k}^{T} f_{k}$，求迭代步长$h_{g n}$；</p>
+</li>
+<li><p>$x_{k+1}=x_{k}+h_{g n}$对解进行更新；</p>
+</li>
+<li><p>如果$\left|F\left(x_{k+1}\right)-F\left(x_{k}\right)\right|&lt;\epsilon$，则认为$F(x)$已收敛，则退出迭代，否则重复迭代。</p>
+</li>
+</ul>
+<p>通常Gauss-Newton法收敛较快，但是不稳定。而最快下降法稳定，但是收敛较慢。所以接下来我们介绍GaussNewton和最快下降法混合法。</p>
+<h3 id="LM阻尼最小二乘法"><a href="#LM阻尼最小二乘法" class="headerlink" title="LM阻尼最小二乘法"></a>LM阻尼最小二乘法</h3><p>Gauss-Newton法是用$\left(J_{k}^{T} J_{k}\right) h=-J_{k}^{T} f_{k}$来确定$h$，现在假设在$J_{k}^{T} J_{k}$对角线上元素都加上同一个数$u&gt;0$，即：<br>$$<br>\left(J_{k}^{T} J_{k}+u I\right) h=-J_{k}^{T} f_{k}<br>$$<br>这样即使当$J_{k}^{T} J_{k}$奇异，只要$u$充分大，总能使$\left(J_{k}^{T} J_{k}+u I\right)$，则$\left(J_{k}^{T} J_{k}+u I\right) h=-J_{k}^{T} f_{k}$必有解，这个解依赖于$\boldsymbol{u}$，记作$h_{l m}$。<br>$$<br>\begin{cases}<br>当u=0 &amp;h_{lm}\approx h_{gn}，即为GaussNewton法. \<br>当u充分大 &amp;uIh_{lm}\approx -J_k^Tf_k，h_{lm}=-\frac{1}{u}J_k^Tf_k ，即为最快下降法. \<br>特别当u \to \infty &amp;\left|h_{lm} \right| \to 0 \<br>\end{cases}<br>$$<br>因此$u$ 起着使步长$\left|h_{l m}\right|$缩短或阻尼的作用，此即为阻尼最小二乘法。</p>
+<hr>
+<p>那么LM阻尼最小二乘法实际迭代过程中怎样调整$u$呢？</p>
+<p>假设$|h|$足够小，对$f(x+h)$一阶近似$f(x+h) \approx \iota(h)=f(x)+J(x) h$</p>
+<p>则对$F(x+h)$二阶近似：<br>$$<br>\begin{aligned} F(x+h) \approx L(h) &amp;=\frac{1}{2} f(x+h)^{T} f(x+h) \ &amp;=\frac{1}{2} f^{T} f+h^{T} J^{T} f+\frac{1}{2} h^{T} J^{T} J h \ &amp;=F(x)+h^{T} J^{T} f+\frac{1}{2} h^{T} J^{T} J h \end{aligned}<br>$$<br>我们定义一个增益比$\rho=\frac{F(x)-F\left(x+h_{l m}\right)}{L(0)-L\left(h_{l m}\right)}$</p>
+<p>（在实际中，我们选择一阶近似、二阶近似并不是在所有定义域都满足的，而是在$[x-\epsilon, x+\epsilon]$作用域内满足这个近似条件。）</p>
+<ul>
+<li><p>当$\rho$较大时，表明$F(x+h)$的二阶近似$L(h)$比$F(x+h)$更加接近$F(x)$，因此二阶近似比较好，所以可以减小$u$，采用更大的迭代步长，接近Gauss-Newton法来更快收敛。</p>
+</li>
+<li><p>当$\rho$较小时，表明采取的二阶近似较差，因此通过增大$u$，采用更小的步长，接近最快下降法来稳定的迭代。</p>
+</li>
+</ul>
+<p>一种比较好的阻尼系数$u$随$\rho$选择策略：</p>
+<p>初值$A_{0}=J\left(x_{0}\right)^{T} J\left(x_{0}\right)$，$u_{0}=\tau * \max \left{a_{i i}\right}$，$v_{0}=2$。</p>
+<p>（算法对$\tau$取值不敏感，$\tau$可以取$10^{-6} $、$ 10^{-3}$或1都行。）<br>$$<br>\begin{cases}<br>\text{if $\rho$&gt;0} &amp;u:=u<em>max{\frac{1}{3},1-(2\rho-1)^3} &amp;v:=2;\<br>else &amp;u:=u</em>v &amp;v:=2*v;\<br>\end{cases}<br>$$</p>
+<hr>
+<p>总结LM阻尼最小二乘法的步骤：</p>
+<ul>
+<li><p>step1：初始化$u_{0}=\tau * \max \left{a_{i i}\right}, v_{0}=2$；</p>
+</li>
+<li><p>step2：求梯度$g_{k}=J_{k}^{T} f_{k}$，如果$\left|g_{k}\right| \leq \epsilon_{1}$，则退出，否则退出。</p>
+</li>
+<li><p>step3：根据$\left(J_{k}^{T} J_{k}+u_{k} I\right) h_{l m}=-J_{k}^{T} f_{k}$，求解迭代步长$h_{l m}$，若$\left|h_{l m}\right| \leq \epsilon_{2}\left(|x|+\epsilon_{2}\right)$，则退出，否则继续。</p>
+</li>
+<li><p>step4：$x_{n e w}=x_{k}+h_{l m}$，计算增益比$\boldsymbol{\rho}=\frac{F\left(\boldsymbol{x}<em>{k}\right)-\boldsymbol{F}\left(\boldsymbol{x}</em>{n e w}\right)}{L(0)-L\left(h_{l m}\right)}$。</p>
+<p>如果$\rho&gt;0$，则$x_{k+1}=x_{n e w}$，$u_{k+1}=u_{k} * \max \left{\frac{1}{3}, 1-(2 \rho-1)^{3}\right}$，$v_{k+1}=2$；</p>
+<p>否则$u_{k+1}=u_{k} * v_{k}$，$v_{k+1}=2 * v_{k}$。</p>
+<p>重复step2。</p>
+</li>
+</ul>
+<p>对于$\epsilon_{1}$、$\epsilon_{2}$可以选取任意小的值如$10^{-12}$，只是作为迭代的终止条件，其值得选取对最终的收敛结果影响不大。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以邮件至liulyabc@gmail.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>非线性最小二乘法之GaussNewton，L-M，Dog-Leg</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.7k</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="liuly">liuly</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-03-06, 16:48:14</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-10, 11:30:40</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/06/SLAM/%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E4%B9%8BGaussNewton%EF%BC%8CL-M%EF%BC%8CDog-Leg/" title="非线性最小二乘法之GaussNewton，L-M，Dog-Leg">https://liuly123.github.io/2020/03/06/SLAM/%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E4%B9%8BGaussNewton%EF%BC%8CL-M%EF%BC%8CDog-Leg/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2020 Hexo</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+    .post .pjax article :not(pre) > code {
+        color: #24292e;
+        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+        background-color: rgba(27,31,35,.05);
+        border-radius: 3px;
+        font-size: 85%;
+        margin: 0;
+        padding: .2em .4em;
+    }
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://liuly.f3322.net:81/">树莓派小站</a>
+    
+    
+</div>
+
+
+</html>

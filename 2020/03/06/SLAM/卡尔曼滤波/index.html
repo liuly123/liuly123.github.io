@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>卡尔曼滤波 | Liuly的笔记本</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="卡尔曼滤波 | Liuly的笔记本">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开源库">
+<meta property="og:url" content="https://liuly123.github.io/2020/03/08/Linux/%E5%BC%80%E6%BA%90%E5%BA%93/index.html">
+<meta property="og:site_name" content="Liuly的笔记本">
+<meta property="og:description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
+<meta property="article:published_time" content="2020-03-08T11:17:40.000Z">
+<meta property="article:modified_time" content="2020-03-10T03:23:58.115Z">
+<meta property="article:author" content="liuly">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>liuly</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/liuly123" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:liulyabc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=2240057686&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=314223832" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(37)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="ROS">ROS<small>(17)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="SLAM">SLAM<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Windows">Windows<small>(14)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="其他">其他<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://liuly.f3322.net:81/">树莓派小站</a>
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="37">
+<input type="hidden" id="yelog_site_word_count" value="44.8k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="Linux "
+           href="/2020/03/06/Linux/GitHub/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GitHub常用命令">GitHub常用命令</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Linux "
+           href="/2020/03/08/Linux/%E5%BC%80%E6%BA%90%E5%BA%93/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="开源库">开源库</span>
+            <span class="post-date" title="2020-03-08 19:17:40">2020/03/08</span>
+        </a>
+        
+        <a  class="Linux "
+           href="/2020/03/06/Linux/Ubuntu%E9%85%8D%E7%BD%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Ubuntu配置">Ubuntu配置</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/D435-ROS/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="D435-ROS">D435-ROS</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/D435%E5%8F%82%E6%95%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="D435参数">D435参数</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/Gazebo/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Gazebo">Gazebo</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/Karto_SLAM/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Karto_SLAM">Karto_SLAM</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/LSD-SLAM/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="LSD-SLAM">LSD-SLAM</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/ORB-SLAM/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ORB-SLAM">ORB-SLAM</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/ROS16.04/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ROS16.04">ROS16.04</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/Package-Cmake/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Package-Cmake">Package-Cmake</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/RosAria/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="RosAria">RosAria</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/ZED-ROS-RTAB/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ZED-ROS-RTAB">ZED-ROS-RTAB</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/gmapping/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="gmapping">gmapping</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/lx%E6%80%BB%E7%BB%93/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="lx总结">lx总结</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/map_server/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="map_server">map_server</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/robot_pose_ekf/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="robot_pose_ekf">robot_pose_ekf</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/rosbag/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="rosbag">rosbag</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/rviz/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="rviz">rviz</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/tf%E5%9F%BA%E7%A1%80/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="tf基础">tf基础</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="SLAM "
+           href="/2020/03/06/SLAM/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="卡尔曼滤波">卡尔曼滤波</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="SLAM "
+           href="/2020/03/06/SLAM/%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E4%B9%8BGaussNewton%EF%BC%8CL-M%EF%BC%8CDog-Leg/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="非线性最小二乘法之GaussNewton，L-M，Dog-Leg">非线性最小二乘法之GaussNewton，L-M，Dog-Leg</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/MATLAB-Robots-Toobox/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="MATLAB Robots Toobox">MATLAB Robots Toobox</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/VS+RealSense+OpenCV/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="VS+RealSense+OpenCV">VS+RealSense+OpenCV</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/VS2017%E7%BC%96%E8%AF%91ORB-SLAM2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="VS2017编译ORB-SLAM2">VS2017编译ORB-SLAM2</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/Win10+CMake+MinGW+CLion/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Win10+CMake+MinGW+CLion">Win10+CMake+MinGW+CLion</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/ZED-VS/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ZED-VS">ZED-VS</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/esp8266-arduinoIDE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="esp8266-arduinoIDE">esp8266-arduinoIDE</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/frp%E9%85%8D%E7%BD%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="frp配置">frp配置</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/key/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="key">key</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/stm32-mdk%E5%AE%89%E8%A3%85/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="stm32-mdk安装">stm32-mdk安装</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/newifi3%E5%88%B7%E6%9C%BA/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="newifi3刷机">newifi3刷机</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/surface-ubuntu/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="surface-ubuntu">surface-ubuntu</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/windows%E4%B8%8B%E9%85%8D%E7%BD%AEopenvpn_server/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="windows下配置openvpn_server">windows下配置openvpn_server</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/windows%E5%AE%89%E8%A3%85shadowsocks/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="windows安装shadowsocks">windows安装shadowsocks</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="其他 "
+           href="/2020/03/06/%E5%85%B6%E4%BB%96/Tensorflow%E7%AC%94%E8%AE%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Tensorflow笔记">Tensorflow笔记</span>
+            <span class="post-date" title="2020-03-06 17:11:02">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/C++%E5%AD%A6%E4%B9%A0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="C++学习">C++学习</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-SLAM/卡尔曼滤波" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">卡尔曼滤波</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="SLAM">SLAM</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-03-10 11:30:52'>2020-03-06 16:48</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:1.3k</span>
+        
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#卡尔曼滤波"><span class="toc-text">卡尔曼滤波</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-先验状态估计"><span class="toc-text">1.先验状态估计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-后验估计（量测更新）"><span class="toc-text">2.后验估计（量测更新）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-总结"><span class="toc-text">3.总结</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="卡尔曼滤波"><a href="#卡尔曼滤波" class="headerlink" title="卡尔曼滤波"></a>卡尔曼滤波</h2><p>​    <a href="https://blog.csdn.net/heyijia0327/article/details/17487467" target="_blank" rel="noopener">https://blog.csdn.net/heyijia0327/article/details/17487467</a></p>
+<p>​    卡尔曼滤波适用于估计一个动态系统的最优状态。即便是观测到的系统状态参数含有噪声（服从高斯分布），观测值不准确，卡尔曼滤波也能够完成对状态真实值的最优估计。</p>
+<p>​    本例中的对象为一辆小车，需要知道它的位置和速度，用向量表示为：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Coverrightarrow%7Bx_k%7D%3D%28%5Coverrightarrow%7Bp%7D%2C%5Coverrightarrow%7Bv%7D%29" alt=""></p>
+<p>​    卡尔曼滤波的工作原理主要包括先验估计和后验估计</p>
+<h4 id="1-先验状态估计"><a href="#1-先验状态估计" class="headerlink" title="1.先验状态估计"></a>1.先验状态估计</h4><p>​    首先简化起见，假如小车在一条<strong>笔直</strong>的线路上面行驶，其运动轨迹是确定的，不确定的是小车的速度大小和位置，创建状态变量：<img src="https://www.zhihu.com/equation?tex=%5Coverrightarrow%7Bx%7D%3D%5Cbegin%7Bbmatrix%7Dp%5C%5Cv%5C%5C+%5Cend%7Bbmatrix%7D" alt=""></p>
+<ul>
+<li>该状态向量可看做一个<strong>状态空间</strong>，横坐标是速度，纵坐标是位置，平面上面的任意一个点就唯一地描述出这个小车的运动状态。</li>
+<li>小车的速度和位置量在其定义域内具有正态的<strong>高斯分布</strong>规律。即每一个变量都是具有一个均值<img src="https://www.zhihu.com/equation?tex=%5Cmu" alt="\mu">)（代表该数值是最可能发生的）和<img src="https://www.zhihu.com/equation?tex=%5Csigma%5E2" alt="\sigma^2">（表示变量的不确定性程度）。</li>
+<li>位置和速度也是有一定<strong>关联</strong>的，如果速度过高，我们可能已经移动很远了（跟踪这种关系是非常重要的，我们尽可能地从包含不确定性的测量数据中提取更多信息，这就是卡尔曼滤波的目的 ）</li>
+<li>状态向量的第<img src="https://www.zhihu.com/equation?tex=i" alt="i">)个元素和第<img src="https://www.zhihu.com/equation?tex=j" alt="j">)个元素之间的相关程度用协方差矩阵<img src="https://www.zhihu.com/equation?tex=%5CSigma_%7Bij%7D" alt="\Sigma_{ij}"> 表示</li>
+</ul>
+<p><img src="https://www.zhihu.com/equation?tex=%5CSigma_%7Bij%7D%3DCov%28x_i%2Cx_j%29%3DE%5B%28x_i-%5Cmu_i%29%28x_j-%5Cmu_j%29%5D" alt=""></p>
+<p><strong>数学描述部分：</strong></p>
+<p>​    定义<img src="https://www.zhihu.com/equation?tex=%5Chat%7Bx%7D_k%3D%5Cbegin%7Bbmatrix%7Dposition%5C%5Cvelocity%5C%5C+%5Cend%7Bbmatrix%7D" alt="\hat{x}_k=\begin{bmatrix}position\\velocity\\ \end{bmatrix}">)，<img src="https://www.zhihu.com/equation?tex=P_k%3D%5Cbegin%7Bbmatrix%7D%5CSigma_%7Bpp%7D%26%26%5CSigma_%7Bpv%7D%5C%5C%5CSigma_%7Bvp%7D%26%26%5CSigma_%7Bvv%7D%5C%5C%5Cend%7Bbmatrix%7D" alt="P_k=\begin{bmatrix}\Sigma_{pp}&amp;&amp;\Sigma_{pv}\\\Sigma_{vp}&amp;&amp;\Sigma_{vv}\\\end{bmatrix}">。</p>
+<p>​    其中<img src="https://www.zhihu.com/equation?tex=%5Chat%7Bx%7D_k" alt="\hat{x}_k">)是状态向量，<img src="https://www.zhihu.com/equation?tex=P_k" alt="P_k">是协方差。</p>
+<p>​    <strong><em>状态更新方程</em></strong></p>
+<p>​    <img src="https://www.zhihu.com/equation?tex=p_k%3Dp_%7Bk-1%7D%2B%5Cdelta+tv_%7Bk-1%7D" alt="p_k=p_{k-1}+\delta tv_{k-1}">)，<img src="https://www.zhihu.com/equation?tex=v_k%3Dv_%7Bk-1%7D" alt="v_k=v_{k-1}">写成矩阵形式：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Chat%7Bx%7D_k%3D%5Cbegin%7Bbmatrix%7D1%26%26%5Cdelta+t%5C%5C0%26%261+%5Cend%7Bbmatrix%7D%5Chat%7Bx%7D_%7Bk-1%7D%3DF_k%5Chat%7Bx%7D_%7Bk-1%7D%0A" alt="\hat{x}_k=\begin{bmatrix}1&amp;&amp;\delta t\\0&amp;&amp;1 \end{bmatrix}\hat{x}_{k-1}=F_k\hat{x}_{k-1} "></p>
+<p>​    <strong><em>协方差矩阵</em></strong></p>
+<p>​    即状态向量之间相关性的更新：</p>
+<p><img src="https://www.zhihu.com/equation?tex=Cov%28Ax%29%3DA%5CSigma+A%5ET" alt="Cov(Ax)=A\Sigma A^T"></p>
+<p>​    <code>协方差矩阵的主对角线就是方差，反对角线上的就是两个变量间的协方差</code></p>
+<p>​    <a href="https://baike.baidu.com/item/协方差矩阵/9822183?fr=aladdin" target="_blank" rel="noopener">协方差矩阵</a></p>
+<p>​    结合状态更新方程可得：</p>
+<p>​    <img src="https://www.zhihu.com/equation?tex=%5Chat%7Bx%7D_k%3DF_k%5Chat%7Bx%7D_%7Bk-1%7D" alt="\hat{x}_k=F_k\hat{x}_{k-1}">（先验状态估计）</p>
+<p>​    <img src="https://www.zhihu.com/equation?tex=%7BP%7D_k%3DF_k+P_%7Bk-1%7DF_k%5ET" alt="{P}_k=F_k P_{k-1}F_k^T">（先验状态估计协方差矩阵）</p>
+<p>​    <strong><em>外部输入</em></strong></p>
+<p>​    如小车发出控制指令，产生加速a，则状态更新方程改写为：</p>
+<p>​    <img src="https://www.zhihu.com/equation?tex=%5Chat%7Bp%7D_k%3Dp_%7Bk-1%7D%2B%5Cdelta+tv_%7Bk-1%7D%2B%5Cfrac%7B1%7D%7B2%7Da%5Cdelta+t%5E2" alt="\hat{p}_k=p_{k-1}+\delta tv_{k-1}+\frac{1}{2}a\delta t^2">，<img src="https://www.zhihu.com/equation?tex=v_k%3Dv_%7Bk-1%7D%2Ba%5Cdelta+t" alt="v_k=v_{k-1}+a\delta t"></p>
+<p>​    写成矩阵形式：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Chat%7Bx%7D_k%3DF_kx_%7Bk-1%7D%2B%5Cbegin%7Bbmatrix%7D%5Cfrac%7B%5Cdelta+t%5E2%7D%7B2%7D%5C%5C%5Cdelta+t+%5Cend%7Bbmatrix%7Da%3DF_kx_%7Bk-1%7D%2BB_k%5Coverrightarrow%7Bu%7D_k" alt="\hat{x}_k=F_kx_{k-1}+\begin{bmatrix}\frac{\delta t^2}{2}\\\delta t \end{bmatrix}a=F_kx_{k-1}+B_k\overrightarrow{u}_k"></p>
+<p>​    其中，<img src="https://www.zhihu.com/equation?tex=B_k" alt="B_k">)是控制矩阵，<img src="https://www.zhihu.com/equation?tex=%5Coverrightarrow%7Bu_k%7D" alt="\overrightarrow{u_k}">是控制向量。由于本例子中的控制实际上只包含了加速度，所以该向量包含元素的个数为1</p>
+<p>​    <strong><em>加入干扰的影响</em></strong></p>
+<p>​    加入不确定干扰项<img src="https://www.zhihu.com/equation?tex=w_k" alt="w_k">（呈高斯分布），得到最终的更新方程：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Chat%7Bx%7D_k%3DF_kx_%7Bk-1%7D%2BB_k%5Coverrightarrow%7Bu%7D_k%2Bw_k" alt="\hat{x}_k=F_kx_{k-1}+B_k\overrightarrow{u}_k+w_k"></p>
+<p>​    加入过程激励噪声协方差<img src="https://www.zhihu.com/equation?tex=Q_k" alt="Q_k">来描述不确定干扰：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Chat%7BP%7D_k%3DF_k%5Chat%7BP%7D_%7Bk-1%7DF_k%5ET%2BQ_k" alt="\hat{P}_k=F_k\hat{P}_{k-1}F_k^T+Q_k"></p>
+<p><strong>先验估计公式上面两式</strong></p>
+<p>​    先验估计<img src="https://www.zhihu.com/equation?tex=%5Chat%7Bx%7D_k" alt="\hat{x}_k">取决于如下三部分：一部分是上一轮的最优估计值，一部分是确定性的外界影响值，另一部分是不确定的干扰。先验估计协方差矩阵<img src="https://www.zhihu.com/equation?tex=P_k%0A" alt="P_k ">，首先是依据上一轮卡尔曼估计（后验估计）的协方差矩阵进行递推，再加上本次更新中不确定因素可能对系统造成的影响得到。</p>
+<h4 id="2-后验估计（量测更新）"><a href="#2-后验估计（量测更新）" class="headerlink" title="2.后验估计（量测更新）"></a>2.后验估计（量测更新）</h4><p>​    加入各类传感器（如速度传感器、位移传感器等）进行矫正，以这些传感器的反馈作为纠正我们推断的依据。传感器的输出值不一定就是我们创建的状态向量当中的元素，通常进行转换。这个转换也被称作状态空间到观测空间的映射矩阵<img src="https://www.zhihu.com/equation?tex=H_k" alt="H_k">。</p>
+<p><strong>传感器的测量值为：</strong></p>
+<p>​    <img src="https://www.zhihu.com/equation?tex=%5Coverrightarrow+%5Cmu_%7Bexpected%7D%3DH_k%5Chat+x_k%0A" alt="\overrightarrow \mu_{expected}=H_k\hat x_k "></p>
+<p>​    <img src="https://www.zhihu.com/equation?tex=%5CSigma_%7Bexpected%7D%3DH_kP_kH_k%5ET" alt="\Sigma_{expected}=H_kP_kH_k^T"></p>
+<p>​    加入观测噪声<img src="https://www.zhihu.com/equation?tex=v_k%0A" alt="v_k ">和观测噪声协方差<img src="https://www.zhihu.com/equation?tex=R_k%0A" alt="R_k ">后：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Coverrightarrow+z_t%3DH_k%5Chat+x_k%2B%5Coverrightarrow+v_k" alt="\overrightarrow z_t=H_k\hat x_k+\overrightarrow v_k"><br>$$<br>{\Sigma _t} = {H_k}{P_k}{H_k}^T + {R_k}<br>$$<br><strong>将测量值和估计值进行融合</strong></p>
+<p>​    要想考察两个时间同时发生的可能性，我们将两个事件单独发生的概率相乘。对两个高斯分布进行乘法运算，得到新的概率分布规律仍然符合高斯分布。</p>
+<p><strong><em>前提知识</em></strong></p>
+<p>​    一个<strong>单随机变量的高斯分布</strong>，期望为<img src="https://www.zhihu.com/equation?tex=%5Cmu" alt="\mu">，方差为<img src="https://www.zhihu.com/equation?tex=%5Csigma+%5E2" alt="\sigma ^2">，概率密度函数为：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cmathcal%7BN%7D%28x%2C%5Cmu%2C%5Csigma%29+%3D%5Cfrac%7B1%7D%7B%5Csigma+%5Csqrt%7B2%5Cpi%7D%7De%5E%7B-%5Cfrac%7B%28x-%5Cmu%29%5E2%7D%7B2%5Csigma%5E2%7D%7D" alt="\mathcal{N}(x,\mu,\sigma) =\frac{1}{\sigma \sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}"></p>
+<p>​    如果存在两个这样的高斯分布，只不过期望和方差不同，当两个分布<strong>相乘时</strong>，得到的结果为：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cbegin%7Bequation%7D%0A++++%5Cmathcal%7BN%7D%28x%2C%5Cmu_0%2C%5Csigma_0%29%5Ccdot+%5Cmathcal%7BN%7D%28x%2C%5Cmu_1%2C%5Csigma_1%29%5Coverset%7B%3F%7D%7B%3D%7D%5Cmathcal%7BN%7D%28x%2C%5Cmu%5E%7B%27%7D%2C%5Csigma%5E%7B%27%7D%29+%5Cend%7Bequation%7D" alt="\begin{equation}     \mathcal{N}(x,\mu_0,\sigma_0)\cdot \mathcal{N}(x,\mu_1,\sigma_1)\overset{?}{=}\mathcal{N}(x,\mu^{&#39;},\sigma^{&#39;}) \end{equation}"></p>
+<p>​    其中<img src="https://www.zhihu.com/equation?tex=%5Cmu%5E%7B%27%7D+%3D%5Cmu_0%2Bk%28%5Cmu_1-+%5Cmu_0%29" alt="\mu^{&#39;} =\mu_0+k(\mu_1- \mu_0)">)，<img src="https://www.zhihu.com/equation?tex=%7B%5Csigma%5E%7B%27%7D%7D%5E2%3Dk%7B%5Csigma_1%7D%5E2%3D%7B%5Csigma_0%7D%5E2%281-k%29" alt="{\sigma^{&#39;}}^2=k{\sigma_1}^2={\sigma_0}^2(1-k)">)，<img src="https://www.zhihu.com/equation?tex=k%3D%5Cfrac%7B%5Csigma_0%5E2%7D%7B%5Csigma_0%5E2%2B%5Csigma_1%5E2%7D" alt="k=\frac{\sigma_0^2}{\sigma_0^2+\sigma_1^2}">。</p>
+<p>​    表示成<strong>矩阵形式</strong>：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Coverrightarrow%5Cmu%5E%7B%27%7D%3D%5Coverrightarrow%5Cmu_0%2BK%28%5Coverrightarrow%5Cmu_1-%5Coverrightarrow%5Cmu_0%29" alt="\overrightarrow\mu^{&#39;}=\overrightarrow\mu_0+K(\overrightarrow\mu_1-\overrightarrow\mu_0)"></p>
+<p><img src="https://www.zhihu.com/equation?tex=%5CSigma%5E%7B%27%7D%3DK%5CSigma_1%3D%5CSigma_0%28I-K%29" alt="\Sigma^{&#39;}=K\Sigma_1=\Sigma_0(I-K)"></p>
+<p><img src="https://www.zhihu.com/equation?tex=K%3D%5CSigma_0%28%5CSigma_0%2B%5CSigma_1%29%5E%7B-1%7D" alt="K=\Sigma_0(\Sigma_0+\Sigma_1)^{-1}"></p>
+<p>​    （其中K成为卡尔曼增益）</p>
+<p><strong><em>卡尔曼估计</em></strong></p>
+<p>​    下面开始对传感器数据和先验估计进行融合。</p>
+<p>​    首先将先验估计的结果映射到观测向量空间，使两者处在同一空间（观测空间）。先验估计为：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%28%5Cmu_0%2C%5CSigma_0%29%3D%28H_k%5Chat+x_k%2CH_kP_kH_k%5ET%29" alt="(\mu_0,\Sigma_0)=(H_k\hat x_k,H_kP_kH_k^T)"></p>
+<p>​    观测值为：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%28%5Cmu_1%2C%5CSigma_1%29%3D%28z_k%2CR_k%29" alt="(\mu_1,\Sigma_1)=(z_k,R_k)"></p>
+<p>​    代入融合公式得到：</p>
+<p><img src="https://www.zhihu.com/equation?tex=H_k%5Chat+x_k%5E%7B%27%7D%3DH_k%5Chat+x_k%2BK%28%5Coverrightarrow%7Bz_k%7D-H_k%5Chat+x_k%29" alt="H_k\hat x_k^{&#39;}=H_k\hat x_k+K(\overrightarrow{z_k}-H_k\hat x_k)"></p>
+<p><img src="https://www.zhihu.com/equation?tex=H_kP_k%5E%7B%27%7DH_k%5ET%3DH_kP_kH_k%5ET-KH_kP_kH_k%5ET" alt="H_kP_k^{&#39;}H_k^T=H_kP_kH_k^T-KH_kP_kH_k^T"></p>
+<p><img src="https://www.zhihu.com/equation?tex=K%3DH_kP_kH_k%5ET%28H_kP_kH_k%5ET%2BR_k%29%5E%7B-1%7D" alt="K=H_kP_kH_k^T(H_kP_kH_k^T+R_k)^{-1}"></p>
+<p>​    <img src="https://www.zhihu.com/equation?tex=%5Chat+x_k%5E%7B%27%7D" alt="\hat x_k^{&#39;}">)就是第k次卡尔曼预测结果，<img src="https://www.zhihu.com/equation?tex=P_k%5E%7B%27%7D" alt="P_k^{&#39;}">是该结果的协方差矩阵。</p>
+<p><strong>更新结果</strong></p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Chat+x_k%5E%7B%27%7D%3D%5Chat+x_k%2BK%5E%7B%27%7D%28%5Coverrightarrow%7Bz_k%7D-H_k%5Chat+x_k%29" alt="\hat x_k^{&#39;}=\hat x_k+K^{&#39;}(\overrightarrow{z_k}-H_k\hat x_k)"></p>
+<p><img src="https://www.zhihu.com/equation?tex=P_k%5E%7B%27%7D%3DP_k-K%5E%7B%27%7DH_kP_k" alt="P_k^{&#39;}=P_k-K^{&#39;}H_kP_k"></p>
+<p><img src="https://www.zhihu.com/equation?tex=K%5E%7B%27%7D%3DP_kH_k%5ET%28H_kP_kH_k%5ET%2BR_k%29%5E%7B-1%7D" alt="K^{&#39;}=P_kH_k^T(H_kP_kH_k^T+R_k)^{-1}"></p>
+<h4 id="3-总结"><a href="#3-总结" class="headerlink" title="3.总结"></a>3.总结</h4><p>​    总体上来讲，卡尔曼滤波的步骤大致分为两步，第一步是时间更新，也叫作先验估计，第二步是量测更新，也叫作后验估计。</p>
+<p>​    <strong>所有公式如下</strong></p>
+<p>时间更新</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Chat%7Bx%7D_k%3DF_k%5Chat%7Bx%7D_%7Bk-1%7D%2BB_k%5Coverrightarrow%7Bu%7D_k%2Bw_k" alt="\hat{x}_k=F_k\hat{x}_{k-1}+B_k\overrightarrow{u}_k+w_k"></p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Chat%7BP%7D_k%3DF_k%5Chat%7BP%7D_%7Bk-1%7DF_k%5ET%2BQ_k" alt="\hat{P}_k=F_k\hat{P}_{k-1}F_k^T+Q_k"></p>
+<p><img src="https://www.zhihu.com/equation?tex=%28%5Cmu_0%2C%5CSigma_0%29%3D%28H_k%5Chat+x_k%2CH_kP_kH_k%5ET%29" alt="(\mu_0,\Sigma_0)=(H_k\hat x_k,H_kP_kH_k^T)"></p>
+<p>测量更新</p>
+<p><img src="https://www.zhihu.com/equation?tex=%28%5Cmu_1%2C%5CSigma_1%29%3D%28z_k%2CR_k%29" alt="(\mu_1,\Sigma_1)=(z_k,R_k)"></p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Chat+x_k%5E%7B%27%7D%3D%5Chat+x_k%2BK%5E%7B%27%7D%28%5Coverrightarrow%7Bz_k%7D-H_k%5Chat+x_k%29" alt="\hat x_k^{&#39;}=\hat x_k+K^{&#39;}(\overrightarrow{z_k}-H_k\hat x_k)"></p>
+<p><img src="https://www.zhihu.com/equation?tex=P_k%5E%7B%27%7D%3DP_k-K%5E%7B%27%7DH_kP_k" alt="P_k^{&#39;}=P_k-K^{&#39;}H_kP_k"></p>
+<p><img src="https://www.zhihu.com/equation?tex=K%5E%7B%27%7D%3DP_kH_k%5ET%28H_kP_kH_k%5ET%2BR_k%29%5E%7B-1%7D" alt="K^{&#39;}=P_kH_k^T(H_kP_kH_k^T+R_k)^{-1}"></p>
+<p>​    <img src="https://www.zhihu.com/equation?tex=%5Chat%7Bx%7D_k" alt="\hat{x}_k">)是先验状态估计向量，<img src="https://www.zhihu.com/equation?tex=P_k" alt="P_k">)是先验状态估计协方差矩阵，<img src="https://www.zhihu.com/equation?tex=%5Coverrightarrow%7Bu_k%7D" alt="\overrightarrow{u_k}">为控制向量，<img src="https://www.zhihu.com/equation?tex=%5Coverrightarrow+%7Bz_k%7D" alt="\overrightarrow {z_k}">为观测向量，<img src="https://www.zhihu.com/equation?tex=%5Chat+x_k%5E%7B%27%7D" alt="\hat x_k^{&#39;}">)就是第k次卡尔曼预测结果。<img src="https://www.zhihu.com/equation?tex=P_k%5E%7B%27%7D" alt="P_k^{&#39;}">是该结果的协方差矩阵</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以邮件至liulyabc@gmail.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>卡尔曼滤波</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.3k</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="liuly">liuly</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-03-06, 16:48:14</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-10, 11:30:52</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/06/SLAM/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/" title="卡尔曼滤波">https://liuly123.github.io/2020/03/06/SLAM/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2020 Hexo</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+    .post .pjax article :not(pre) > code {
+        color: #24292e;
+        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+        background-color: rgba(27,31,35,.05);
+        border-radius: 3px;
+        font-size: 85%;
+        margin: 0;
+        padding: .2em .4em;
+    }
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://liuly.f3322.net:81/">树莓派小站</a>
+    
+    
+</div>
+
+
+</html>

@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>tf基础 | Liuly的笔记本</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="tf基础 | Liuly的笔记本">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开源库">
+<meta property="og:url" content="https://liuly123.github.io/2020/03/08/Linux/%E5%BC%80%E6%BA%90%E5%BA%93/index.html">
+<meta property="og:site_name" content="Liuly的笔记本">
+<meta property="og:description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
+<meta property="article:published_time" content="2020-03-08T11:17:40.000Z">
+<meta property="article:modified_time" content="2020-03-10T03:23:58.115Z">
+<meta property="article:author" content="liuly">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>liuly</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/liuly123" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:liulyabc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=2240057686&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=314223832" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(37)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="ROS">ROS<small>(17)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="SLAM">SLAM<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Windows">Windows<small>(14)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="其他">其他<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://liuly.f3322.net:81/">树莓派小站</a>
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="37">
+<input type="hidden" id="yelog_site_word_count" value="44.8k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="Linux "
+           href="/2020/03/06/Linux/GitHub/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GitHub常用命令">GitHub常用命令</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Linux "
+           href="/2020/03/08/Linux/%E5%BC%80%E6%BA%90%E5%BA%93/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="开源库">开源库</span>
+            <span class="post-date" title="2020-03-08 19:17:40">2020/03/08</span>
+        </a>
+        
+        <a  class="Linux "
+           href="/2020/03/06/Linux/Ubuntu%E9%85%8D%E7%BD%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Ubuntu配置">Ubuntu配置</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/D435-ROS/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="D435-ROS">D435-ROS</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/D435%E5%8F%82%E6%95%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="D435参数">D435参数</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/Gazebo/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Gazebo">Gazebo</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/Karto_SLAM/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Karto_SLAM">Karto_SLAM</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/LSD-SLAM/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="LSD-SLAM">LSD-SLAM</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/ORB-SLAM/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ORB-SLAM">ORB-SLAM</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/ROS16.04/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ROS16.04">ROS16.04</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/Package-Cmake/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Package-Cmake">Package-Cmake</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/RosAria/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="RosAria">RosAria</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/ZED-ROS-RTAB/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ZED-ROS-RTAB">ZED-ROS-RTAB</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/gmapping/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="gmapping">gmapping</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/lx%E6%80%BB%E7%BB%93/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="lx总结">lx总结</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/map_server/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="map_server">map_server</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/robot_pose_ekf/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="robot_pose_ekf">robot_pose_ekf</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/rosbag/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="rosbag">rosbag</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/rviz/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="rviz">rviz</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/tf%E5%9F%BA%E7%A1%80/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="tf基础">tf基础</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="SLAM "
+           href="/2020/03/06/SLAM/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="卡尔曼滤波">卡尔曼滤波</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="SLAM "
+           href="/2020/03/06/SLAM/%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E4%B9%8BGaussNewton%EF%BC%8CL-M%EF%BC%8CDog-Leg/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="非线性最小二乘法之GaussNewton，L-M，Dog-Leg">非线性最小二乘法之GaussNewton，L-M，Dog-Leg</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/MATLAB-Robots-Toobox/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="MATLAB Robots Toobox">MATLAB Robots Toobox</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/VS+RealSense+OpenCV/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="VS+RealSense+OpenCV">VS+RealSense+OpenCV</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/VS2017%E7%BC%96%E8%AF%91ORB-SLAM2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="VS2017编译ORB-SLAM2">VS2017编译ORB-SLAM2</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/Win10+CMake+MinGW+CLion/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Win10+CMake+MinGW+CLion">Win10+CMake+MinGW+CLion</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/ZED-VS/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ZED-VS">ZED-VS</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/esp8266-arduinoIDE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="esp8266-arduinoIDE">esp8266-arduinoIDE</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/frp%E9%85%8D%E7%BD%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="frp配置">frp配置</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/key/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="key">key</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/stm32-mdk%E5%AE%89%E8%A3%85/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="stm32-mdk安装">stm32-mdk安装</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/newifi3%E5%88%B7%E6%9C%BA/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="newifi3刷机">newifi3刷机</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/surface-ubuntu/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="surface-ubuntu">surface-ubuntu</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/windows%E4%B8%8B%E9%85%8D%E7%BD%AEopenvpn_server/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="windows下配置openvpn_server">windows下配置openvpn_server</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/windows%E5%AE%89%E8%A3%85shadowsocks/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="windows安装shadowsocks">windows安装shadowsocks</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="其他 "
+           href="/2020/03/06/%E5%85%B6%E4%BB%96/Tensorflow%E7%AC%94%E8%AE%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Tensorflow笔记">Tensorflow笔记</span>
+            <span class="post-date" title="2020-03-06 17:11:02">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/C++%E5%AD%A6%E4%B9%A0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="C++学习">C++学习</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-ROS/tf基础" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">tf基础</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="ROS">ROS</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-03-10 11:36:40'>2020-03-06 16:48</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:3.7k</span>
+        
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#http-wiki-ros-org-tf-Tutorials"><span class="toc-text">http:&#x2F;&#x2F;wiki.ros.org&#x2F;tf&#x2F;Tutorials&#x2F;</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-演示"><span class="toc-text">1. 演示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-tf工具"><span class="toc-text">2. tf工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-rviz和tf"><span class="toc-text">3. rviz和tf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-编写一个tf广播器-Python"><span class="toc-text">4. 编写一个tf广播器(Python)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建一个新的ros包"><span class="toc-text">创建一个新的ros包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建文件nodes-turtle-tf-broadcaster-py并添加执行权限"><span class="toc-text">创建文件nodes&#x2F;turtle_tf_broadcaster.py并添加执行权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建文件launch-start-demo-launch"><span class="toc-text">创建文件launch&#x2F;start_demo.launch</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-编写一个tf广播器-C"><span class="toc-text">5. 编写一个tf广播器(C++)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建一个新的ros包-1"><span class="toc-text">创建一个新的ros包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建文件src-turtle-tf-broadcaster-cpp"><span class="toc-text">创建文件src&#x2F;turtle_tf_broadcaster.cpp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在CMakeLists-txt文件中添加"><span class="toc-text">在CMakeLists.txt文件中添加</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建文件launch-start-demo-launch-1"><span class="toc-text">创建文件launch&#x2F;start_demo.launch</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-编写一个tf监听器-Python"><span class="toc-text">6. 编写一个tf监听器(Python)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建文件nodes-turtle-tf-listener-py"><span class="toc-text">创建文件nodes&#x2F;turtle_tf_listener.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在launch文件中添加"><span class="toc-text">在launch文件中添加</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-编写一个tf监听器-C"><span class="toc-text">7. 编写一个tf监听器(C++)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建文件src-turtle-tf-listener-cpp"><span class="toc-text">创建文件src&#x2F;turtle_tf_listener.cpp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在CMakeLists-txt文件中添加-1"><span class="toc-text">在CMakeLists.txt文件中添加</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在launch文件中添加-1"><span class="toc-text">在launch文件中添加</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-添加一个坐标系变换-Python"><span class="toc-text">8. 添加一个坐标系变换(Python)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建文件nodes-fixed-tf-broadcaster-py"><span class="toc-text">创建文件nodes&#x2F;fixed_tf_broadcaster.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在launch文件中添加-2"><span class="toc-text">在launch文件中添加</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#随时间变化的坐标变换"><span class="toc-text">随时间变化的坐标变换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-添加一个坐标系变换-C"><span class="toc-text">9. 添加一个坐标系变换(C++)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建文件src-frame-tf-broadcaster-cpp"><span class="toc-text">创建文件src&#x2F;frame_tf_broadcaster.cpp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改CMakeList-txt"><span class="toc-text">修改CMakeList.txt</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#随时间改变的坐标变换"><span class="toc-text">随时间改变的坐标变换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-等待转换-C"><span class="toc-text">10. 等待转换(C++)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-使用过去的状态-C"><span class="toc-text">11. 使用过去的状态(C++)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-激光数据从base-laser坐标系变换到base-link坐标系"><span class="toc-text">12. 激光数据从base_laser坐标系变换到base_link坐标系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#先创建一个包"><span class="toc-text">先创建一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建文件src-tf-broadcaster-cpp"><span class="toc-text">创建文件src&#x2F;tf_broadcaster.cpp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建文件src-tf-listener-cpp"><span class="toc-text">创建文件src&#x2F;tf_listener.cpp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改CMakeList-txt-1"><span class="toc-text">修改CMakeList.txt</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-urdf与robot-state-publisher的示例"><span class="toc-text">13. urdf与robot_state_publisher的示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建urdf文件"><span class="toc-text">创建urdf文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建一个包，依赖为roscpp-rospy-tf-sensor-msgs-std-msgs"><span class="toc-text">创建一个包，依赖为roscpp rospy tf sensor_msgs std_msgs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建并编译文件src-state-publisher-cpp"><span class="toc-text">创建并编译文件src&#x2F;state_publisher.cpp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建launch文件"><span class="toc-text">创建launch文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="http-wiki-ros-org-tf-Tutorials"><a href="#http-wiki-ros-org-tf-Tutorials" class="headerlink" title="http://wiki.ros.org/tf/Tutorials/"></a><a href="http://wiki.ros.org/tf/Tutorials/" target="_blank" rel="noopener">http://wiki.ros.org/tf/Tutorials/</a></h4><h3 id="1-演示"><a href="#1-演示" class="headerlink" title="1. 演示"></a>1. 演示</h3><p><strong>安装Demo</strong></p>
+<pre><code class="sh">sudo apt-get install ros-kinetic-ros-tutorials ros-kinetic-geometry-tutorials ros-kinetic-rviz ros-kinetic-rosbash ros-kinetic-rqt-tf-tree</code></pre>
+<p><strong>运行Demo</strong></p>
+<pre><code class="sh">roslaunch turtle_tf turtle_tf_demo.launch</code></pre>
+<p>可以用方向键控制中心龟运动，另一个龟会跟着它，直到重合。另一只龟一直朝向中心龟，所以运动轨迹是弧形。</p>
+<p><strong>原理</strong></p>
+<p>这个演示使用tf库创建三个框架(坐标系)：世界框架，乌龟1框架和乌龟2框架。本教程使用tf发布器发布乌龟坐标框架和tf监听器来计算乌龟框架的差异，并移动一只乌龟来跟随另一只乌龟。</p>
+<h3 id="2-tf工具"><a href="#2-tf工具" class="headerlink" title="2. tf工具"></a>2. tf工具</h3><p>现在让我们看看如何使用tf来创建这个演示。我们可以使用tf工具来查看幕后的工作。</p>
+<p><strong>使用view_frames</strong></p>
+<pre><code class="sh">rosrun tf view_frames</code></pre>
+<p>会生成pdf文件，在这里我们可以看到由tf广播的三个框架：world，turtle1和turtle2。我们还可以看到world是turtle1和turtle2帧的父级。出于调试目的，view_frames还会报告有关何时收到最旧和最近的帧变换以及将tf帧发布到tf的速度的一些诊断信息。</p>
+<p><strong>使用rqt_tf_tree</strong></p>
+<pre><code class="sh">rosrun rqt_tf_tree rqt_tf_tree</code></pre>
+<p>和刚才图像类似</p>
+<p><strong>使用tf_echo</strong></p>
+<pre><code class="sh">rosrun tf tf_echo [reference_frame] [target_frame]</code></pre>
+<p>例如</p>
+<pre><code class="sh">rosrun tf tf_echo turtle1 turtle2</code></pre>
+<p>显示格式为</p>
+<pre><code>At time 1416409795.450
+- Translation: [0.000, 0.000, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.914, 0.405]
+            in RPY [0.000, -0.000, 2.308]</code></pre><p>当你驾驶你的乌龟时，你会看到变换随着两只乌龟相对移动而变化。</p>
+<p><strong>/tf话题的内容</strong></p>
+<pre><code class="sh">rostopic echo  /tf</code></pre>
+<p>内容如下：</p>
+<pre><code class="sh">transforms: 
+  - 
+    header: 
+      seq: 0
+      stamp: 
+        secs: 1542251108
+        nsecs:  27065038
+      frame_id: &quot;world&quot;
+    child_frame_id: &quot;turtle1&quot;
+    transform: 
+      translation: 
+        x: 0.550171077251
+        y: 3.50581622124
+        z: 0.0
+      rotation: 
+        x: 0.0
+        y: 0.0
+        z: 0.794140891677
+        w: 0.607733695105
+</code></pre>
+<p>会循环播放turtle1和turtle2</p>
+<h3 id="3-rviz和tf"><a href="#3-rviz和tf" class="headerlink" title="3. rviz和tf"></a>3. rviz和tf</h3><p>rviz是一个可视化工具，可用于检查tf帧。让我们用rviz来看看龟框架。让我们使用rviz的-d选项使用turtle_tf配置文件启动rviz：</p>
+<pre><code class="sh">rosrun rviz rviz -d `rospack find turtle_tf`/rviz/turtle_rviz.rviz</code></pre>
+<p>在侧栏中，您将看到由tf广播的帧。当你驾驶乌龟时，你会看到坐标框架在rviz中移动。</p>
+<h3 id="4-编写一个tf广播器-Python"><a href="#4-编写一个tf广播器-Python" class="headerlink" title="4. 编写一个tf广播器(Python)"></a>4. 编写一个tf广播器(Python)</h3><h4 id="创建一个新的ros包"><a href="#创建一个新的ros包" class="headerlink" title="创建一个新的ros包"></a>创建一个新的ros包</h4><pre><code class="sh">cd ~/catkin_ws/src
+catkin_create_pkg learning_tf tf roscpp rospy turtlesim
+cd ~/catkin_ws
+catkin_make</code></pre>
+<h4 id="创建文件nodes-turtle-tf-broadcaster-py并添加执行权限"><a href="#创建文件nodes-turtle-tf-broadcaster-py并添加执行权限" class="headerlink" title="创建文件nodes/turtle_tf_broadcaster.py并添加执行权限"></a>创建文件<code>nodes/turtle_tf_broadcaster.py</code>并添加执行权限</h4><pre><code class="python">#!/usr/bin/env python
+#coding=utf-8
+import roslib
+#roslib.load_manifest(&#39;learning_tf&#39;)
+import rospy
+import tf
+import turtlesim.msg
+#本程序订阅/turtleX/pose的姿态数据，据此创建/world到/turtleX的坐标变换，发布到/tf主题上
+
+
+# 每收到一次turtleX/pose的消息，运行此函数
+def handle_turtle_pose(msg, turtlename):
+    br = tf.TransformBroadcaster()
+    br.sendTransform((msg.x, msg.y, 0),
+                     tf.transformations.quaternion_from_euler(0, 0, msg.theta),
+                     rospy.Time.now(),
+                     turtlename,#子坐标系
+                     &quot;world&quot;)#父坐标系
+
+if __name__ == &#39;__main__&#39;:
+    rospy.init_node(&#39;turtle_tf_broadcaster&#39;)
+# 读取参数（乌龟名称），该节点只有这一个参数
+    turtlename = rospy.get_param(&#39;~turtle&#39;)
+# 本节点订阅主题“turtleX/pose”并在每个传入消息上运行函数handle_turtle_pose
+    rospy.Subscriber(&#39;/%s/pose&#39; % turtlename,
+                     turtlesim.msg.Pose,
+                     handle_turtle_pose,
+                     turtlename)
+    rospy.spin()</code></pre>
+<h4 id="创建文件launch-start-demo-launch"><a href="#创建文件launch-start-demo-launch" class="headerlink" title="创建文件launch/start_demo.launch"></a>创建文件<code>launch/start_demo.launch</code></h4><pre><code class="xml">&lt;launch&gt;
+    &lt;!-- Turtlesim Node--&gt;
+    &lt;node pkg=&quot;turtlesim&quot; type=&quot;turtlesim_node&quot; name=&quot;sim&quot;/&gt;
+    &lt;node pkg=&quot;turtlesim&quot; type=&quot;turtle_teleop_key&quot; name=&quot;teleop&quot; output=&quot;screen&quot;/&gt;
+
+    &lt;node name=&quot;turtle1_tf_broadcaster&quot; pkg=&quot;learning_tf&quot; type=&quot;turtle_tf_broadcaster.py&quot; respawn=&quot;false&quot; output=&quot;screen&quot; &gt;
+      &lt;param name=&quot;turtle&quot; type=&quot;string&quot; value=&quot;turtle1&quot; /&gt;
+    &lt;/node&gt;
+    &lt;node name=&quot;turtle2_tf_broadcaster&quot; pkg=&quot;learning_tf&quot; type=&quot;turtle_tf_broadcaster.py&quot; respawn=&quot;false&quot; output=&quot;screen&quot; &gt;
+      &lt;param name=&quot;turtle&quot; type=&quot;string&quot; value=&quot;turtle2&quot; /&gt; 
+    &lt;/node&gt;
+
+  &lt;/launch&gt;</code></pre>
+<h3 id="5-编写一个tf广播器-C"><a href="#5-编写一个tf广播器-C" class="headerlink" title="5. 编写一个tf广播器(C++)"></a>5. 编写一个tf广播器(C++)</h3><h4 id="创建一个新的ros包-1"><a href="#创建一个新的ros包-1" class="headerlink" title="创建一个新的ros包"></a>创建一个新的ros包</h4><p>同上</p>
+<h4 id="创建文件src-turtle-tf-broadcaster-cpp"><a href="#创建文件src-turtle-tf-broadcaster-cpp" class="headerlink" title="创建文件src/turtle_tf_broadcaster.cpp"></a>创建文件<code>src/turtle_tf_broadcaster.cpp</code></h4><pre><code class="c++">#include &lt;ros/ros.h&gt;
+#include &lt;tf/transform_broadcaster.h&gt;
+#include &lt;turtlesim/Pose.h&gt;
+
+std::string turtle_name;
+
+//收到/turtleX/pose的消息时调用该回调函数
+void poseCallback(const turtlesim::PoseConstPtr&amp; msg){
+  static tf::TransformBroadcaster br;
+  tf::Transform transform;
+  transform.setOrigin( tf::Vector3(msg-&gt;x, msg-&gt;y, 0.0) );//起始位置
+  tf::Quaternion q;
+  q.setRPY(0, 0, msg-&gt;theta);
+  transform.setRotation(q);
+  br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), &quot;world&quot;, turtle_name));
+}
+
+int main(int argc, char** argv){
+  ros::init(argc, argv, &quot;my_tf_broadcaster&quot;);
+  if (argc != 2){ROS_ERROR(&quot;need turtle name as argument&quot;); return -1;};
+  turtle_name = argv[1];
+
+  ros::NodeHandle node;
+  ros::Subscriber sub = node.subscribe(turtle_name+&quot;/pose&quot;, 10, &amp;poseCallback);
+
+  ros::spin();
+  return 0;
+};</code></pre>
+<h4 id="在CMakeLists-txt文件中添加"><a href="#在CMakeLists-txt文件中添加" class="headerlink" title="在CMakeLists.txt文件中添加"></a>在<code>CMakeLists.txt</code>文件中添加</h4><pre><code class="cmake">add_executable(turtle_tf_broadcaster src/turtle_tf_broadcaster.cpp)
+target_link_libraries(turtle_tf_broadcaster ${catkin_LIBRARIES})</code></pre>
+<p>然后编译一下</p>
+<h4 id="创建文件launch-start-demo-launch-1"><a href="#创建文件launch-start-demo-launch-1" class="headerlink" title="创建文件launch/start_demo.launch"></a>创建文件<code>launch/start_demo.launch</code></h4><pre><code class="xml">  &lt;launch&gt;
+    &lt;!-- Turtlesim Node--&gt;
+    &lt;node pkg=&quot;turtlesim&quot; type=&quot;turtlesim_node&quot; name=&quot;sim&quot;/&gt;
+
+    &lt;node pkg=&quot;turtlesim&quot; type=&quot;turtle_teleop_key&quot; name=&quot;teleop&quot; output=&quot;screen&quot;/&gt;
+    &lt;!-- Axes --&gt;
+    &lt;param name=&quot;scale_linear&quot; value=&quot;2&quot; type=&quot;double&quot;/&gt;
+    &lt;param name=&quot;scale_angular&quot; value=&quot;2&quot; type=&quot;double&quot;/&gt;
+
+    &lt;node pkg=&quot;learning_tf&quot; type=&quot;turtle_tf_broadcaster&quot;
+          args=&quot;/turtle1&quot; name=&quot;turtle1_tf_broadcaster&quot; /&gt;
+    &lt;node pkg=&quot;learning_tf&quot; type=&quot;turtle_tf_broadcaster&quot;
+          args=&quot;/turtle2&quot; name=&quot;turtle2_tf_broadcaster&quot; /&gt;
+
+  &lt;/launch&gt;</code></pre>
+<h3 id="6-编写一个tf监听器-Python"><a href="#6-编写一个tf监听器-Python" class="headerlink" title="6. 编写一个tf监听器(Python)"></a>6. 编写一个tf监听器(Python)</h3><h4 id="创建文件nodes-turtle-tf-listener-py"><a href="#创建文件nodes-turtle-tf-listener-py" class="headerlink" title="创建文件nodes/turtle_tf_listener.py"></a>创建文件<code>nodes/turtle_tf_listener.py</code></h4><pre><code class="python">#!/usr/bin/env python
+#coding=utf-8
+import roslib
+roslib.load_manifest(&#39;learning_tf&#39;)
+import rospy
+import math
+import tf
+import geometry_msgs.msg
+import turtlesim.srv
+
+if __name__ == &#39;__main__&#39;:
+    rospy.init_node(&#39;turtle_tf_listener&#39;)
+
+    listener = tf.TransformListener()
+#创建一只乌龟，起始位置在(4,2,0)
+    rospy.wait_for_service(&#39;spawn&#39;)
+    spawner = rospy.ServiceProxy(&#39;spawn&#39;, turtlesim.srv.Spawn)
+    spawner(4, 2, 0, &#39;turtle2&#39;)
+
+    turtle_vel = rospy.Publisher(&#39;turtle2/cmd_vel&#39;, geometry_msgs.msg.Twist,queue_size=1)
+
+    rate = rospy.Rate(10.0)
+    while not rospy.is_shutdown():
+        try:
+            (trans,rot) = listener.lookupTransform(&#39;/turtle2&#39;, &#39;/turtle1&#39;, rospy.Time(0))
+        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+            continue
+
+        angular = 4 * math.atan2(trans[1], trans[0])
+        linear = 0.5 * math.sqrt(trans[0] ** 2 + trans[1] ** 2)
+        cmd = geometry_msgs.msg.Twist()
+        cmd.linear.x = linear
+        cmd.angular.z = angular
+        turtle_vel.publish(cmd)
+
+        rate.sleep()</code></pre>
+<p>添加执行权限</p>
+<h4 id="在launch文件中添加"><a href="#在launch文件中添加" class="headerlink" title="在launch文件中添加"></a>在<code>launch</code>文件中添加</h4><pre><code class="xml">&lt;node pkg=&quot;learning_tf&quot; type=&quot;turtle_tf_listener.py&quot; name=&quot;listener&quot; /&gt;</code></pre>
+<h3 id="7-编写一个tf监听器-C"><a href="#7-编写一个tf监听器-C" class="headerlink" title="7. 编写一个tf监听器(C++)"></a>7. 编写一个tf监听器(C++)</h3><h4 id="创建文件src-turtle-tf-listener-cpp"><a href="#创建文件src-turtle-tf-listener-cpp" class="headerlink" title="创建文件src/turtle_tf_listener.cpp"></a>创建文件<code>src/turtle_tf_listener.cpp</code></h4><pre><code class="c++">#include &lt;ros/ros.h&gt;
+#include &lt;tf/transform_listener.h&gt;
+#include &lt;geometry_msgs/Twist.h&gt;
+#include &lt;turtlesim/Spawn.h&gt;
+//本程序先调用turtlesim的服务spawn创建一只乌龟
+//然后根据/turtle2和/turtle1的坐标变换数据，向/turtle2发布控制指令
+
+int main(int argc, char** argv){
+  ros::init(argc, argv, &quot;my_tf_listener&quot;);
+
+  ros::NodeHandle node;
+
+//调用spawn服务，添加一致乌龟，未指定起始位置，所以运行时会报错，并将乌龟2放在左下角
+  ros::service::waitForService(&quot;spawn&quot;);
+  ros::ServiceClient add_turtle =
+    node.serviceClient&lt;turtlesim::Spawn&gt;(&quot;spawn&quot;);
+  turtlesim::Spawn srv;
+  add_turtle.call(srv);
+
+//发布turtle2的控制指令
+  ros::Publisher turtle_vel =
+    node.advertise&lt;geometry_msgs::Twist&gt;(&quot;turtle2/cmd_vel&quot;, 10);
+
+  tf::TransformListener listener;
+
+  ros::Rate rate(10.0);
+  while (node.ok()){
+    tf::StampedTransform transform;
+    try{//读取最近的turtle2坐标系到turtle1坐标系的转换，保存在transform中
+      listener.lookupTransform(&quot;/turtle2&quot;, &quot;/turtle1&quot;,
+                               ros::Time(0), transform);//Time(0)表示缓冲区中最新可用的变换
+    }
+    catch (tf::TransformException &amp;ex) {
+      ROS_ERROR(&quot;%s&quot;,ex.what());
+      ros::Duration(1.0).sleep();
+      continue;
+    }
+//发布消息
+    geometry_msgs::Twist vel_msg;
+    vel_msg.angular.z = 4.0 * atan2(transform.getOrigin().y(),//转向角度为误差的4倍
+                                    transform.getOrigin().x());
+    vel_msg.linear.x = 0.5 * sqrt(pow(transform.getOrigin().x(), 2) +
+                                  pow(transform.getOrigin().y(), 2));//前进距离为距离的一半
+    turtle_vel.publish(vel_msg);
+
+    rate.sleep();
+  }
+  return 0;
+};</code></pre>
+<h4 id="在CMakeLists-txt文件中添加-1"><a href="#在CMakeLists-txt文件中添加-1" class="headerlink" title="在CMakeLists.txt文件中添加"></a>在<code>CMakeLists.txt</code>文件中添加</h4><pre><code class="cmake">add_executable(turtle_tf_listener src/turtle_tf_listener.cpp)
+target_link_libraries(turtle_tf_listener ${catkin_LIBRARIES})</code></pre>
+<p>然后编译一下</p>
+<h4 id="在launch文件中添加-1"><a href="#在launch文件中添加-1" class="headerlink" title="在launch文件中添加"></a>在<code>launch</code>文件中添加</h4><pre><code class="xml">&lt;node pkg=&quot;learning_tf&quot; type=&quot;turtle_tf_listener&quot; name=&quot;listener&quot; /&gt;</code></pre>
+<h3 id="8-添加一个坐标系变换-Python"><a href="#8-添加一个坐标系变换-Python" class="headerlink" title="8. 添加一个坐标系变换(Python)"></a>8. 添加一个坐标系变换(Python)</h3><h4 id="创建文件nodes-fixed-tf-broadcaster-py"><a href="#创建文件nodes-fixed-tf-broadcaster-py" class="headerlink" title="创建文件nodes/fixed_tf_broadcaster.py"></a>创建文件<code>nodes/fixed_tf_broadcaster.py</code></h4><pre><code class="python">#!/usr/bin/env python
+import roslib
+
+import rospy
+import tf
+
+if __name__ == &#39;__main__&#39;:
+    rospy.init_node(&#39;fixed_tf_broadcaster&#39;)
+    br = tf.TransformBroadcaster()
+    rate = rospy.Rate(10.0)
+    while not rospy.is_shutdown():
+        br.sendTransform((0.0, 2.0, 0.0),#平移
+                         (0.0, 0.0, 0.0, 1.0),#表示旋转的四元数
+                         rospy.Time.now(),
+                         &quot;carrot1&quot;,#子坐标系
+                         &quot;turtle1&quot;)#父坐标系
+        rate.sleep()</code></pre>
+<p>在这里，我们创建一个新的转换，从父“turtle1”到新的子“carrot1”。carrot1框架距离turtle1框架偏移2米。</p>
+<h4 id="在launch文件中添加-2"><a href="#在launch文件中添加-2" class="headerlink" title="在launch文件中添加"></a>在<code>launch</code>文件中添加</h4><pre><code class="xml">    &lt;node pkg=&quot;learning_tf&quot; type=&quot;fixed_tf_broadcaster.py&quot; name=&quot;broadcaster_fixed&quot; /&gt;</code></pre>
+<h4 id="随时间变化的坐标变换"><a href="#随时间变化的坐标变换" class="headerlink" title="随时间变化的坐标变换"></a>随时间变化的坐标变换</h4><pre><code class="python">#!/usr/bin/env python  
+import roslib
+roslib.load_manifest(&#39;learning_tf&#39;)
+
+import rospy
+import tf
+import math
+
+if __name__ == &#39;__main__&#39;:
+    rospy.init_node(&#39;dynamic_tf_broadcaster&#39;)
+    br = tf.TransformBroadcaster()
+    rate = rospy.Rate(10.0)
+    while not rospy.is_shutdown():
+        t = rospy.Time.now().to_sec() * math.pi
+        br.sendTransform((2.0 * math.sin(t), 2.0 * math.cos(t), 0.0),
+                         (0.0, 0.0, 0.0, 1.0),
+                         rospy.Time.now(),
+                         &quot;carrot1&quot;,
+                         &quot;turtle1&quot;)
+        rate.sleep()</code></pre>
+<h3 id="9-添加一个坐标系变换-C"><a href="#9-添加一个坐标系变换-C" class="headerlink" title="9. 添加一个坐标系变换(C++)"></a>9. 添加一个坐标系变换(C++)</h3><h4 id="创建文件src-frame-tf-broadcaster-cpp"><a href="#创建文件src-frame-tf-broadcaster-cpp" class="headerlink" title="创建文件src/frame_tf_broadcaster.cpp"></a>创建文件<code>src/frame_tf_broadcaster.cpp</code></h4><pre><code class="c++">#include &lt;ros/ros.h&gt;
+#include &lt;tf/transform_broadcaster.h&gt;
+//carrot1框架距离turtle1框架偏移2米
+
+int main(int argc, char** argv){
+  ros::init(argc, argv, &quot;my_tf_broadcaster&quot;);
+  ros::NodeHandle node;
+
+  tf::TransformBroadcaster br;
+  tf::Transform transform;
+
+  ros::Rate rate(10.0);
+  while (node.ok()){
+    transform.setOrigin( tf::Vector3(0.0, 2.0, 0.0) );
+    transform.setRotation( tf::Quaternion(0, 0, 0, 1) );
+    br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), &quot;turtle1&quot;, &quot;carrot1&quot;));
+    rate.sleep();
+  }
+  return 0;
+};</code></pre>
+<h4 id="修改CMakeList-txt"><a href="#修改CMakeList-txt" class="headerlink" title="修改CMakeList.txt"></a>修改<code>CMakeList.txt</code></h4><pre><code class="cmake">add_executable(frame_tf_broadcaster src/frame_tf_broadcaster.cpp)
+target_link_libraries(frame_tf_broadcaster ${catkin_LIBRARIES})</code></pre>
+<h4 id="随时间改变的坐标变换"><a href="#随时间改变的坐标变换" class="headerlink" title="随时间改变的坐标变换"></a>随时间改变的坐标变换</h4><pre><code class="c++">    transform.setOrigin( tf::Vector3(2.0*sin(ros::Time::now().toSec()), 2.0*cos(ros::Time::now().toSec()), 0.0) );
+    transform.setRotation( tf::Quaternion(0, 0, 0, 1) );</code></pre>
+<h3 id="10-等待转换-C"><a href="#10-等待转换-C" class="headerlink" title="10. 等待转换(C++)"></a>10. 等待转换(C++)</h3><p>修改文件<code>src/turtle_tf_listener.cpp</code></p>
+<pre><code class="c++">  try{
+    ros::Time now = ros::Time::now();
+    listener.waitForTransform(&quot;/turtle2&quot;, &quot;/turtle1&quot;,
+                              now, ros::Duration(3.0));//超时3s
+    listener.lookupTransform(&quot;/turtle2&quot;, &quot;/turtle1&quot;,
+                             now, transform);</code></pre>
+<p>为什么要等待？每个监听器都有一个缓冲区，用于存储来自不同广播器的所有坐标转换。当广播器发出变换时，变换进入缓冲区需要一些时间（通常是几毫秒）。因此，当您在“now”时请求帧变换时，您应该等待几毫秒才能到达该信息。所有在一开始的时候还是会有错误出现，因为最开始的now时刻还没有数据。</p>
+<h3 id="11-使用过去的状态-C"><a href="#11-使用过去的状态-C" class="headerlink" title="11. 使用过去的状态(C++)"></a>11. 使用过去的状态(C++)</h3><p>修改文件<code>src/turtle_tf_listener.cpp</code></p>
+<pre><code class="c++">try{
+    ros::Time now = ros::Time::now();//现在的时刻(注意此刻的转换还没完成，所以用waitForTran..)
+    ros::Time past = now - ros::Duration(5.0);//5s前的时刻
+    listener.waitForTransform(&quot;/turtle2&quot;, now,
+                              &quot;/turtle1&quot;, past,
+                              &quot;/world&quot;, ros::Duration(1.0));
+    listener.lookupTransform(&quot;/turtle2&quot;, now,
+                             &quot;/turtle1&quot;, past,
+                             &quot;/world&quot;, transform);</code></pre>
+<p>/world是/turle1和/turle2的父坐标，/turtle1和、turtle2通过/world建立映射关系，在tf监听器中/turtle2到/turtle1的变换未指定/world，只是被省略了。本程序计算/turtle2相对于/turtle1 5s前的位姿，/world未省略。</p>
+<p>刚开始会报错，因为5s前还没有/turtle1到/world的映射</p>
+<h3 id="12-激光数据从base-laser坐标系变换到base-link坐标系"><a href="#12-激光数据从base-laser坐标系变换到base-link坐标系" class="headerlink" title="12. 激光数据从base_laser坐标系变换到base_link坐标系"></a>12. 激光数据从base_laser坐标系变换到base_link坐标系</h3><p><a href="http://wiki.ros.org/navigation/Tutorials/RobotSetup/TF" target="_blank" rel="noopener">http://wiki.ros.org/navigation/Tutorials/RobotSetup/TF</a></p>
+<p>base_link是小车的坐标系，lase_laser是激光器的坐标系。本文先建立一个节点发布两个坐标系的转换，然后建立一个节点读取转换结果。假设激光器安装在小车中心点前方10厘米上方20厘米处</p>
+<h4 id="先创建一个包"><a href="#先创建一个包" class="headerlink" title="先创建一个包"></a>先创建一个包</h4><pre><code class="sh">cd ~/catkin_ws/src
+catkin_create_pkg robot_setup_tf roscpp tf geometry_msgs</code></pre>
+<h4 id="创建文件src-tf-broadcaster-cpp"><a href="#创建文件src-tf-broadcaster-cpp" class="headerlink" title="创建文件src/tf_broadcaster.cpp"></a>创建文件<code>src/tf_broadcaster.cpp</code></h4><p>创建一个节点来完成通过ROS广播base_laser→base_link转换的工作</p>
+<pre><code class="c++">#include &lt;ros/ros.h&gt;
+#include &lt;tf/transform_broadcaster.h&gt;
+
+int main(int argc, char** argv){
+  ros::init(argc, argv, &quot;robot_tf_publisher&quot;);
+  ros::NodeHandle n;
+
+  ros::Rate r(100);
+
+  tf::TransformBroadcaster broadcaster;
+
+  while(n.ok()){
+    broadcaster.sendTransform(//只有StampedTransform一个参数
+      tf::StampedTransform(//有四个参数：旋转、平移、时间、父坐标系、子坐标系
+        tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0.1, 0.0, 0.2)),
+        ros::Time::now(),&quot;base_link&quot;, &quot;base_laser&quot;));
+    r.sleep();
+  }
+}</code></pre>
+<h4 id="创建文件src-tf-listener-cpp"><a href="#创建文件src-tf-listener-cpp" class="headerlink" title="创建文件src/tf_listener.cpp"></a>创建文件<code>src/tf_listener.cpp</code></h4><p>编写一个节点，该节点将使用上面创建的变换，在“base_laser”坐标系中取一个点并将其转换为“base_link”坐标系中的一个点</p>
+<pre><code class="c++">#include &lt;ros/ros.h&gt;
+#include &lt;geometry_msgs/PointStamped.h&gt;
+#include &lt;tf/transform_listener.h&gt;
+
+void transformPoint(const tf::TransformListener&amp; listener){
+
+  geometry_msgs::PointStamped laser_point;//定义laser_point点
+  laser_point.header.frame_id = &quot;base_laser&quot;;
+  laser_point.header.stamp = ros::Time();
+  laser_point.point.x = 1.0;
+  laser_point.point.y = 0.2;
+  laser_point.point.z = 0.0;
+
+  try{
+    geometry_msgs::PointStamped base_point;//定义base_point点
+    //启动转换，将base_laser中的laser_point点转换到base_link中的base_point点
+    listener.transformPoint(&quot;base_link&quot;, laser_point, base_point);
+
+    ROS_INFO(&quot;base_laser: (%.2f, %.2f. %.2f) -----&gt; base_link: (%.2f, %.2f, %.2f) at time %.2f&quot;,
+        laser_point.point.x, laser_point.point.y, laser_point.point.z,
+        base_point.point.x, base_point.point.y, base_point.point.z, base_point.header.stamp.toSec());
+  }
+  catch(tf::TransformException&amp; ex){//ROS_ERROR不支持中文
+   ROS_ERROR(&quot;Received an exception trying to transform a point from \&quot;base_laser\&quot; to \&quot;base_link\&quot;: %s&quot;, ex.what());
+  }
+}
+
+int main(int argc, char** argv){
+  ros::init(argc, argv, &quot;robot_tf_listener&quot;);
+  ros::NodeHandle n;
+
+  tf::TransformListener listener(ros::Duration(10));
+
+  //每秒执行一次转换
+  ros::Timer timer = n.createTimer(ros::Duration(1.0), boost::bind(&amp;transformPoint, boost::ref(listener)));
+
+  ros::spin();
+
+}</code></pre>
+<h4 id="修改CMakeList-txt-1"><a href="#修改CMakeList-txt-1" class="headerlink" title="修改CMakeList.txt"></a>修改<code>CMakeList.txt</code></h4><pre><code class="cmake">add_executable(tf_broadcaster src/tf_broadcaster.cpp)
+add_executable(tf_listener src/tf_listener.cpp)
+target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
+target_link_libraries(tf_listener ${catkin_LIBRARIES})</code></pre>
+<h3 id="13-urdf与robot-state-publisher的示例"><a href="#13-urdf与robot-state-publisher的示例" class="headerlink" title="13. urdf与robot_state_publisher的示例"></a>13. urdf与robot_state_publisher的示例</h3><p><a href="http://wiki.ros.org/urdf/Tutorials/Using%20urdf%20with%20robot_state_publisher" target="_blank" rel="noopener">http://wiki.ros.org/urdf/Tutorials/Using%20urdf%20with%20robot_state_publisher</a></p>
+<p>首先创建一个机器人的urdf文件，然后编写机器人关节状态发布程序，通过/tf话题发布机器人关节状态。使用rviz显示机器人的3D模型及其运动。</p>
+<h4 id="创建urdf文件"><a href="#创建urdf文件" class="headerlink" title="创建urdf文件"></a>创建urdf文件</h4><p><a href="http://wiki.ros.org/urdf/Tutorials/Using%20urdf%20with%20robot_state_publisher?action=AttachFile&amp;do=get&amp;target=model.xml">http://wiki.ros.org/urdf/Tutorials/Using%20urdf%20with%20robot_state_publisher?action=AttachFile&amp;do=get&amp;target=model.xml</a></p>
+<h4 id="创建一个包，依赖为roscpp-rospy-tf-sensor-msgs-std-msgs"><a href="#创建一个包，依赖为roscpp-rospy-tf-sensor-msgs-std-msgs" class="headerlink" title="创建一个包，依赖为roscpp rospy tf sensor_msgs std_msgs"></a>创建一个包，依赖为<code>roscpp rospy tf sensor_msgs std_msgs</code></h4><h4 id="创建并编译文件src-state-publisher-cpp"><a href="#创建并编译文件src-state-publisher-cpp" class="headerlink" title="创建并编译文件src/state_publisher.cpp"></a>创建并编译文件<code>src/state_publisher.cpp</code></h4><pre><code class="c++">#include &lt;string&gt;
+#include &lt;ros/ros.h&gt;
+#include &lt;sensor_msgs/JointState.h&gt;
+#include &lt;tf/transform_broadcaster.h&gt;
+
+int main(int argc, char** argv) {
+    ros::init(argc, argv, &quot;state_publisher&quot;);
+    ros::NodeHandle n;
+    ros::Publisher joint_pub = n.advertise&lt;sensor_msgs::JointState&gt;(&quot;joint_states&quot;, 1);
+    tf::TransformBroadcaster broadcaster;
+    ros::Rate loop_rate(30);
+
+    const double degree = M_PI/180;
+
+    // 机器人状态
+    double tilt = 0, tinc = degree, swivel=0, angle=0, height=0, hinc=0.005;
+
+    // 消息声明
+    geometry_msgs::TransformStamped odom_trans;
+    sensor_msgs::JointState joint_state;
+    odom_trans.header.frame_id = &quot;odom&quot;;//world坐标系叫odom
+    odom_trans.child_frame_id = &quot;axis&quot;;//轴坐标系，相当于一个基座
+
+    while (ros::ok()) {
+        //更新关节状态
+        joint_state.header.stamp = ros::Time::now();
+        joint_state.name.resize(3);
+        joint_state.position.resize(3);
+        joint_state.name[0] =&quot;swivel&quot;;//旋转
+        joint_state.position[0] = swivel;
+        joint_state.name[1] =&quot;tilt&quot;;//倾斜
+        joint_state.position[1] = tilt;
+        joint_state.name[2] =&quot;periscope&quot;;//潜望镜
+        joint_state.position[2] = height;
+
+
+        // 更新变换
+        // (使轴做做圆周运动)
+        odom_trans.header.stamp = ros::Time::now();
+        odom_trans.transform.translation.x = cos(angle)*2;
+        odom_trans.transform.translation.y = sin(angle)*2;
+        odom_trans.transform.translation.z = .7;
+        odom_trans.transform.rotation = tf::createQuaternionMsgFromYaw(angle+M_PI/2);
+
+        // 发布关节状态和变换
+        joint_pub.publish(joint_state);
+        broadcaster.sendTransform(odom_trans);
+
+        // 创建新的机器人状态
+
+    //用于头的摆动
+        tilt += tinc;
+        if (tilt&lt;-.5 || tilt&gt;0) tinc *= -1;//在0.5到0.2度之间
+        height += hinc;
+        if (height&gt;.2 || height&lt;0) hinc *= -1;
+
+        swivel += degree;//用于轴的旋转
+        angle += degree/4;//用于计算轴的圆周运动
+
+        loop_rate.sleep();
+    }
+
+
+    return 0;
+}</code></pre>
+<h4 id="创建launch文件"><a href="#创建launch文件" class="headerlink" title="创建launch文件"></a>创建launch文件</h4><pre><code class="xml">&lt;launch&gt;
+        &lt;param name=&quot;robot_description&quot; command=&quot;cat $(find r2d2)/launch/model.xml&quot; /&gt;
+        &lt;node name=&quot;robot_state_publisher&quot; pkg=&quot;robot_state_publisher&quot; type=&quot;state_publisher&quot; /&gt;
+        &lt;node name=&quot;state_publisher&quot; pkg=&quot;r2d2&quot; type=&quot;state_publisher&quot; /&gt;
+&lt;/launch&gt;</code></pre>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>运行该<code>.launch</code>文件，然后打开新窗口，运行<code>rosrun rviz rviz</code>。修改<code>Fiexed Frame</code>参数为<code>odom</code>，添加<code>RobotModel</code>，即可显示机器人。</p>
+<p>可见机器人两腿做圆周运动，头和身体随两腿运动，并绕轴摆动，添加各种<code>Axes</code>可以显示各个坐标系。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>编写的<code>state_publisher</code>节点发布的tf话题只有<code>odom</code>到<code>axis</code>的变化，还发布了3个机器人关节状态<code>swivel</code>、<code>tilt</code>、<code>periscope</code>，分别对应头的旋转、身体的摆动、潜望镜的上下运动。<code>robot_state_publisher</code>节点根据urdf文件将这三个关节参数转换为tf变换，并发布到/tf话题。rviz订阅这些/tf话题是机器人模型运动</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以邮件至liulyabc@gmail.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>tf基础</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">3.7k</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="liuly">liuly</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-03-06, 16:48:14</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-10, 11:36:40</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/06/ROS/tf%E5%9F%BA%E7%A1%80/" title="tf基础">https://liuly123.github.io/2020/03/06/ROS/tf%E5%9F%BA%E7%A1%80/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2020 Hexo</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+    .post .pjax article :not(pre) > code {
+        color: #24292e;
+        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+        background-color: rgba(27,31,35,.05);
+        border-radius: 3px;
+        font-size: 85%;
+        margin: 0;
+        padding: .2em .4em;
+    }
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://liuly.f3322.net:81/">树莓派小站</a>
+    
+    
+</div>
+
+
+</html>

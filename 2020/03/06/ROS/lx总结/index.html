@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>lx总结 | Liuly的笔记本</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="lx总结 | Liuly的笔记本">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开源库">
+<meta property="og:url" content="https://liuly123.github.io/2020/03/08/Linux/%E5%BC%80%E6%BA%90%E5%BA%93/index.html">
+<meta property="og:site_name" content="Liuly的笔记本">
+<meta property="og:description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
+<meta property="article:published_time" content="2020-03-08T11:17:40.000Z">
+<meta property="article:modified_time" content="2020-03-10T03:23:58.115Z">
+<meta property="article:author" content="liuly">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>liuly</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/liuly123" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:liulyabc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=2240057686&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=314223832" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(37)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="ROS">ROS<small>(17)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="SLAM">SLAM<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Windows">Windows<small>(14)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="其他">其他<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://liuly.f3322.net:81/">树莓派小站</a>
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="37">
+<input type="hidden" id="yelog_site_word_count" value="44.8k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="Linux "
+           href="/2020/03/06/Linux/GitHub/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GitHub常用命令">GitHub常用命令</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Linux "
+           href="/2020/03/08/Linux/%E5%BC%80%E6%BA%90%E5%BA%93/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="开源库">开源库</span>
+            <span class="post-date" title="2020-03-08 19:17:40">2020/03/08</span>
+        </a>
+        
+        <a  class="Linux "
+           href="/2020/03/06/Linux/Ubuntu%E9%85%8D%E7%BD%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Ubuntu配置">Ubuntu配置</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/D435-ROS/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="D435-ROS">D435-ROS</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/D435%E5%8F%82%E6%95%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="D435参数">D435参数</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/Gazebo/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Gazebo">Gazebo</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/Karto_SLAM/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Karto_SLAM">Karto_SLAM</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/LSD-SLAM/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="LSD-SLAM">LSD-SLAM</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/ORB-SLAM/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ORB-SLAM">ORB-SLAM</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/ROS16.04/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ROS16.04">ROS16.04</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/Package-Cmake/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Package-Cmake">Package-Cmake</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/RosAria/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="RosAria">RosAria</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/ZED-ROS-RTAB/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ZED-ROS-RTAB">ZED-ROS-RTAB</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/gmapping/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="gmapping">gmapping</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/lx%E6%80%BB%E7%BB%93/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="lx总结">lx总结</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/map_server/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="map_server">map_server</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/robot_pose_ekf/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="robot_pose_ekf">robot_pose_ekf</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/rosbag/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="rosbag">rosbag</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/rviz/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="rviz">rviz</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="ROS "
+           href="/2020/03/06/ROS/tf%E5%9F%BA%E7%A1%80/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="tf基础">tf基础</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="SLAM "
+           href="/2020/03/06/SLAM/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="卡尔曼滤波">卡尔曼滤波</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="SLAM "
+           href="/2020/03/06/SLAM/%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E4%B9%8BGaussNewton%EF%BC%8CL-M%EF%BC%8CDog-Leg/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="非线性最小二乘法之GaussNewton，L-M，Dog-Leg">非线性最小二乘法之GaussNewton，L-M，Dog-Leg</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/MATLAB-Robots-Toobox/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="MATLAB Robots Toobox">MATLAB Robots Toobox</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/VS+RealSense+OpenCV/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="VS+RealSense+OpenCV">VS+RealSense+OpenCV</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/VS2017%E7%BC%96%E8%AF%91ORB-SLAM2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="VS2017编译ORB-SLAM2">VS2017编译ORB-SLAM2</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/Win10+CMake+MinGW+CLion/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Win10+CMake+MinGW+CLion">Win10+CMake+MinGW+CLion</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/ZED-VS/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ZED-VS">ZED-VS</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/esp8266-arduinoIDE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="esp8266-arduinoIDE">esp8266-arduinoIDE</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/frp%E9%85%8D%E7%BD%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="frp配置">frp配置</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/key/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="key">key</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/stm32-mdk%E5%AE%89%E8%A3%85/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="stm32-mdk安装">stm32-mdk安装</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/newifi3%E5%88%B7%E6%9C%BA/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="newifi3刷机">newifi3刷机</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/surface-ubuntu/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="surface-ubuntu">surface-ubuntu</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/windows%E4%B8%8B%E9%85%8D%E7%BD%AEopenvpn_server/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="windows下配置openvpn_server">windows下配置openvpn_server</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/windows%E5%AE%89%E8%A3%85shadowsocks/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="windows安装shadowsocks">windows安装shadowsocks</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+        <a  class="其他 "
+           href="/2020/03/06/%E5%85%B6%E4%BB%96/Tensorflow%E7%AC%94%E8%AE%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Tensorflow笔记">Tensorflow笔记</span>
+            <span class="post-date" title="2020-03-06 17:11:02">2020/03/06</span>
+        </a>
+        
+        <a  class="Windows "
+           href="/2020/03/06/Windows/C++%E5%AD%A6%E4%B9%A0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="C++学习">C++学习</span>
+            <span class="post-date" title="2020-03-06 16:48:14">2020/03/06</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-ROS/lx总结" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">lx总结</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="ROS">ROS</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-03-10 11:33:46'>2020-03-06 16:48</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:570</span>
+        
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-安装Ubuntu16-04-64位"><span class="toc-text">1. 安装Ubuntu16.04 64位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-安装ROS等软件"><span class="toc-text">2. 安装ROS等软件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-主从机通信的配置"><span class="toc-text">3. 主从机通信的配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-rviz中无法显示laserscan"><span class="toc-text">4. rviz中无法显示laserscan</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-安装Ubuntu16-04-64位"><a href="#1-安装Ubuntu16-04-64位" class="headerlink" title="1. 安装Ubuntu16.04 64位"></a>1. 安装Ubuntu16.04 64位</h4><ol>
+<li><p>f11选择临时启动项</p>
+</li>
+<li><p>u盘启动后没有操作界面，按Alt+F4会弹出退出界面，点退出会进入试用界面，这时能正常显示桌面</p>
+</li>
+<li><p>系统装好后，设置<a href="https://www.cnblogs.com/xuliangxing/p/7642650.html" target="_blank" rel="noopener">远程桌面</a>。</p>
+<p>由于内置了lvds显示器，分辨率为800x600，远程桌面无法调高分辨率，所以无法运行rviz。</p>
+<p>安装Ubuntu时不显示安装界面，也是由于内置显示器的原因</p>
+</li>
+<li><p>设置ssh：<code>sudo apt install openssh-server</code></p>
+</li>
+</ol>
+<h4 id="2-安装ROS等软件"><a href="#2-安装ROS等软件" class="headerlink" title="2. 安装ROS等软件"></a>2. 安装ROS等软件</h4><ol>
+<li><p><a href="http://wiki.ros.org/cn/kinetic/Installation/Ubuntu" target="_blank" rel="noopener">安装</a>ROS并初始化和建立工作区</p>
+</li>
+<li><p>安装libaria：<code>sudo dpkg -i libaria_2.9.4+ubuntu16_amd64.deb</code></p>
+</li>
+<li><p>安装机器人描述文件：<code>git clone https://github.com/MobileRobots/amr-ros-config</code></p>
+</li>
+<li><p>安装RosAria：<code>git clone https://github.com/amor-ros-pkg/rosaria.git</code></p>
+</li>
+<li><p>安装gmapping：<code>sudo apt install ros-kinetic-gmapping</code></p>
+</li>
+<li><p>launch文件</p>
+<pre><code class="xml">&lt;launch&gt;
+
+  &lt;arg name=&quot;urdf&quot; default=&quot;$(find test)/launch/pioneer-lx.urdf&quot; /&gt;
+  &lt;arg name=&quot;joint_state_gui&quot; default=&quot;False&quot; /&gt;
+  &lt;param name=&quot;robot_description&quot; textfile=&quot;$(arg urdf)&quot; /&gt;
+  &lt;node name=&quot;RosAria&quot; pkg=&quot;rosaria&quot; type=&quot;RosAria&quot; args=&quot;_port:=/dev/ttyUSB0 _baud:=57600 _publish_aria_lasers:=true&quot;/&gt;
+   &lt;node name=&quot;joint_state_publisher&quot; pkg=&quot;joint_state_publisher&quot; type=&quot;joint_state_publisher&quot; /&gt;
+  &lt;node name=&quot;robot_state_publisher&quot; pkg=&quot;robot_state_publisher&quot; type=&quot;state_publisher&quot; /&gt;
+
+  &lt;node name=&quot;gmapping&quot; pkg=&quot;gmapping&quot; type=&quot;slam_gmapping&quot;&gt;
+    &lt;remap from=&quot;scan&quot; to=&quot;/RosAria/S3Series_1_laserscan&quot;/&gt;
+    &lt;param name=&quot;base_frame&quot; value=&quot;base_link&quot;/&gt;
+    &lt;param name=&quot;odom_frame&quot; value=&quot;odom&quot;/&gt;
+    &lt;param name=&quot;map_frame&quot; value=&quot;map&quot;/&gt;
+    &lt;param name=&quot;xmin&quot; value=&quot;-10&quot;/&gt;
+    &lt;param name=&quot;ymin&quot; value=&quot;-10&quot;/&gt;
+    &lt;param name=&quot;xmax&quot; value=&quot;10&quot;/&gt;
+    &lt;param name=&quot;ymax&quot; value=&quot;10&quot;/&gt;
+  &lt;/node&gt; 
+
+&lt;/launch&gt;</code></pre>
+</li>
+<li><p>相关命令</p>
+<p>demo程序：<code>/usr/local/Aria/examples/demo -robotPort /dev/ttyUSB0 -robotBaud 57600</code></p>
+<p>RosAria连接：<code>rosrun rosaria RosAria _port:=/dev/ttyUSB0 _baud:=57600</code></p>
+</li>
+</ol>
+<h4 id="3-主从机通信的配置"><a href="#3-主从机通信的配置" class="headerlink" title="3. 主从机通信的配置"></a>3. 主从机通信的配置</h4><p><strong>lx修改</strong></p>
+<p><code>/etc/hosts</code>中添加</p>
+<pre><code>10.113.55.152    liuly-ubuntu</code></pre><p><strong>笔记本修改</strong></p>
+<p><code>~/.bashrc</code>中添加</p>
+<pre><code>ROS_MASTER_URI=http://lx-ubuntu:11311</code></pre><p><code>/etc/hosts</code>中添加</p>
+<pre><code>10.113.38.26    lx-ubuntu</code></pre><h4 id="4-rviz中无法显示laserscan"><a href="#4-rviz中无法显示laserscan" class="headerlink" title="4. rviz中无法显示laserscan"></a>4. rviz中无法显示<code>laserscan</code></h4><p>​    RosAria发布两个激光topics（不知道为什么有两个）：<code>/RosAria/S3Series_1_laserscan</code>和<code>/RosAria/tim3XX_2_laserscan</code></p>
+<p>​    这两个laserscan数据中的坐标系都是<code>laser_frame</code>，而<code>/tf</code>中的坐标系是<code>laser\x01_frame</code>和<code>laser\x02_frame</code>，应该是RosAria的bug</p>
+<p>解决办法是只使用<code>S3Series_1_laserscan</code>中的数据：修改文件<code>~/catkin_ws/src/rosaria/LaserPublisher.cpp</code>，将<code>laser_frame</code>替换为<code>laser\x01_frame</code></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以邮件至liulyabc@gmail.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>lx总结</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">570</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="liuly">liuly</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-03-06, 16:48:14</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-10, 11:33:46</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/06/ROS/lx%E6%80%BB%E7%BB%93/" title="lx总结">https://liuly123.github.io/2020/03/06/ROS/lx%E6%80%BB%E7%BB%93/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2020 Hexo</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+    .post .pjax article :not(pre) > code {
+        color: #24292e;
+        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+        background-color: rgba(27,31,35,.05);
+        border-radius: 3px;
+        font-size: 85%;
+        margin: 0;
+        padding: .2em .4em;
+    }
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://liuly.f3322.net:81/">树莓派小站</a>
+    
+    
+</div>
+
+
+</html>
