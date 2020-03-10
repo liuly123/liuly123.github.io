@@ -99,6 +99,82 @@
     
     
     <entry>
+      <title>VS+RealSense+OpenCV</title>
+      <link href="/2020/03/06/Windows/VS+RealSense+OpenCV/"/>
+      <url>/2020/03/06/Windows/VS+RealSense+OpenCV/</url>
+      
+        <content type="html"><![CDATA[<ol><li><h5 id="新建空的c-项目"><a href="#新建空的c-项目" class="headerlink" title="新建空的c++项目"></a>新建空的c++项目</h5><p>设置文Release x64</p></li><li><h5 id="添加C-包含目录"><a href="#添加C-包含目录" class="headerlink" title="添加C++包含目录"></a>添加C++包含目录</h5><pre><code>C:\Program Files (x86)\Intel RealSense SDK 2.0\includeC:\Users\liuly\opencv3\build\include</code></pre></li><li><h5 id="添加C-库目录"><a href="#添加C-库目录" class="headerlink" title="添加C++库目录"></a>添加C++库目录</h5><pre><code>C:\Users\liuly\opencv3\build\x64\vc15\libC:\Program Files (x86)\Intel RealSense SDK 2.0\lib\x64</code></pre></li><li><h5 id="添加lib的链接"><a href="#添加lib的链接" class="headerlink" title="添加lib的链接"></a>添加lib的链接</h5><p>链接器&gt;输入&gt;附加依赖项：<code>opencv_world347.lib</code>、<code>realsense2.lib</code></p></li><li><h5 id="测试im-show程序"><a href="#测试im-show程序" class="headerlink" title="测试im-show程序"></a>测试im-show程序</h5><pre><code class="c++">#include &lt;librealsense2/rs.hpp&gt;            //包括RealSense跨平台API#include &lt;opencv2/opencv.hpp&gt;            //包含penCV APIint main(int argc, char * argv[]) try    // 有个try{    rs2::colorizer color_map;            // 声明depth colorizer以实现深度数据的可视化    rs2::pipeline pipe;                    // 声明RealSense pipeline，用来封装实际设备和传感器    pipe.start();                        // 使用默认的推荐配置开始流式传输    using namespace cv;    const auto window_name = &quot;显示深度图像&quot;;    namedWindow(window_name, WINDOW_AUTOSIZE);    // 循环读取数据并显示    while (waitKey(1) &lt; 0 &amp;&amp; getWindowProperty(window_name, WND_PROP_AUTOSIZE) &gt;= 0)    {        rs2::frameset data = pipe.wait_for_frames();                        // 等待相机的下一组帧        rs2::frame depth = data.get_depth_frame().apply_filter(color_map);    //从data中取出着色深度数据        // 查询帧大小（宽度和高度）        const int w = depth.as&lt;rs2::video_frame&gt;().get_width();        const int h = depth.as&lt;rs2::video_frame&gt;().get_height();        // 从着色的深度数据创建大小为(w,h)的opencv矩阵        Mat image(Size(w, h), CV_8UC3, (void*)depth.get_data(), Mat::AUTO_STEP);        // 更新窗口        imshow(window_name, image);    }    return EXIT_SUCCESS;}// 执行失败的话catch (const rs2::error &amp; e){    std::cerr &lt;&lt; &quot;RealSense error calling &quot; &lt;&lt; e.get_failed_function() &lt;&lt; &quot;(&quot; &lt;&lt; e.get_failed_args() &lt;&lt; &quot;):\n    &quot; &lt;&lt; e.what() &lt;&lt; std::endl;    return EXIT_FAILURE;}catch (const std::exception&amp; e){    std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;    return EXIT_FAILURE;}</code></pre><pre><code></code></pre></li></ol><p>```</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VS2017编译ORB-SLAM2</title>
+      <link href="/2020/03/06/Windows/VS2017%E7%BC%96%E8%AF%91ORB-SLAM2/"/>
+      <url>/2020/03/06/Windows/VS2017%E7%BC%96%E8%AF%91ORB-SLAM2/</url>
+      
+        <content type="html"><![CDATA[<h3 id="VS2017编译ORB-SLAM2"><a href="#VS2017编译ORB-SLAM2" class="headerlink" title="VS2017编译ORB-SLAM2"></a>VS2017编译ORB-SLAM2</h3><p><a href="https://blog.csdn.net/o_ha_yo_yepeng/article/details/80070314" target="_blank" rel="noopener">教程</a></p><ol><li><h4 id="安装CMake"><a href="#安装CMake" class="headerlink" title="安装CMake"></a>安装CMake</h4><p><a href="https://cmake.org/download/" target="_blank" rel="noopener">地址</a></p></li><li><h4 id="安装Git-Bash"><a href="#安装Git-Bash" class="headerlink" title="安装Git Bash"></a>安装Git Bash</h4><p><a href="https://gitforwindows.org/" target="_blank" rel="noopener">地址</a>，编译Pangolin用到</p><pre><code class="sh">git config --global user.name &quot;liuly123&quot;git config --global user.email &quot;2240057686@qq.com&quot;ssh-keygen -t rsa -C &quot;2240057686@qq.com&quot;cat C:\Users\liuly/.ssh#添加到GitHub上#以上这些步骤都可以省略</code></pre></li><li><h4 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h4><p><a href="https://github.com/phdsky/ORBSLAM24Windows" target="_blank" rel="noopener">地址</a>，使用git</p></li><li><h4 id="下载OpenCV库"><a href="#下载OpenCV库" class="headerlink" title="下载OpenCV库"></a>下载OpenCV库</h4><p><a href="https://sourceforge.net/projects/opencvlibrary/files/opencv-win/2.4.13/" target="_blank" rel="noopener">地址</a>，解压，然后添加Path（用于运行）</p><pre><code>C:\Users\liuly\opencv\build\x64\vc14\bin</code></pre><p>为CMake添加环境变量：电脑的环境变量——&gt;系统变量——&gt;新建，变量名<code>OpenCV_DIR</code>变量值：（动态库）</p><pre><code>C:\Users\liuly\opencv\build</code></pre></li><li><h4 id="Eigen库"><a href="#Eigen库" class="headerlink" title="Eigen库"></a>Eigen库</h4><p>Eigen库是一个模板库，不需要编译</p></li><li><h4 id="编译DBoW库"><a href="#编译DBoW库" class="headerlink" title="编译DBoW库"></a>编译DBoW库</h4><p>打开CMake-gui，source code输入<code>C:\Users\liuly\Desktop\ORBSLAM24Windows\Thirdparty\DBoW2</code>，where to build输入<code>C:\Users\liuly\Desktop\ORBSLAM24Windows\Thirdparty\DBoW2\build</code></p><p>然后点configure，选中vs2017，platform选x64&gt;generate&gt;报错，然后修改OpenCV_DIR为<code>C:\Users\liuly\opencv\build\x64\vc14\lib</code>&gt;configure&gt;generate&gt;open project&gt;改成Release&gt;右键ALL_BUILD&gt;生成的lib文件为<code>ORBSLAM24Windows\Thirdparty\DBoW2\lib\ReleaseDBoW2.lib</code></p></li><li><h4 id="编译g2o库"><a href="#编译g2o库" class="headerlink" title="编译g2o库"></a>编译g2o库</h4><p>打开Cmake-gui，输入source code和where to build&gt;configure&gt;generate&gt;open project&gt;改成Release&gt;右键g2o&gt;属性&gt;C++/预处理器/预处理定义&gt;最后一行添加<code>WINDOWS</code>&gt;保存&gt;右键ALL_BUILD&gt;生成的lib文件为``ORBSLAM24Windows\Thirdparty\g2o\lib\Release\g2o.lib`</p></li><li><h4 id="编译Pangolin库"><a href="#编译Pangolin库" class="headerlink" title="编译Pangolin库"></a>编译Pangolin库</h4><p>打开Cmake-gui，输入source code和where to build&gt;configure&gt;generate&gt;open project&gt;改成Release。</p><p>注意：Pangolin库编译的时候会在git上下载一些依赖库，需要先打开Shadowsocks，然后在GitBash输入</p><pre><code class="sh">git config --global http.proxy &#39;socks5://127.0.0.1:1080&#39;</code></pre><p>然后右键ALL_BUILD&gt;生成（会git下载一些文件，还会报错无法发开pthread.lib，忽略）</p></li><li><h4 id="编译ORB-SLAM2"><a href="#编译ORB-SLAM2" class="headerlink" title="编译ORB-SLAM2"></a>编译ORB-SLAM2</h4><p>打开Cmake-gui，输入source code和where to build&gt;configure&gt;报错，然后修改OpenCV_DIR为<code>C:\Users\liuly\opencv\build\x64\vc14\lib</code>&gt;configure&gt;generate&gt;open project&gt;改成Release&gt;添加一些库依赖：</p><p>右键ORB-SLAM&gt;属性&gt;C++常规&gt;附加包含目录&gt;添加</p><pre><code>C:\Users\liuly\Desktop\ORBSLAM24Windows\Thirdparty\DBoW2C:\Users\liuly\Desktop\ORBSLAM24Windows\Thirdparty\DBoW2\DBoW2C:\Users\liuly\Desktop\ORBSLAM24Windows\Thirdparty\DBoW2\DUtilsC:\Users\liuly\Desktop\ORBSLAM24Windows\Thirdparty\g2o</code></pre><p>右键ALL_BUILD&gt;生成</p><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><pre><code class="powershell">#C:\Users\liuly\Desktop\ORBSLAM24Windows打开powshell#单目测试.\Examples\Monocular\Release\mono_tum.exe .\Vocabulary\ORBvoc.txt .\Examples\Monocular\TUM1.yaml D:\SLAM\dataset\TUM_RGB-D\rgbd_dataset_freiburg1_xyz#RGBD.\Examples\RGB-D\Release\rgbd_tum.exe .\Vocabulary\ORBvoc.txt .\Examples\RGB-D\TUM1.yaml D:\SLAM\dataset\TUM_RGB-D\rgbd_dataset_freiburg1_room D:\SLAM\dataset\TUM_RGB-D\rgbd_dataset_freiburg1_room\associate.txt#KITTI数据集双目测试.\Examples\Stereo\Release\stereo_kitti.exe .\Vocabulary\ORBvoc.txt .\Examples\Stereo\KITTI00-02.yaml D:\SLAM\dataset\data_odometry_gray/00</code></pre></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Win10+CMake+MinGW+CLion</title>
+      <link href="/2020/03/06/Windows/Win10+CMake+MinGW+CLion/"/>
+      <url>/2020/03/06/Windows/Win10+CMake+MinGW+CLion/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/JohnJim0/article/details/81842249" target="_blank" rel="noopener">教程1</a>、<a href="https://www.cnblogs.com/herelsp/p/8679200.html#_label2" target="_blank" rel="noopener">教程2</a></p><ol><li><h4 id="安装CMake"><a href="#安装CMake" class="headerlink" title="安装CMake"></a>安装CMake</h4><p><a href="https://cmake.org/download/" target="_blank" rel="noopener">地址</a>，验证：控制台输入<code>cmake</code></p></li><li><h4 id="安装MinGW"><a href="#安装MinGW" class="headerlink" title="安装MinGW"></a>安装MinGW</h4><p><a href="https://sourceforge.net/projects/mingw-w64/" target="_blank" rel="noopener">地址</a>，安装修改：<code>x86_64</code>、<code>posix</code>。添加环境变量：找到 <code>mingw-w64.bat</code>，里面有变量地址（但运行该文件不能添加，所以要手动添加）。把<code>mingw32-make.exe</code>复制一份改为<code>make.exe</code></p></li><li><h4 id="测试HelloWord程序"><a href="#测试HelloWord程序" class="headerlink" title="测试HelloWord程序"></a>测试HelloWord程序</h4><pre><code class="cpp">#test.cpp文件#include &lt;stdio.h&gt;int main(){    printf(&quot;hello\n&quot;);    return 0;}</code></pre><pre><code class="cmake">#CMakeLists.txt文件cmake_minimum_required(VERSION 3.0)project(Hello)set(SOURCE test.cpp)add_executable(${PROJECT_NAME} ${SOURCE})</code></pre><pre><code class="powershell">#编译运行mkdir buildcd buildcmake -G&quot;Unix Makefiles&quot; ../ -DCMAKE_BUILD_TYPE=Releasemake.\Hello.exe</code></pre></li><li><h4 id="安装CLion"><a href="#安装CLion" class="headerlink" title="安装CLion"></a>安装CLion</h4></li></ol><ol start="5"><li><h4 id="编译OpenCV"><a href="#编译OpenCV" class="headerlink" title="编译OpenCV"></a>编译OpenCV</h4><p><a href="https://blog.csdn.net/u010798503/article/details/88065863" target="_blank" rel="noopener">参考</a>，注意不要安装Python2（或者换成Python3）</p></li><li></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ZED-VS</title>
+      <link href="/2020/03/06/Windows/ZED-VS/"/>
+      <url>/2020/03/06/Windows/ZED-VS/</url>
+      
+        <content type="html"><![CDATA[<ol><li>安装CUDA**</li></ol><p>原来下的是CUDA10.1，ZED要求10.0，<a href="https://developer.nvidia.com/cuda-10.0-download-archive?target_os=Windows&target_arch=x86_64&target_version=10&target_type=exelocal" target="_blank" rel="noopener">下载地址</a>，一路下一步，精简安装</p><p><strong>2. 安装ZED-SDK</strong></p><p>一路下一步</p><p><strong>3. 创建VS工程</strong></p><p>3.1 打开VS&gt;Visual C++&gt; 空项目（起名为ZED）</p><p>3.2 右键<code>源文件</code>&gt;添加&gt;新项目&gt;C++文件&gt;（起名）main.cpp，粘贴内容为：<a href="https://raw.githubusercontent.com/stereolabs/zed-examples/master/plane%20detection/src/main.cpp" target="_blank" rel="noopener">地址</a>（浏览器打开再复制）</p><p>3.3 再添加一个C++文件，名叫<code>GLViewer.cpp</code>，内容为：<a href="https://raw.githubusercontent.com/stereolabs/zed-examples/master/plane%20detection/src/GLViewer.cpp" target="_blank" rel="noopener">地址</a></p><p>3.4 右键<code>头文件</code>，添加一个头文件，名为<code>GLViewer.hpp</code>，内容为：<a href="https://raw.githubusercontent.com/stereolabs/zed-examples/master/plane%20detection/include/GLViewer.hpp" target="_blank" rel="noopener">地址</a></p><p>3.5 右键ZED&gt;属性&gt;VC++目录&gt;包含目录&gt;</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>esp8266-arduinoIDE</title>
       <link href="/2020/03/06/Windows/esp8266-arduinoIDE/"/>
       <url>/2020/03/06/Windows/esp8266-arduinoIDE/</url>
@@ -123,6 +199,120 @@
       <url>/2020/03/06/Windows/frp%E9%85%8D%E7%BD%AE/</url>
       
         <content type="html"><![CDATA[<h2 id="frp配置"><a href="#frp配置" class="headerlink" title="frp配置"></a>frp配置</h2><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a><a href="https://github.com/fatedier/frp/releases/" target="_blank" rel="noopener">下载</a></h4><h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><pre><code class="ini">#frps.ini[common]bind_port = 7000dashboard_port = 7500dashboard_user = liulydashboard_pwd = abc12345token = qwertyabc</code></pre><p>启动：<code>./frps -c ./frps.ini</code></p><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><pre><code class="ini">#frpc.ini[common]server_addr = liuly.imwork.netserver_port = 7000token = qwertyabc[test]type = tcplocal_ip = 127.0.0.1local_port = 80remote_port = 1024</code></pre><p>启动：<code>./frps -c ./frps.ini</code></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>key</title>
+      <link href="/2020/03/06/Windows/key/"/>
+      <url>/2020/03/06/Windows/key/</url>
+      
+        <content type="html"><![CDATA[<p>友善License<code>CCCCC-AAAAA-FFFFF-0E013-6EE85</code></p><p>VS2017 key <code>KBJFW-NXHK6-W4WJM-CRMQB-G3CDH</code></p><p>VS2013 key <code>BWG7X-J98B3-W34RT-33B3R-JVYW9</code></p><p>office2007 key <code>DBXYD-TF477-46YM4-W74MH-6YDQ8</code></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>newifi3刷机</title>
+      <link href="/2020/03/06/Windows/newifi3%E5%88%B7%E6%9C%BA/"/>
+      <url>/2020/03/06/Windows/newifi3%E5%88%B7%E6%9C%BA/</url>
+      
+        <content type="html"><![CDATA[<h3 id="开启ssh"><a href="#开启ssh" class="headerlink" title="开启ssh"></a>开启ssh</h3><p>打开连接<a href="http://192.168.99.1/newifi/ifiwen_hss.html，（没试过）" target="_blank" rel="noopener">http://192.168.99.1/newifi/ifiwen_hss.html，（没试过）</a></p><p>或登陆路由器，安装ssh插件</p><h3 id="刷breed"><a href="#刷breed" class="headerlink" title="刷breed"></a>刷breed</h3><p>把<code>newifi-d2-jail-break.ko</code>文件放进U盘，插路由器上</p><p>打开<code>putty.exe</code>，连接<code>192.168.99.1</code>，用户名是<code>root</code>，密码是<code>web登陆密码</code></p><pre><code class="sh">cd /mnt/sda1 #进入U盘，我的u盘名叫A，就是cd /mnt/Als #显示当前目录的文件insmod newifi-d2-jail-break.ko #加载一个驱动文件（就是刷机）</code></pre><p>等重启或半分钟</p><h3 id="进breed，备份编程器固件，刷机"><a href="#进breed，备份编程器固件，刷机" class="headerlink" title="进breed，备份编程器固件，刷机"></a>进breed，备份编程器固件，刷机</h3><ol><li>拔电源，按住<code>reset键</code>，插电源</li><li>浏览器输入<a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a></li><li>选择<code>固件备份</code>，点编程器固件，下载<code>full.bin</code>文件（编程器固件是整个flash的数据，含有无线矫正数据，所以要备份）</li><li>选择<code>恢复出厂设置</code>，闪存布局选择<code>公版</code>，点<code>恢复出厂</code></li><li>选择<code>固件更新</code>，点<code>固件</code>右边的浏览，选择<code>NEWIFI-D2_3.4.3.9-099_20181020-1912.trx</code>或下载的对应固件，点<code>上传</code>，点<code>刷机</code></li></ol><h3 id="设置ipv6"><a href="#设置ipv6" class="headerlink" title="设置ipv6"></a>设置ipv6</h3><ol><li>进路由器，点<code>administration</code>，最下面选中文</li><li>点<code>自定义设置</code>&gt;<code>脚本</code>&gt;<code>在防火墙规则启动后执行</code>&gt;填入</li></ol><pre><code class="sh">modprobe ip6table_mangleebtables -t broute -A BROUTING -p ! ipv6 -j DROP -i eth2.2brctl addif br0 eth2.2</code></pre><p>都要点<strong>应用本页设置</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>stm32-mdk安装</title>
+      <link href="/2020/03/06/Windows/stm32-mdk%E5%AE%89%E8%A3%85/"/>
+      <url>/2020/03/06/Windows/stm32-mdk%E5%AE%89%E8%A3%85/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://guanghou-my.sharepoint.com/:f:/g/personal/chenghello_get365_pw/EhgWI9ibjTFDq1Mab3wvyFsBaLrZJ9T5qW_1DghwHX-Ruw" target="_blank" rel="noopener">下载地址</a></p><p><img src="images/stm32-mdk%E5%AE%89%E8%A3%85/1566286165329.png" alt="1566286165329"></p><p>另外：修改C/C++，勾选c99</p><p><a href="https://www.cnblogs.com/firege/p/5748260.html" target="_blank" rel="noopener">教程</a></p><table><thead><tr><th align="center">模式</th><th align="center">BOOT0</th><th align="center">BOOT1</th></tr></thead><tbody><tr><td align="center">普通启动</td><td align="center">0</td><td align="center">0</td></tr><tr><td align="center">ISP下载</td><td align="center">1</td><td align="center">0</td></tr></tbody></table><p>串口下载引脚：A9和A10</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>surface-ubuntu</title>
+      <link href="/2020/03/06/Windows/surface-ubuntu/"/>
+      <url>/2020/03/06/Windows/surface-ubuntu/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://www.reddit.com/r/SurfaceLinux/comments/8sd3zy/how_to_dual_boot_ubuntu_1804_on_surface_book/" target="_blank" rel="noopener">教程</a></p><ol><li><p>压缩分区、备份EFI</p></li><li><p>关闭Secure Boot</p></li><li><p>启动Ubuntu U盘</p></li><li><p>正常安装（不勾选第三方）</p></li><li><p>修改源并update（不更新）</p></li><li><p>安装<a href="https://github.com/timobaehr/Surface-Boot-Themes/tree/surface_book" target="_blank" rel="noopener">linux-surface</a>内核</p><ul><li><p>安装驱动和内核</p><pre><code class="sh">sudo apt install git curl wget sedgit clone --depth 1 https://github.com/jakeday/linux-surface.git ~/linux-surfacecd ~/linux-surfacesudo sh setup.sh#5.1.15需要替换自己的版本#uname -a #查看sudo dpkg -i linux-headers-5.1.15.deb linux-image-5.1.15.deb linux-libc-dev-5.1.15.deb</code></pre></li><li><p>给内核签名</p><pre><code class="sh">#如果已经生成 MOK.der, MOK.pem, MOK.priv 文件了，不需要再次生成，密码是123123#导入moksudo mokutil --import MOK.der#重启-&gt;蓝屏MOKManager-&gt;Enroll MOK-&gt;View key-&gt;continue-&gt;输入密码-&gt;continue</code></pre><pre><code class="sh">#以后每次更新内核都执行以下步骤：#检验moksudo mokutil --list-enrolled#签名（修改版本）sudo sbsign --key MOK.priv --cert MOK.pem /boot/vmlinuz-5.1.15-surface-linux-surface --output /boot/vmlinuz-5.1.15-surface-linux-surface.signed#拷贝sudo cp /boot/initrd.img-5.1.15-surface-linux-surface{,.signed}#更新grubsudo update-grub#重启正常，就删除未签名的sudo mv /boot/vmlinuz-[KERNEL-VERSION]-surface-linux-surface{.signed,}sudo mv /boot/initrd.img-[KERNEL-VERSION]-surface-linux-surface{.signed,}sudo update-grub</code></pre></li></ul></li><li><p>安装boot-repair</p><p>设置  secure-boot 允许3rd party</p><pre><code class="sh">sudo add-apt-repository ppa:yannubuntu/boot-repairsudo apt updatesudo apt install -y boot-repair &amp;&amp; boot-repair</code></pre></li><li><p>安装<a href="https://github.com/timobaehr/Surface-Boot-Themes/tree/surface_book" target="_blank" rel="noopener">grub主题</a></p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>windows下配置openvpn_server</title>
+      <link href="/2020/03/06/Windows/windows%E4%B8%8B%E9%85%8D%E7%BD%AEopenvpn_server/"/>
+      <url>/2020/03/06/Windows/windows%E4%B8%8B%E9%85%8D%E7%BD%AEopenvpn_server/</url>
+      
+        <content type="html"><![CDATA[<h2 id="windows下配置openvpn-server"><a href="#windows下配置openvpn-server" class="headerlink" title="windows下配置openvpn server"></a>windows下配置openvpn server</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol><li><p><a href="https://openvpn.net/index.php/open-source/downloads.html" target="_blank" rel="noopener">下载</a>（需要翻墙），默认安装</p></li><li><p>复制文件：<code>ca.crt</code>、<code>dh1024.pem</code>、<code>server.crt</code>、<code>server.key</code>到<code>C:\Program Files\OpenVPN\config</code></p></li><li><p>创建文件<code>server.ovpn</code>，然后复制到相同路径，内容如下</p></li></ol><pre><code class="yaml">port 1194             #指定监听的本机端口号proto udp             #指定采用的传输协议，可以选择 tcp 或 udpdev tun               #指定创建的通信隧道类型，可选 tun 或 tapca ca.crt             #指定 CA 证书的文件路径cert server.crt       #指定服务器端的证书文件路径key server.key    #指定服务器端的私钥文件路径dh dh1024.pem         #指定迪菲赫尔曼参数的文件路径server 192.168.137.0 255.255.255.0   #指定虚拟局域网占用的 IP 地址段和子网掩码，此处配置的服务器自身占用 10.0.0.1。ifconfig-pool-persist ipp.txt   #服务器自动给客户端分配 IP 后，客户端下次连接时，仍然采用上次的 IP 地址push &quot;route 0.0.0.0 0.0.0.0&quot;      #表示client通过VPN SERVER上网push &quot;redirect-gateway def1 bypass-dhcp&quot;    #使client全部网络通信通过vpnpush &quot;dhcp-option DNS 202.196.64.1&quot;      #DNS配置，依据实际情况配置push &quot;dhcp-option DNS 202.196.64.2&quot;      #DNS配置，依据实际情况配置#tls-auth ta.key 0     #开启 TLS，使用 ta.key 防御攻击。服务器端的第二个参数值为 0，客户端的为 1。keepalive 10 120      #每 10 秒 ping 一次，连接超时时间设为 120 秒。comp-lzo              #开启 VPN 连接压缩，如果服务器端开启，客户端也必须开启client-to-client      #允许客户端与客户端相连接，默认情况下客户端只能与服务器相连接persist-keypersist-tun           #持久化选项可以尽量避免访问在重启时由于用户权限降低而无法访问的某些资源。status openvpn-status.log    #指定记录 OpenVPN 状态的日志文件路径verb 3                #指定日志文件的记录详细级别，可选 0 - 9，等级越高日志内容越详细</code></pre><h3 id="配置上网"><a href="#配置上网" class="headerlink" title="配置上网"></a>配置上网</h3><p><strong>普通windows</strong></p><p>1、设置server的ip为<code>192.168.137.0</code>（server.ovpn）</p><p>2、打开网络连接，设置Internet连接共享，共享给vpn的虚拟网卡</p><p>（如果不行，就修改注册表开启NAT，<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\IPEnableRouter= 1</code>）</p><p><strong>windows server</strong></p><p>安装IIS，设置NAT规则</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>windows安装shadowsocks</title>
+      <link href="/2020/03/06/Windows/windows%E5%AE%89%E8%A3%85shadowsocks/"/>
+      <url>/2020/03/06/Windows/windows%E5%AE%89%E8%A3%85shadowsocks/</url>
+      
+        <content type="html"><![CDATA[<h3 id="windows安装shadowsocks"><a href="#windows安装shadowsocks" class="headerlink" title="windows安装shadowsocks"></a>windows安装shadowsocks</h3><h4 id="1安装nodejs"><a href="#1安装nodejs" class="headerlink" title="1安装nodejs"></a>1安装<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs</a></h4><h4 id="2安装shadowssocks"><a href="#2安装shadowssocks" class="headerlink" title="2安装shadowssocks"></a>2安装shadowssocks</h4><pre><code>npm install -g shadowsocks</code></pre><h4 id="3修改配置"><a href="#3修改配置" class="headerlink" title="3修改配置"></a>3修改配置</h4><p>打开路径<code>C:\Users\liuly\AppData\Roaming\npm\node_modules\shadowsocks</code>，修改文件<code>config.json</code></p><pre><code class="json">{    &quot;server&quot;:&quot;::&quot;,    &quot;server_port&quot;:8388,    &quot;local_address&quot;:&quot;127.0.0.1&quot;,    &quot;local_port&quot;:1080,    &quot;password&quot;:&quot;abc12345&quot;,    &quot;timeout&quot;:600,    &quot;method&quot;:&quot;aes-256-cfb&quot;}</code></pre><h4 id="4运行"><a href="#4运行" class="headerlink" title="4运行"></a>4运行</h4><p>双击<code>C:\Users\liuly\AppData\Roaming\npm\ssserver.cmd</code></p><p>获知打开node.js，输入<code>ssserver</code></p><h4 id="5自启动"><a href="#5自启动" class="headerlink" title="5自启动"></a>5自启动</h4><pre><code>@echo offstart C:\Windows\System32\cmd.exe /k &quot;C:\ProgramFiles\nodejs\nodevars.bat&quot;start C:\Windows\System32\cmd.exe /k&quot;ssserver&quot;</code></pre><p>放入<code>C:\Users\liuly\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\ss.bat</code></p>]]></content>
       
       
       <categories>

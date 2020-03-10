@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>GitHub常用命令 | Liuly的笔记本</title>
+  <title>windows下配置openvpn_server | Liuly的笔记本</title>
   <meta name="keywords" content="">
-  <meta name="description" content="GitHub常用命令 | Liuly的笔记本">
+  <meta name="description" content="windows下配置openvpn_server | Liuly的笔记本">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
 <meta property="og:type" content="article">
@@ -356,9 +356,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-Linux/GitHub" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Windows/windows下配置openvpn_server" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">GitHub常用命令</h1>
+        <h1 class="article-title">windows下配置openvpn_server</h1>
     
     <div class="article-meta">
         
@@ -366,7 +366,7 @@
         
         <span class="book">
             
-                <a  data-rel="Linux">Linux</a>
+                <a  data-rel="Windows">Windows</a>
             
         </span>
         
@@ -374,12 +374,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-03-10 10:22:59'>2020-03-06 16:48</time>
+        创建时间:<time class="date" title='更新时间: 2020-03-10 10:59:35'>2020-03-06 16:48</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:386</span>
+        <span>字数:593</span>
         
         
         
@@ -387,7 +387,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-注册和创建储存库"><span class="toc-text">1. 注册和创建储存库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Ubuntu"><span class="toc-text">2. Ubuntu</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-初始化"><span class="toc-text">2.1 初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-新建一个本地仓库"><span class="toc-text">2.2 新建一个本地仓库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3其他说明"><span class="toc-text">2.3其他说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3简化脚本"><span class="toc-text">2.3简化脚本</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#windows下配置openvpn-server"><span class="toc-text">windows下配置openvpn server</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置上网"><span class="toc-text">配置上网</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -403,50 +403,41 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-注册和创建储存库"><a href="#1-注册和创建储存库" class="headerlink" title="1. 注册和创建储存库"></a>1. 注册和创建储存库</h3><p><a href="https://www.jianshu.com/p/68b9e463333f" target="_blank" rel="noopener">教程</a></p>
-<p>创建的存储库地址为：<a href="https://github.com/liuly123/ORB-SLAM2。下面以此为背景" target="_blank" rel="noopener">https://github.com/liuly123/ORB-SLAM2。下面以此为背景</a></p>
-<h3 id="2-Ubuntu"><a href="#2-Ubuntu" class="headerlink" title="2. Ubuntu"></a>2. Ubuntu</h3><h4 id="2-1-初始化"><a href="#2-1-初始化" class="headerlink" title="2.1 初始化"></a>2.1 初始化</h4><pre><code class="sh">#设置用户名和邮箱
-git config --global user.name &quot;liuly123&quot;
-git config --global user.email &quot;2240057686@qq.com&quot;
-#生成key
-ssh-keygen -t rsa -C &quot;2240057686@qq.com&quot;
-#复制生成的ssh key
-cat ~/.ssh/id_rsa.pub
-#粘贴到网站上：登录github-&gt; Your profile -&gt; 右边Edit profile -&gt; SSH and GPG Keys-&gt; New SSH key添加</code></pre>
-<h4 id="2-2-新建一个本地仓库"><a href="#2-2-新建一个本地仓库" class="headerlink" title="2.2 新建一个本地仓库"></a>2.2 新建一个本地仓库</h4><pre><code class="sh">cd ORB-SLAM2
-#初始化
-git init
-#添加github的地址，使用ssh方式可以避免每次输入密码（打开repository-&gt;clone or download -&gt; Use SSH -&gt; 复制地址）
-git  remote add origin git@github.com:liuly123/ORB-SLAM2.git
-#同步本地文件（commit）
-git add -A
-git commit -m &#39;本次commit的说明&#39;
-git push origin master</code></pre>
-<p><strong>以后每次提交更改</strong></p>
-<pre><code class="sh">cd ORB-SLAM2
-git add -A
-git commit -m &#39;本次commit的说明&#39;
-git push origin master</code></pre>
-<h3 id="2-3其他说明"><a href="#2-3其他说明" class="headerlink" title="2.3其他说明"></a>2.3其他说明</h3><pre><code class="sh">#查看同步状态
-git status
-#强制同步（会覆盖之前的所有版本），第一次一般需要
-git push -u origin +master
-#注意：无法上传超过100M的文件
-#同步大文件出错的解决办法：
-#查看commit id
-git log
-#回退到之前版本（本地文件也会别修改、删除）
-git reset --hard 9ff7cad52bce71a0fb7a57928e1673f1a4f536f1
-#本地与远程保持同步
-git pull origin master
-#抓取远程仓库
-git clone git@github.com:liuly123/Note.git</code></pre>
-<h3 id="2-3简化脚本"><a href="#2-3简化脚本" class="headerlink" title="2.3简化脚本"></a>2.3简化脚本</h3><pre><code class="sh">#!/bin/bash
-
-time=$(date &quot;+%Y-%m-%d %H:%M:%S&quot;)
-git add -A
-git commit -m &quot;$time&quot;
-git push origin master</code></pre>
+        <h2 id="windows下配置openvpn-server"><a href="#windows下配置openvpn-server" class="headerlink" title="windows下配置openvpn server"></a>windows下配置openvpn server</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol>
+<li><p><a href="https://openvpn.net/index.php/open-source/downloads.html" target="_blank" rel="noopener">下载</a>（需要翻墙），默认安装</p>
+</li>
+<li><p>复制文件：<code>ca.crt</code>、<code>dh1024.pem</code>、<code>server.crt</code>、<code>server.key</code>到<code>C:\Program Files\OpenVPN\config</code></p>
+</li>
+<li><p>创建文件<code>server.ovpn</code>，然后复制到相同路径，内容如下</p>
+</li>
+</ol>
+<pre><code class="yaml">port 1194             #指定监听的本机端口号
+proto udp             #指定采用的传输协议，可以选择 tcp 或 udp
+dev tun               #指定创建的通信隧道类型，可选 tun 或 tap
+ca ca.crt             #指定 CA 证书的文件路径
+cert server.crt       #指定服务器端的证书文件路径
+key server.key    #指定服务器端的私钥文件路径
+dh dh1024.pem         #指定迪菲赫尔曼参数的文件路径
+server 192.168.137.0 255.255.255.0   #指定虚拟局域网占用的 IP 地址段和子网掩码，此处配置的服务器自身占用 10.0.0.1。
+ifconfig-pool-persist ipp.txt   #服务器自动给客户端分配 IP 后，客户端下次连接时，仍然采用上次的 IP 地址
+push &quot;route 0.0.0.0 0.0.0.0&quot;      #表示client通过VPN SERVER上网
+push &quot;redirect-gateway def1 bypass-dhcp&quot;    #使client全部网络通信通过vpn
+push &quot;dhcp-option DNS 202.196.64.1&quot;      #DNS配置，依据实际情况配置
+push &quot;dhcp-option DNS 202.196.64.2&quot;      #DNS配置，依据实际情况配置
+#tls-auth ta.key 0     #开启 TLS，使用 ta.key 防御攻击。服务器端的第二个参数值为 0，客户端的为 1。
+keepalive 10 120      #每 10 秒 ping 一次，连接超时时间设为 120 秒。
+comp-lzo              #开启 VPN 连接压缩，如果服务器端开启，客户端也必须开启
+client-to-client      #允许客户端与客户端相连接，默认情况下客户端只能与服务器相连接
+persist-key
+persist-tun           #持久化选项可以尽量避免访问在重启时由于用户权限降低而无法访问的某些资源。
+status openvpn-status.log    #指定记录 OpenVPN 状态的日志文件路径
+verb 3                #指定日志文件的记录详细级别，可选 0 - 9，等级越高日志内容越详细</code></pre>
+<h3 id="配置上网"><a href="#配置上网" class="headerlink" title="配置上网"></a>配置上网</h3><p><strong>普通windows</strong></p>
+<p>1、设置server的ip为<code>192.168.137.0</code>（server.ovpn）</p>
+<p>2、打开网络连接，设置Internet连接共享，共享给vpn的虚拟网卡</p>
+<p>（如果不行，就修改注册表开启NAT，<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\IPEnableRouter= 1</code>）</p>
+<p><strong>windows server</strong></p>
+<p>安装IIS，设置NAT规则</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以邮件至liulyabc@gmail.com </span>
@@ -456,12 +447,12 @@ git push origin master</code></pre>
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>GitHub常用命令</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">386</span></p>
+    <p><span class="copy-title">文章标题:</span>windows下配置openvpn_server</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">593</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="liuly">liuly</a></p>
     <p><span class="copy-title">发布时间:</span>2020-03-06, 16:48:14</p>
-    <p><span class="copy-title">最后更新:</span>2020-03-10, 10:22:59</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/06/Linux/GitHub/" title="GitHub常用命令">https://liuly123.github.io/2020/03/06/Linux/GitHub/</a>
+    <p><span class="copy-title">最后更新:</span>2020-03-10, 10:59:35</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/06/Windows/windows%E4%B8%8B%E9%85%8D%E7%BD%AEopenvpn_server/" title="windows下配置openvpn_server">https://liuly123.github.io/2020/03/06/Windows/windows%E4%B8%8B%E9%85%8D%E7%BD%AEopenvpn_server/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

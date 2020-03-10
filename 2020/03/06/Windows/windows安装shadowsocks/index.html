@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>GitHub常用命令 | Liuly的笔记本</title>
+  <title>windows安装shadowsocks | Liuly的笔记本</title>
   <meta name="keywords" content="">
-  <meta name="description" content="GitHub常用命令 | Liuly的笔记本">
+  <meta name="description" content="windows安装shadowsocks | Liuly的笔记本">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
 <meta property="og:type" content="article">
@@ -356,9 +356,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-Linux/GitHub" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Windows/windows安装shadowsocks" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">GitHub常用命令</h1>
+        <h1 class="article-title">windows安装shadowsocks</h1>
     
     <div class="article-meta">
         
@@ -366,7 +366,7 @@
         
         <span class="book">
             
-                <a  data-rel="Linux">Linux</a>
+                <a  data-rel="Windows">Windows</a>
             
         </span>
         
@@ -374,12 +374,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-03-10 10:22:59'>2020-03-06 16:48</time>
+        创建时间:<time class="date" title='更新时间: 2020-03-10 10:58:45'>2020-03-06 16:48</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:386</span>
+        <span>字数:137</span>
         
         
         
@@ -387,7 +387,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-注册和创建储存库"><span class="toc-text">1. 注册和创建储存库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Ubuntu"><span class="toc-text">2. Ubuntu</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-初始化"><span class="toc-text">2.1 初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-新建一个本地仓库"><span class="toc-text">2.2 新建一个本地仓库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3其他说明"><span class="toc-text">2.3其他说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3简化脚本"><span class="toc-text">2.3简化脚本</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#windows安装shadowsocks"><span class="toc-text">windows安装shadowsocks</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1安装nodejs"><span class="toc-text">1安装nodejs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2安装shadowssocks"><span class="toc-text">2安装shadowssocks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3修改配置"><span class="toc-text">3修改配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4运行"><span class="toc-text">4运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5自启动"><span class="toc-text">5自启动</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -403,50 +403,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-注册和创建储存库"><a href="#1-注册和创建储存库" class="headerlink" title="1. 注册和创建储存库"></a>1. 注册和创建储存库</h3><p><a href="https://www.jianshu.com/p/68b9e463333f" target="_blank" rel="noopener">教程</a></p>
-<p>创建的存储库地址为：<a href="https://github.com/liuly123/ORB-SLAM2。下面以此为背景" target="_blank" rel="noopener">https://github.com/liuly123/ORB-SLAM2。下面以此为背景</a></p>
-<h3 id="2-Ubuntu"><a href="#2-Ubuntu" class="headerlink" title="2. Ubuntu"></a>2. Ubuntu</h3><h4 id="2-1-初始化"><a href="#2-1-初始化" class="headerlink" title="2.1 初始化"></a>2.1 初始化</h4><pre><code class="sh">#设置用户名和邮箱
-git config --global user.name &quot;liuly123&quot;
-git config --global user.email &quot;2240057686@qq.com&quot;
-#生成key
-ssh-keygen -t rsa -C &quot;2240057686@qq.com&quot;
-#复制生成的ssh key
-cat ~/.ssh/id_rsa.pub
-#粘贴到网站上：登录github-&gt; Your profile -&gt; 右边Edit profile -&gt; SSH and GPG Keys-&gt; New SSH key添加</code></pre>
-<h4 id="2-2-新建一个本地仓库"><a href="#2-2-新建一个本地仓库" class="headerlink" title="2.2 新建一个本地仓库"></a>2.2 新建一个本地仓库</h4><pre><code class="sh">cd ORB-SLAM2
-#初始化
-git init
-#添加github的地址，使用ssh方式可以避免每次输入密码（打开repository-&gt;clone or download -&gt; Use SSH -&gt; 复制地址）
-git  remote add origin git@github.com:liuly123/ORB-SLAM2.git
-#同步本地文件（commit）
-git add -A
-git commit -m &#39;本次commit的说明&#39;
-git push origin master</code></pre>
-<p><strong>以后每次提交更改</strong></p>
-<pre><code class="sh">cd ORB-SLAM2
-git add -A
-git commit -m &#39;本次commit的说明&#39;
-git push origin master</code></pre>
-<h3 id="2-3其他说明"><a href="#2-3其他说明" class="headerlink" title="2.3其他说明"></a>2.3其他说明</h3><pre><code class="sh">#查看同步状态
-git status
-#强制同步（会覆盖之前的所有版本），第一次一般需要
-git push -u origin +master
-#注意：无法上传超过100M的文件
-#同步大文件出错的解决办法：
-#查看commit id
-git log
-#回退到之前版本（本地文件也会别修改、删除）
-git reset --hard 9ff7cad52bce71a0fb7a57928e1673f1a4f536f1
-#本地与远程保持同步
-git pull origin master
-#抓取远程仓库
-git clone git@github.com:liuly123/Note.git</code></pre>
-<h3 id="2-3简化脚本"><a href="#2-3简化脚本" class="headerlink" title="2.3简化脚本"></a>2.3简化脚本</h3><pre><code class="sh">#!/bin/bash
+        <h3 id="windows安装shadowsocks"><a href="#windows安装shadowsocks" class="headerlink" title="windows安装shadowsocks"></a>windows安装shadowsocks</h3><h4 id="1安装nodejs"><a href="#1安装nodejs" class="headerlink" title="1安装nodejs"></a>1安装<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs</a></h4><h4 id="2安装shadowssocks"><a href="#2安装shadowssocks" class="headerlink" title="2安装shadowssocks"></a>2安装shadowssocks</h4><pre><code>npm install -g shadowsocks</code></pre><h4 id="3修改配置"><a href="#3修改配置" class="headerlink" title="3修改配置"></a>3修改配置</h4><p>打开路径<code>C:\Users\liuly\AppData\Roaming\npm\node_modules\shadowsocks</code>，修改文件<code>config.json</code></p>
+<pre><code class="json">{
+    &quot;server&quot;:&quot;::&quot;,
+    &quot;server_port&quot;:8388,
+    &quot;local_address&quot;:&quot;127.0.0.1&quot;,
+    &quot;local_port&quot;:1080,
+    &quot;password&quot;:&quot;abc12345&quot;,
+    &quot;timeout&quot;:600,
+    &quot;method&quot;:&quot;aes-256-cfb&quot;
+}</code></pre>
+<h4 id="4运行"><a href="#4运行" class="headerlink" title="4运行"></a>4运行</h4><p>双击<code>C:\Users\liuly\AppData\Roaming\npm\ssserver.cmd</code></p>
+<p>获知打开node.js，输入<code>ssserver</code></p>
+<h4 id="5自启动"><a href="#5自启动" class="headerlink" title="5自启动"></a>5自启动</h4><pre><code>@echo off
 
-time=$(date &quot;+%Y-%m-%d %H:%M:%S&quot;)
-git add -A
-git commit -m &quot;$time&quot;
-git push origin master</code></pre>
+start C:\Windows\System32\cmd.exe /k &quot;C:\ProgramFiles\nodejs\nodevars.bat&quot;
+
+start C:\Windows\System32\cmd.exe /k&quot;ssserver&quot;</code></pre><p>放入<code>C:\Users\liuly\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\ss.bat</code></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以邮件至liulyabc@gmail.com </span>
@@ -456,12 +429,12 @@ git push origin master</code></pre>
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>GitHub常用命令</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">386</span></p>
+    <p><span class="copy-title">文章标题:</span>windows安装shadowsocks</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">137</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="liuly">liuly</a></p>
     <p><span class="copy-title">发布时间:</span>2020-03-06, 16:48:14</p>
-    <p><span class="copy-title">最后更新:</span>2020-03-10, 10:22:59</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/06/Linux/GitHub/" title="GitHub常用命令">https://liuly123.github.io/2020/03/06/Linux/GitHub/</a>
+    <p><span class="copy-title">最后更新:</span>2020-03-10, 10:58:45</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/06/Windows/windows%E5%AE%89%E8%A3%85shadowsocks/" title="windows安装shadowsocks">https://liuly123.github.io/2020/03/06/Windows/windows%E5%AE%89%E8%A3%85shadowsocks/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

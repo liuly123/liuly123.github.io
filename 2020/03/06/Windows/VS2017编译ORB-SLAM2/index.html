@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>GitHub常用命令 | Liuly的笔记本</title>
+  <title>VS2017编译ORB-SLAM2 | Liuly的笔记本</title>
   <meta name="keywords" content="">
-  <meta name="description" content="GitHub常用命令 | Liuly的笔记本">
+  <meta name="description" content="VS2017编译ORB-SLAM2 | Liuly的笔记本">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="1.OpenCV1.1源码包opencv，opencv_contrib 1.2编译安装sudo apt-get install build-essential sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev sudo apt-get insta">
 <meta property="og:type" content="article">
@@ -356,9 +356,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-Linux/GitHub" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Windows/VS2017编译ORB-SLAM2" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">GitHub常用命令</h1>
+        <h1 class="article-title">VS2017编译ORB-SLAM2</h1>
     
     <div class="article-meta">
         
@@ -366,7 +366,7 @@
         
         <span class="book">
             
-                <a  data-rel="Linux">Linux</a>
+                <a  data-rel="Windows">Windows</a>
             
         </span>
         
@@ -374,12 +374,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-03-10 10:22:59'>2020-03-06 16:48</time>
+        创建时间:<time class="date" title='更新时间: 2020-03-10 10:57:02'>2020-03-06 16:48</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:386</span>
+        <span>字数:603</span>
         
         
         
@@ -387,7 +387,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-注册和创建储存库"><span class="toc-text">1. 注册和创建储存库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Ubuntu"><span class="toc-text">2. Ubuntu</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-初始化"><span class="toc-text">2.1 初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-新建一个本地仓库"><span class="toc-text">2.2 新建一个本地仓库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3其他说明"><span class="toc-text">2.3其他说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3简化脚本"><span class="toc-text">2.3简化脚本</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#VS2017编译ORB-SLAM2"><span class="toc-text">VS2017编译ORB-SLAM2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装CMake"><span class="toc-text">安装CMake</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Git-Bash"><span class="toc-text">安装Git Bash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载源码"><span class="toc-text">下载源码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载OpenCV库"><span class="toc-text">下载OpenCV库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Eigen库"><span class="toc-text">Eigen库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编译DBoW库"><span class="toc-text">编译DBoW库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编译g2o库"><span class="toc-text">编译g2o库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编译Pangolin库"><span class="toc-text">编译Pangolin库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编译ORB-SLAM2"><span class="toc-text">编译ORB-SLAM2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -403,50 +403,50 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-注册和创建储存库"><a href="#1-注册和创建储存库" class="headerlink" title="1. 注册和创建储存库"></a>1. 注册和创建储存库</h3><p><a href="https://www.jianshu.com/p/68b9e463333f" target="_blank" rel="noopener">教程</a></p>
-<p>创建的存储库地址为：<a href="https://github.com/liuly123/ORB-SLAM2。下面以此为背景" target="_blank" rel="noopener">https://github.com/liuly123/ORB-SLAM2。下面以此为背景</a></p>
-<h3 id="2-Ubuntu"><a href="#2-Ubuntu" class="headerlink" title="2. Ubuntu"></a>2. Ubuntu</h3><h4 id="2-1-初始化"><a href="#2-1-初始化" class="headerlink" title="2.1 初始化"></a>2.1 初始化</h4><pre><code class="sh">#设置用户名和邮箱
-git config --global user.name &quot;liuly123&quot;
+        <h3 id="VS2017编译ORB-SLAM2"><a href="#VS2017编译ORB-SLAM2" class="headerlink" title="VS2017编译ORB-SLAM2"></a>VS2017编译ORB-SLAM2</h3><p><a href="https://blog.csdn.net/o_ha_yo_yepeng/article/details/80070314" target="_blank" rel="noopener">教程</a></p>
+<ol>
+<li><h4 id="安装CMake"><a href="#安装CMake" class="headerlink" title="安装CMake"></a>安装CMake</h4><p><a href="https://cmake.org/download/" target="_blank" rel="noopener">地址</a></p>
+</li>
+<li><h4 id="安装Git-Bash"><a href="#安装Git-Bash" class="headerlink" title="安装Git Bash"></a>安装Git Bash</h4><p><a href="https://gitforwindows.org/" target="_blank" rel="noopener">地址</a>，编译Pangolin用到</p>
+<pre><code class="sh">git config --global user.name &quot;liuly123&quot;
 git config --global user.email &quot;2240057686@qq.com&quot;
-#生成key
 ssh-keygen -t rsa -C &quot;2240057686@qq.com&quot;
-#复制生成的ssh key
-cat ~/.ssh/id_rsa.pub
-#粘贴到网站上：登录github-&gt; Your profile -&gt; 右边Edit profile -&gt; SSH and GPG Keys-&gt; New SSH key添加</code></pre>
-<h4 id="2-2-新建一个本地仓库"><a href="#2-2-新建一个本地仓库" class="headerlink" title="2.2 新建一个本地仓库"></a>2.2 新建一个本地仓库</h4><pre><code class="sh">cd ORB-SLAM2
-#初始化
-git init
-#添加github的地址，使用ssh方式可以避免每次输入密码（打开repository-&gt;clone or download -&gt; Use SSH -&gt; 复制地址）
-git  remote add origin git@github.com:liuly123/ORB-SLAM2.git
-#同步本地文件（commit）
-git add -A
-git commit -m &#39;本次commit的说明&#39;
-git push origin master</code></pre>
-<p><strong>以后每次提交更改</strong></p>
-<pre><code class="sh">cd ORB-SLAM2
-git add -A
-git commit -m &#39;本次commit的说明&#39;
-git push origin master</code></pre>
-<h3 id="2-3其他说明"><a href="#2-3其他说明" class="headerlink" title="2.3其他说明"></a>2.3其他说明</h3><pre><code class="sh">#查看同步状态
-git status
-#强制同步（会覆盖之前的所有版本），第一次一般需要
-git push -u origin +master
-#注意：无法上传超过100M的文件
-#同步大文件出错的解决办法：
-#查看commit id
-git log
-#回退到之前版本（本地文件也会别修改、删除）
-git reset --hard 9ff7cad52bce71a0fb7a57928e1673f1a4f536f1
-#本地与远程保持同步
-git pull origin master
-#抓取远程仓库
-git clone git@github.com:liuly123/Note.git</code></pre>
-<h3 id="2-3简化脚本"><a href="#2-3简化脚本" class="headerlink" title="2.3简化脚本"></a>2.3简化脚本</h3><pre><code class="sh">#!/bin/bash
-
-time=$(date &quot;+%Y-%m-%d %H:%M:%S&quot;)
-git add -A
-git commit -m &quot;$time&quot;
-git push origin master</code></pre>
+cat C:\Users\liuly/.ssh
+#添加到GitHub上
+#以上这些步骤都可以省略</code></pre>
+</li>
+<li><h4 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h4><p><a href="https://github.com/phdsky/ORBSLAM24Windows" target="_blank" rel="noopener">地址</a>，使用git</p>
+</li>
+<li><h4 id="下载OpenCV库"><a href="#下载OpenCV库" class="headerlink" title="下载OpenCV库"></a>下载OpenCV库</h4><p><a href="https://sourceforge.net/projects/opencvlibrary/files/opencv-win/2.4.13/" target="_blank" rel="noopener">地址</a>，解压，然后添加Path（用于运行）</p>
+<pre><code>C:\Users\liuly\opencv\build\x64\vc14\bin</code></pre><p>为CMake添加环境变量：电脑的环境变量——&gt;系统变量——&gt;新建，变量名<code>OpenCV_DIR</code>变量值：（动态库）</p>
+<pre><code>C:\Users\liuly\opencv\build</code></pre></li>
+<li><h4 id="Eigen库"><a href="#Eigen库" class="headerlink" title="Eigen库"></a>Eigen库</h4><p>Eigen库是一个模板库，不需要编译</p>
+</li>
+<li><h4 id="编译DBoW库"><a href="#编译DBoW库" class="headerlink" title="编译DBoW库"></a>编译DBoW库</h4><p>打开CMake-gui，source code输入<code>C:\Users\liuly\Desktop\ORBSLAM24Windows\Thirdparty\DBoW2</code>，where to build输入<code>C:\Users\liuly\Desktop\ORBSLAM24Windows\Thirdparty\DBoW2\build</code></p>
+<p>然后点configure，选中vs2017，platform选x64&gt;generate&gt;报错，然后修改OpenCV_DIR为<code>C:\Users\liuly\opencv\build\x64\vc14\lib</code>&gt;configure&gt;generate&gt;open project&gt;改成Release&gt;右键ALL_BUILD&gt;生成的lib文件为<code>ORBSLAM24Windows\Thirdparty\DBoW2\lib\ReleaseDBoW2.lib</code></p>
+</li>
+<li><h4 id="编译g2o库"><a href="#编译g2o库" class="headerlink" title="编译g2o库"></a>编译g2o库</h4><p>打开Cmake-gui，输入source code和where to build&gt;configure&gt;generate&gt;open project&gt;改成Release&gt;右键g2o&gt;属性&gt;C++/预处理器/预处理定义&gt;最后一行添加<code>WINDOWS</code>&gt;保存&gt;右键ALL_BUILD&gt;生成的lib文件为``ORBSLAM24Windows\Thirdparty\g2o\lib\Release\g2o.lib`</p>
+</li>
+<li><h4 id="编译Pangolin库"><a href="#编译Pangolin库" class="headerlink" title="编译Pangolin库"></a>编译Pangolin库</h4><p>打开Cmake-gui，输入source code和where to build&gt;configure&gt;generate&gt;open project&gt;改成Release。</p>
+<p>注意：Pangolin库编译的时候会在git上下载一些依赖库，需要先打开Shadowsocks，然后在GitBash输入</p>
+<pre><code class="sh">git config --global http.proxy &#39;socks5://127.0.0.1:1080&#39;</code></pre>
+<p>然后右键ALL_BUILD&gt;生成（会git下载一些文件，还会报错无法发开pthread.lib，忽略）</p>
+</li>
+<li><h4 id="编译ORB-SLAM2"><a href="#编译ORB-SLAM2" class="headerlink" title="编译ORB-SLAM2"></a>编译ORB-SLAM2</h4><p>打开Cmake-gui，输入source code和where to build&gt;configure&gt;报错，然后修改OpenCV_DIR为<code>C:\Users\liuly\opencv\build\x64\vc14\lib</code>&gt;configure&gt;generate&gt;open project&gt;改成Release&gt;添加一些库依赖：</p>
+<p>右键ORB-SLAM&gt;属性&gt;C++常规&gt;附加包含目录&gt;添加</p>
+<pre><code>C:\Users\liuly\Desktop\ORBSLAM24Windows\Thirdparty\DBoW2
+C:\Users\liuly\Desktop\ORBSLAM24Windows\Thirdparty\DBoW2\DBoW2
+C:\Users\liuly\Desktop\ORBSLAM24Windows\Thirdparty\DBoW2\DUtils
+C:\Users\liuly\Desktop\ORBSLAM24Windows\Thirdparty\g2o</code></pre><p>右键ALL_BUILD&gt;生成</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><pre><code class="powershell">#C:\Users\liuly\Desktop\ORBSLAM24Windows打开powshell
+#单目测试
+.\Examples\Monocular\Release\mono_tum.exe .\Vocabulary\ORBvoc.txt .\Examples\Monocular\TUM1.yaml D:\SLAM\dataset\TUM_RGB-D\rgbd_dataset_freiburg1_xyz
+#RGBD
+.\Examples\RGB-D\Release\rgbd_tum.exe .\Vocabulary\ORBvoc.txt .\Examples\RGB-D\TUM1.yaml D:\SLAM\dataset\TUM_RGB-D\rgbd_dataset_freiburg1_room D:\SLAM\dataset\TUM_RGB-D\rgbd_dataset_freiburg1_room\associate.txt
+#KITTI数据集双目测试
+.\Examples\Stereo\Release\stereo_kitti.exe .\Vocabulary\ORBvoc.txt .\Examples\Stereo\KITTI00-02.yaml D:\SLAM\dataset\data_odometry_gray/00</code></pre>
+</li>
+</ol>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以邮件至liulyabc@gmail.com </span>
@@ -456,12 +456,12 @@ git push origin master</code></pre>
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>GitHub常用命令</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">386</span></p>
+    <p><span class="copy-title">文章标题:</span>VS2017编译ORB-SLAM2</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">603</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="liuly">liuly</a></p>
     <p><span class="copy-title">发布时间:</span>2020-03-06, 16:48:14</p>
-    <p><span class="copy-title">最后更新:</span>2020-03-10, 10:22:59</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/06/Linux/GitHub/" title="GitHub常用命令">https://liuly123.github.io/2020/03/06/Linux/GitHub/</a>
+    <p><span class="copy-title">最后更新:</span>2020-03-10, 10:57:02</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/03/06/Windows/VS2017%E7%BC%96%E8%AF%91ORB-SLAM2/" title="VS2017编译ORB-SLAM2">https://liuly123.github.io/2020/03/06/Windows/VS2017%E7%BC%96%E8%AF%91ORB-SLAM2/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
